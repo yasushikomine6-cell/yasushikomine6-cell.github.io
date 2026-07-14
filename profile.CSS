@@ -1,10 +1,9 @@
-/* 全体設定：はみ出しを防ぐ */
+/* 全体設定 */
 html, body {
     margin: 0;
     padding: 0;
     width: 100%;
-    height: 100%;
-    overflow-x: hidden; /* 横スクロール（横揺れ）を絶対にさせない窓管理 */
+    overflow-x: hidden; /* 横揺れ防止の窓管理 */
     font-family: 'Helvetica Neue', Arial, sans-serif;
     background-color: #f4f4f4;
 }
@@ -24,23 +23,24 @@ html, body {
     color: #ff6b6b;
 }
 
-/* 共通セクション設定：ここが画像の窓管理のキモ！ */
+/* 📸 2コマ漫画（背景画像）セクション：ここをスマホサイズに全集中！ */
 section {
     position: relative;
     width: 100%;
-    height: 100vh; /* スマホの画面の高さ（窓）にぴったり合わせる */
     
-    /* 画像をスマホの窓サイズに自動リサイズ・フィットさせる設定 */
+    /* スマホの縦長画面で画像が1枚すっぽり収まる高さ（縦幅の80%）に指定 */
+    height: 80vh; 
+    margin-bottom: 20px; /* コマとコマの間に少し隙間をあける */
+    
+    /* 2コマ漫画を潰さずにスマホの窓に収めるための超重要設定 */
     background-position: center center;
     background-repeat: no-repeat;
-    background-size: cover; /* 縦横比を保ったまま窓いっぱいに広げる */
-    
-    /* iOS（iPhone）などで背景固定がバグるのを防ぐため、スマホ版ではfixedを解除 */
-    background-attachment: scroll; 
+    background-size: contain; /* 💡 画像を切らずに、スマホ画面内に100%綺麗に収める！ */
     
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end; /* セリフの黒板を画像の下側に配置して漫画を読みやすくする */
+    padding-bottom: 40px; /* 下側の余白調整 */
     box-sizing: border-box;
 }
 
@@ -59,28 +59,30 @@ section {
     background-image: url("HMiocf9aIAA2UcP.jpg");
 }
 
-/* 文字を読みやすくする黒板（スマホの窓幅に合わせる） */
+/* 💬 漫画のセリフ用の黒板（画像の下側にぴったり重ねる） */
 .overlay-box {
-    background: rgba(0, 0, 0, 0.65);
+    background: rgba(0, 0, 0, 0.75); /* 漫画の文字が読みやすいように少し濃いめ */
     color: #fff;
-    padding: 20px;
-    border-radius: 10px;
+    padding: 15px;
+    border-radius: 8px;
     text-align: center;
-    width: 85%; /* 左右に少し余白を持たせて窓に収める */
-    max-width: 400px; /* 大きなスマホでも広がりすぎないように制限 */
+    width: 90%; /* スマホの横幅いっぱいにバランスよく広げる */
+    max-width: 360px;
     box-sizing: border-box;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3); /* 少し立体感を出して読みやすく */
 }
 
-/* スマホ用の見出しサイズ */
+/* 漫画のタイトル */
 .overlay-box h1 {
-    font-size: 1.3rem; 
+    font-size: 1.2rem; 
     margin-top: 0;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
+    color: #ffd700; /* タイトルを少し目立たせる金色 */
 }
 
-/* スマホ用のセリフサイズ */
+/* 漫画のセリフ */
 .overlay-box p {
-    font-size: 0.95rem;
-    line-height: 1.5;
+    font-size: 0.9rem;
+    line-height: 1.4;
     margin: 0;
 }
