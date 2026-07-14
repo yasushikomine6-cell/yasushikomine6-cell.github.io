@@ -28,8 +28,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    /* HMiocf9aIAA2UcP.jpg のまま指定！ */
-    background-image: url("../images/HMiocf9aIAA2UcP.jpg");
+    /* HMiocf9aIAA2UcP.png のまま指定！ */
+    background-image: url("../images/HMiocf9aIAA2UcP.png");
     background-size: cover;
     background-position: center;
 }
