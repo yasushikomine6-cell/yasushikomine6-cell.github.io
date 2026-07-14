@@ -1,35 +1,68 @@
-/* 1. マーケット背景セクション */
+/* 全体設定 */
+body {
+    margin: 0;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: #333;
+    background-color: #f4f4f4;
+}
+
+/* ヒーローエリア */
+.hero {
+    text-align: center;
+    padding: 20px;
+    background-color: #fff;
+    border-bottom: 2px solid #ddd;
+}
+
+.hero h2 {
+    margin: 0;
+    color: #ff6b6b;
+}
+
+/* 共通セクション設定（ここで背景画像を表示するよ！） */
+section {
+    position: relative;
+    height: 100vh; /* 画面いっぱいに表示 */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 1. マーケット背景（拡張子は .png） */
 .section-market {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    /* 1783942242593.png のまま指定するよ！ */
-    background-image: url("../images/1783942242593.png");
-    background-size: cover;
-    background-position: center;
+    background-image: url("1783942242593.png");
 }
 
-/* 2. ピアノコンサートセクション */
+/* 2. ピアノコンサート（拡張子は .png） */
 .section-piano {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    /* 1783939896900.png のまま指定！ */
-    background-image: url("../images/1783939896900.png");
-    background-size: cover;
-    background-position: center;
+    background-image: url("1783939896900.png");
 }
 
-/* 3. タクシーから舞台へ */
+/* 3. タクシーから舞台へ（拡張子は .jpg） */
 .section-taxi-stage {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    /* HMiocf9aIAA2UcP.png のまま指定！ */
-    background-image: url("../images/HMiocf9aIAA2UcP.png");
-    background-size: cover;
-    background-position: center;
+    background-image: url("HMiocf9aIAA2UcP.jpg");
+}
+
+/* 文字を読みやすくする黒板（半透明の黒背景） */
+.overlay-box {
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 80%;
+}
+
+.overlay-box h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.overlay-box p {
+    font-size: 1.2rem;
+    margin: 0;
 }
