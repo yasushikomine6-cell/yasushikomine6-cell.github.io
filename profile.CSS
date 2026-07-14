@@ -1,68 +1,86 @@
-/* 全体設定 */
-body {
+/* 全体設定：はみ出しを防ぐ */
+html, body {
     margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden; /* 横スクロール（横揺れ）を絶対にさせない窓管理 */
     font-family: 'Helvetica Neue', Arial, sans-serif;
-    color: #333;
     background-color: #f4f4f4;
 }
 
-/* ヒーローエリア */
+/* ヒーローエリア（タイトル） */
 .hero {
     text-align: center;
-    padding: 20px;
+    padding: 15px;
     background-color: #fff;
     border-bottom: 2px solid #ddd;
+    box-sizing: border-box;
 }
 
 .hero h2 {
     margin: 0;
+    font-size: 1.4rem;
     color: #ff6b6b;
 }
 
-/* 共通セクション設定（ここで背景画像を表示するよ！） */
+/* 共通セクション設定：ここが画像の窓管理のキモ！ */
 section {
     position: relative;
-    height: 100vh; /* 画面いっぱいに表示 */
-    background-attachment: fixed;
-    background-position: center;
+    width: 100%;
+    height: 100vh; /* スマホの画面の高さ（窓）にぴったり合わせる */
+    
+    /* 画像をスマホの窓サイズに自動リサイズ・フィットさせる設定 */
+    background-position: center center;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: cover; /* 縦横比を保ったまま窓いっぱいに広げる */
+    
+    /* iOS（iPhone）などで背景固定がバグるのを防ぐため、スマホ版ではfixedを解除 */
+    background-attachment: scroll; 
+    
     display: flex;
     justify-content: center;
     align-items: center;
+    box-sizing: border-box;
 }
 
-/* 1. マーケット背景（拡張子は .png） */
+/* 1. マーケット背景 */
 .section-market {
-    background-image: url("1783942242593.png");
+    background-image: url("1783848355571.png");
 }
 
-/* 2. ピアノコンサート（拡張子は .png） */
+/* 2. ピアノコンサート */
 .section-piano {
     background-image: url("1783939896900.png");
 }
 
-/* 3. タクシーから舞台へ（拡張子は .jpg） */
+/* 3. タクシーから舞台へ */
 .section-taxi-stage {
     background-image: url("HMiocf9aIAA2UcP.jpg");
 }
 
-/* 文字を読みやすくする黒板（半透明の黒背景） */
+/* 文字を読みやすくする黒板（スマホの窓幅に合わせる） */
 .overlay-box {
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.65);
     color: #fff;
-    padding: 30px;
+    padding: 20px;
     border-radius: 10px;
     text-align: center;
-    max-width: 80%;
+    width: 85%; /* 左右に少し余白を持たせて窓に収める */
+    max-width: 400px; /* 大きなスマホでも広がりすぎないように制限 */
+    box-sizing: border-box;
 }
 
+/* スマホ用の見出しサイズ */
 .overlay-box h1 {
-    font-size: 2rem;
-    margin-bottom: 10px;
+    font-size: 1.3rem; 
+    margin-top: 0;
+    margin-bottom: 8px;
 }
 
+/* スマホ用のセリフサイズ */
 .overlay-box p {
-    font-size: 1.2rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
     margin: 0;
 }
