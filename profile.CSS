@@ -1,1 +1,35 @@
-あ
+/* 1. マーケット背景セクション */
+.section-market {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* 1783942242593.png のまま指定するよ！ */
+    background-image: url("../images/1783942242593.png");
+    background-size: cover;
+    background-position: center;
+}
+
+/* 2. ピアノコンサートセクション */
+.section-piano {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* 1783939896900.png のまま指定！ */
+    background-image: url("../images/1783939896900.png");
+    background-size: cover;
+    background-position: center;
+}
+
+/* 3. タクシーから舞台へ */
+.section-taxi-stage {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* HMiocf9aIAA2UcP.jpg のまま指定！ */
+    background-image: url("../images/HMiocf9aIAA2UcP.jpg");
+    background-size: cover;
+    background-position: center;
+}
