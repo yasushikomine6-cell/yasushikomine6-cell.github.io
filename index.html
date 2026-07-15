@@ -8,6 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ドジっ子・女子アナ・ゆいちゃん</title>
+
     <br>
 
 
@@ -21,7 +22,43 @@
 </div>
 
 
- <br>
+ <br><!-- リンク機能を排除したボタンデザインのテキスト -->
+<span class="press-btn">
+    🔥 デジタルプレス室 優秀従業員名簿を見る
+</span>
+<br>
+<!-- ボタンのスタイル（CSS） -->
+<style>
+.press-btn {
+    display: inline-block;
+    padding: 16px 32px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    background: linear-gradient(135deg, #d35400, #e67e22);
+    border-radius: 30px;
+    box-shadow: 0 4px 15px rgba(211, 84, 0, 0.3);
+    transition: all 0.3s ease;
+    font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', sans-serif;
+    border: none;
+    text-align: center;
+    user-select: none; /* テキスト選択を防止してボタンらしく見せる */
+}
+
+/* マウスを乗せたときのふわっと浮き上がる演出 */
+.press-btn:hover {
+    background: linear-gradient(135deg, #e67e22, #f39c12);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(211, 84, 0, 0.4);
+}
+
+/* ボタンを押したときのクリック感 */
+.press-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 10px rgba(211, 84, 0, 0.3);
+}
+</style>
+
 
     <!-- 大文字の profile.CSS を読み込む指定 -->
     <link rel="stylesheet" href="profile.CSS">
