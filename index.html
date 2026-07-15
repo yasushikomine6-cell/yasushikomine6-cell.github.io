@@ -22,10 +22,46 @@
 </div>
 
 
- <br><!-- リンク機能を排除したボタンデザインのテキスト -->
-<span class="press-btn">
+ <br>
+
+<!-- リンクボタン本体 -->
+<a href="https://yasushikomine6-cell.github.io/blob/main/employee.html" target="_blank" class="press-btn">
     🔥 デジタルプレス室 優秀従業員名簿を見る
-</span>
+</a>
+
+<!-- ボタンのスタイル（CSS） -->
+<style>
+.press-btn {
+    display: inline-block;
+    padding: 16px 32px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    text-decoration: none;
+    background: linear-gradient(135deg, #d35400, #e67e22);
+    border-radius: 30px;
+    box-shadow: 0 4px 15px rgba(211, 84, 0, 0.3);
+    transition: all 0.3s ease;
+    font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', sans-serif;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+}
+
+/* マウスを乗せたときのふわっと浮き上がる演出 */
+.press-btn:hover {
+    background: linear-gradient(135deg, #e67e22, #f39c12);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(211, 84, 0, 0.4);
+}
+
+/* ボタンを押したときのクリック感 */
+.press-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 10px rgba(211, 84, 0, 0.3);
+}
+</style>
+
 <br>
 <!-- ボタンのスタイル（CSS） -->
 <style>
