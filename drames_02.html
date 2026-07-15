@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>会社概要・代表プロフィール | こみねやすし</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --muted-text: #7f8c8d;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        header {
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin: 0 0 10px 0;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            color: var(--muted-text);
+            font-size: 16px;
+            margin: 0;
+        }
+
+        .profile-section {
+            margin-bottom: 35px;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 20px;
+            border-left: 5px solid var(--accent-color);
+            padding-left: 15px;
+            margin-bottom: 20px;
+        }
+
+        .grid-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .grid-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        .grid-list li::before {
+            content: "◆";
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+            font-size: 12px;
+        }
+
+        .career-path {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .career-item {
+            display: flex;
+            align-items: flex-start;
+            border-bottom: 1px dashed #e0e0e0;
+            padding-bottom: 10px;
+        }
+
+        .career-item:last-child {
+            border-bottom: none;
+        }
+
+        .career-label {
+            font-weight: bold;
+            width: 100px;
+            color: var(--primary-color);
+            flex-shrink: 0;
+        }
+
+        .career-value {
+            flex-grow: 1;
+        }
+
+        .arrow {
+            color: var(--accent-color);
+            margin: 0 8px;
+            font-weight: bold;
+        }
+
+        .highlight-box {
+            background-color: #fdf2f0;
+            border: 1px solid #fadbd8;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .highlight-box p {
+            margin: 0 0 10px 0;
+        }
+
+        .highlight-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: var(--muted-text);
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>代表メッセージ & 創設者プロフィール</h1>
+        <p class="subtitle">漫画とゲームの力で、新しいワクワクを創り出す。</p>
+    </header>
+
+    <!-- プロフィール基本情報 -->
+    <section class="profile-section">
+        <h2>代表者基本情報</h2>
+        <div class="career-path">
+            <div class="career-item">
+                <span class="career-label">役職</span>
+                <span class="career-value">代表取締役社長 (CEO / CIO)</span>
+            </div>
+            <div class="career-item">
+                <span class="career-label">氏名</span>
+                <span class="career-value" style="font-size: 18px; font-weight: bold;">こみね やすし</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 学歴 -->
+    <section class="profile-section">
+        <h2>学歴</h2>
+        <div class="career-path">
+            <div class="career-item">
+                <span class="career-label">学歴一覧</span>
+                <span class="career-value">
+                    三鷹市立第一中学校
+                    <span class="arrow">➔</span>
+                    堀越学園
+                    <span class="arrow">➔</span>
+                    聖学院大学（埼玉県）
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 職歴 -->
+    <section class="profile-section">
+        <h2>職歴</h2>
+        <div class="career-path">
+            <div class="career-item">
+                <span class="career-label">経歴</span>
+                <span class="career-value">
+                    ソフトバンクモバイル
+                    <span class="arrow">➔</span>
+                    大成建設
+                    <span class="arrow">➔</span>
+                    富士通グループ系列
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 保有資格 -->
+    <section class="profile-section">
+        <h2>保有資格</h2>
+        <ul class="grid-list">
+            <li>将棋連盟 15級</li>
+            <li>野球知識検定 6級</li>
+        </ul>
+    </section>
+
+    <!-- 事業特色 -->
+    <section class="profile-section">
+        <h2>当社の特色</h2>
+        <div class="highlight-box">
+            <p><strong>「漫画とゲーム関係に特化した企業です」</strong></p>
+            <p>私たちは、日本のカルチャーを牽引する「漫画」と「ゲーム」の分野に特化し、独自のシナジーを生み出す事業を展開しています。大手通信キャリア、スーパーゼネコン、そして大手ITベンダー系列での多様な実務経験を持つ代表こみねの強力なバックボーンのもと、クリエイティブとテクノロジーを融合させたサービスを提供いたします。</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 設立・2023 三鷹夢新聞 漫画＆ゲーム特化型エンターテインメント企業 All Rights Reserved.</p>
+    </footer>
+</div>
+
+</body>
+</html>
