@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAKURA Tv ANNOUNCER PORTFOLIO - ゆい</title>
+    <style>
+        /* 全体・基本設定 */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background-color: #fdfafb; /* ほんのりピンクがかった薄い背景 */
+            color: #333333;
+            line-height: 1.6;
+            padding-bottom: 40px;
+        }
+
+        /* ヘッダーデザイン */
+        header {
+            background: linear-gradient(135deg, #ffb3c6, #ff8da1);
+            color: #ffffff;
+            text-align: center;
+            padding: 24px 16px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 12px rgba(255, 141, 161, 0.2);
+        }
+
+        header h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+
+        header p {
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            opacity: 0.9;
+        }
+
+        /* メインレイアウト */
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        /* 2カラムレイアウト（上部エリア） */
+        .top-section {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .top-section {
+                grid-template-columns: 40% 60%;
+            }
+        }
+
+        /* 共通カードデザイン */
+        .card {
+            background-color: #ffffff;
+            border: 1px solid #f2e1e4;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+        }
+
+        /* 左側：プロフィール画像カード */
+        .image-card {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 3 / 4;
+            background-color: #eaeaea;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888888;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+            overflow: hidden;
+            border: 1px solid #ddd;
+        }
+
+        .image-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .image-caption {
+            font-size: 0.8rem;
+            color: #666666;
+            font-style: italic;
+        }
+
+        /* 各見出しのデザイン（左縦ライン） */
+        .section-title {
+            font-size: 1.1rem;
+            color: #d63384;
+            border-left: 4px solid #ff5c8a;
+            padding-left: 10px;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        /* プロフィールテーブル */
+        .profile-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .profile-table tr {
+            border-bottom: 1px solid #f8e8eb;
+        }
+
+        .profile-table tr:last-child {
+            border-bottom: none;
+        }
+
+        .profile-table th, .profile-table td {
+            padding: 12px 8px;
+            font-size: 0.9rem;
+            text-align: left;
+        }
+
+        .profile-table th {
+            color: #ff5c8a;
+            font-weight: 600;
+            width: 25%;
+            white-space: nowrap;
+        }
+
+        .profile-table td {
+            color: #333333;
+        }
+
+        .text-sub {
+            font-size: 0.75rem;
+            color: #888888;
+            margin-left: 4px;
+        }
+
+        /* エピソード & デビュー */
+        .episode-card {
+            margin-top: 16px;
+        }
+
+        .episode-card p {
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+        }
+
+        .highlight-box {
+            background-color: #fff0f3;
+            border-radius: 6px;
+            padding: 16px;
+            border-left: 3px solid #ff8da1;
+        }
+
+        .highlight-title {
+            font-weight: 700;
+            color: #d63384;
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+        }
+
+        .highlight-text {
+            font-size: 0.85rem;
+            color: #444444;
+            line-height: 1.5;
+        }
+
+        /* 親友紹介カード (下部フルサイズ) */
+        .full-card {
+            margin-top: 20px;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: #e2f0fe;
+            color: #0d6efd;
+            font-size: 0.7rem;
+            font-weight: bold;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+
+        .friend-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #0d6efd;
+            margin-bottom: 12px;
+        }
+
+        .friend-text {
+            font-size: 0.9rem;
+            color: #444444;
+            line-height: 1.6;
+        }
+
+        /* フッター */
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.7rem;
+            color: #999999;
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ヘッダー -->
+    <header>
+        <h1>SAKURA Tv ANNOUNCER PORTFOLIO</h1>
+        <p>サクラTV アナウンサー ゆい</p>
+    </header>
+
+    <div class="container">
+        <!-- 上部：画像とプロフィールの2カラム -->
+        <div class="top-section">
+
+            <!-- 左：画像カード -->
+            <div class="card image-card">
+                <div class="image-placeholder">
+                    <!-- 画像がある場合は src にパスを指定してください -->
+                    <img src="yui_photo.jpg" alt="「取材中、思わず感極まって涙が...！いつも全力投球です！」">
+                </div>
+                <div class="image-caption">
+                    「取材中、思わず感極まって涙が...！いつも全力投球です！」
+                </div>
+            </div>
+
+            <!-- 右：プロフィール＆エピソード -->
+            <div>
+                <!-- プロフィール詳細 -->
+                <div class="card">
+                    <h2 class="section-title">Profile</h2>
+                    <table class="profile-table">
+                        <tr>
+                            <th>名前</th>
+                            <td>ゆい (Yui)</td>
+                        </tr>
+                        <tr>
+                            <th>年齢</th>
+                            <td>24歳</td>
+                        </tr>
+                        <tr>
+                            <th>所属局</th>
+                            <td>サクラTv</td>
+                        </tr>
+                        <tr>
+                            <th>担当・班</th>
+                            <td>ジャイアンツ取材班</td>
+                        </tr>
+                        <tr>
+                            <th>出身地</th>
+                            <td>広島県呉市</td>
+                        </tr>
+                        <tr>
+                            <th>現住所</th>
+                            <td>東京都音楽市 <span class="text-sub">(音楽の調べが響く街)</span></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- エピソード & デビュー -->
+                <div class="card episode-card">
+                    <h2 class="section-title">Episode & Debut</h2>
+                    <p>バラエティ番組全般で大活躍中！</p>
+                    <div class="highlight-box">
+                        <div class="highlight-title">伝説のデビュー秘話：</div>
+                        <div class="highlight-text">
+                            バラエティ番組の罰ゲーム企画で、スリル満点のジェットコースターに搭乗！ 風圧と衝撃のあまり「パンチラ」ハプニングが発生してしまいましたが、その全力で飾らない姿がお茶の間の心を掴み、一躍人気者の階段を駆け上がりました。
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 下部：親友紹介（横幅フル） -->
+        <div class="card full-card">
+            <h2 class="section-title">Close Friend</h2>
+            <div class="badge">親友紹介</div>
+            <div class="friend-name">ミカちゃん (Mika)</div>
+            <div class="friend-text">
+                大学時代からの大の仲良し。現在はオシャレなカフェで働いています。<br>
+                普段はちょっと（？）、いや、かなりのドジっ子なゆいちゃん。そんなゆいちゃんの失敗や天然発言を、いつもお姉さんのように優しく、そして可愛らしくフォローしてくれるかけがえのない存在です。二人がカフェでお喋りする時間が、ゆいちゃんの一番の癒やしです。
+            </div>
+        </div>
+
+        <!-- フッター -->
+        <footer>
+            &copy; SAKURA Tv All Rights Reserved. Designed for Yui's Special Fan Page.
+        </footer>
+    </div>
+
+</body>
+</html>
