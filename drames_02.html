@@ -2,182 +2,116 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>会社概要・代表プロフィール | こみねやすし</title>
     <style>
         :root {
-            --primary-color: #2c3e50;
-            --accent-color: #e74c3c;
-            --bg-color: #f8f9fa;
+            --primary-color: #4a3f35; /* 優しいブラウン */
+            --accent-color: #d9774d;   /* 柔らかいオレンジ */
+            --bg-color: #f7f3f0;       /* 温かみのある背景 */
             --card-bg: #ffffff;
-            --text-color: #333333;
-            --muted-text: #7f8c8d;
+            --text-color: #4a3f35;
         }
 
-        /* 📱 全体設定：スマホの窓管理とはみ出し防止 */
-        html, body {
+        /* 全体設定 */
+        body {
             margin: 0;
-            padding: 0;
-            width: 100%;
-            overflow-x: hidden;
+            padding: 20px 10px; /* スマホの両端余白 */
             background-color: var(--bg-color);
             color: var(--text-color);
             font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
-            line-height: 1.7;
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
         }
 
-        /* 画面全体のコンテナ（スマホの時は余白を程よく狭くする） */
+        /* メインコンテナ */
         .container {
-            max-width: 800px;
-            margin: 20px auto;
+            width: 100%;
+            max-width: 500px; /* スマホサイズ上限 */
             background: var(--card-bg);
-            padding: 25px 20px; /* スマホ向けに内側の余白を最適化 */
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            width: 90%; /* 画面の横幅90%にフィットさせる */
+            padding: 25px 20px;
+            border-radius: 24px; /* 丸みのあるデザイン */
+            box-shadow: 0 8px 24px rgba(74, 63, 53, 0.08);
             box-sizing: border-box;
         }
 
-        /* パソコンなどの広い画面用の調整 */
-        @media (min-width: 768px) {
-            .container {
-                margin: 40px auto;
-                padding: 40px;
-            }
-        }
-
-        header {
-            border-bottom: 3px solid var(--primary-color);
-            padding-bottom: 15px;
-            margin-bottom: 25px;
-        }
-
+        /* 見出し設定 */
         h1 {
             color: var(--primary-color);
+            font-size: 20px;
             margin: 0 0 10px 0;
-            font-size: 22px; /* スマホで大きすぎないサイズ */
-            letter-spacing: 0.5px;
-        }
-
-        @media (min-width: 768px) {
-            h1 { font-size: 28px; }
+            text-align: center;
         }
 
         .subtitle {
-            color: var(--muted-text);
-            font-size: 14px;
-            margin: 0;
-            font-weight: 500;
-        }
-
-        .profile-section {
+            text-align: center;
+            font-size: 13px;
+            color: #a89a8e;
             margin-bottom: 30px;
         }
 
+        /* セクション共通 */
+        .profile-section {
+            margin-bottom: 25px;
+        }
+
         h2 {
-            color: var(--primary-color);
-            font-size: 18px;
-            border-left: 5px solid var(--accent-color);
-            padding-left: 12px;
-            margin-top: 0;
-            margin-bottom: 15px;
-        }
-
-        .grid-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .grid-list li {
-            position: relative;
-            padding-left: 20px;
-            margin-bottom: 10px;
-            font-size: 15px;
-        }
-
-        .grid-list li::before {
-            content: "◆";
-            position: absolute;
-            left: 0;
+            font-size: 16px;
             color: var(--accent-color);
-            font-size: 11px;
-            top: 1px;
+            border-bottom: 2px dashed #f0e6df;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
         }
 
+        /* キャリアパスなどの情報リスト */
         .career-path {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 15px;
         }
 
         .career-item {
             display: flex;
-            flex-direction: column; /* 💡 スマホの時は縦に並べて見やすくする */
-            gap: 4px;
-            border-bottom: 1px dashed #e0e0e0;
-            padding-bottom: 12px;
-        }
-
-        /* パソコン画面では横並びに戻す */
-        @media (min-width: 600px) {
-            .career-item {
-                flex-direction: row;
-                align-items: flex-start;
-                padding-bottom: 10px;
-            }
-        }
-
-        .career-label {
-            font-weight: bold;
-            width: 100px;
-            color: var(--primary-color);
-            flex-shrink: 0;
-            font-size: 14px;
-        }
-
-        .career-value {
-            flex-grow: 1;
-            font-size: 15px;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
+            flex-direction: column;
             gap: 5px;
         }
 
-        /* ➔ 矢印のスマホ最適化：スマホの時は改行されても綺麗に見えるように */
-        .arrow {
-            color: var(--accent-color);
-            margin: 0 4px;
+        .career-label {
+            font-size: 0.85rem;
             font-weight: bold;
-            font-size: 13px;
+            background-color: #fcefe9;
+            color: var(--accent-color);
+            padding: 4px 10px;
+            border-radius: 12px;
+            display: inline-block;
+            align-self: flex-start;
         }
 
+        .career-value {
+            font-size: 15px;
+            padding-left: 5px;
+        }
+
+        /* 特色ボックス */
         .highlight-box {
-            background-color: #fdf2f0;
-            border: 1px solid #fadbd8;
-            padding: 18px;
-            border-radius: 8px;
-            margin-top: 15px;
+            background-color: #fff9f6;
+            border: 2px solid #fcefe9;
+            padding: 15px;
+            border-radius: 16px;
+            font-size: 14px;
         }
 
-        .highlight-box p {
-            margin: 0 0 10px 0;
-            font-size: 14.5px;
-            text-align: justify; /* 文字の端っこを揃えて美しく */
-        }
-
-        .highlight-box p:last-child {
-            margin-bottom: 0;
-        }
-
+        /* フッター */
         footer {
             text-align: center;
-            margin-top: 35px;
-            color: var(--muted-text);
-            font-size: 12px;
-            border-top: 1px solid #eee;
+            font-size: 11px;
+            color: #a89a8e;
+            margin-top: 30px;
             padding-top: 15px;
+            border-top: 1px solid #f0e6df;
         }
     </style>
 </head>
@@ -185,195 +119,41 @@
 
 <div class="container">
     <header>
-        <h1>代表メッセージ & 創設者プロフィール</h1>
-        <p class="subtitle">漫画とゲームの力で、新しいワクワクを創り出す。</p>
+        <h1>代表プロフィール</h1>
+        <p class="subtitle">漫画とゲームで創る、小さなワクワク</p>
     </header>
 
-    <!-- プロフィール基本情報 -->
+    <!-- 基本情報 -->
     <section class="profile-section">
-        <h2>代表者基本情報</h2>
+        <h2>基本情報</h2>
         <div class="career-path">
-            <div class="career-item">
-                <span class="career-label">役職</span>
-                <span class="career-value">代表取締役社長 (CEO / CIO)</span>
-            </div>
             <div class="career-item">
                 <span class="career-label">氏名</span>
-                <span class="career-value" style="font-size: 18px; font-weight: bold; color: #000;">こみね やすし</span>
+                <span class="career-value" style="font-weight: bold;">こみね やすし</span>
             </div>
-        </div>
-    </section>
-
-    <!-- 学歴 -->
-    <section class="profile-section">
-        <h2>学歴</h2>
-        <div class="career-path">
             <div class="career-item">
-                <span class="career-label">学歴一覧</span>
-                <span class="career-value">
-                    <span>三鷹市立第一中学校</span>
-                    <span class="arrow">➔</span>
-                    <span>堀越学園</span>
-                    <span class="arrow">➔</span>
-                    <span>聖学院大学（埼玉県）</span>
-                </span>
+                <span class="career-label">会社規模</span>
+                <span class="career-value">90年代でいうスーパーファミコン屋程度の規模を、アパートの一室に縮小しました。</span>
             </div>
-        </div>
-    </section>
-
-    <!-- 職歴 -->
-    <section class="profile-section">
-        <h2>職歴</h2>
-        <div class="career-path">
             <div class="career-item">
-                <span class="career-label">経歴</span>
-                <span class="career-value">
-                    <span>ソフトバンクモバイル</span>
-                    <span class="arrow">➔</span>
-                    <span>大成建設</span>
-                    <span class="arrow">➔</span>
-                    <span>富士通グループ系列</span>
-                </span>
+                <span class="career-label">経営業態</span>
+                <span class="career-value">個人事業主</span>
             </div>
         </div>
     </section>
 
-    <!-- 保有資格 -->
-    <section class="profile-section">
-        <h2>保有資格</h2>
-        <ul class="grid-list">
-            <li>将棋連盟 15級</li>
-            <li>野球知識検定 6級</li>
-        </ul>
-    </section>
-
-    <!-- 事業特色 -->
+    <!-- 経歴・特色 -->
     <section class="profile-section">
         <h2>当社の特色</h2>
         <div class="highlight-box">
-            <p><strong>「漫画とゲーム関係に特化した企業です」</strong></p>
-            <p>私たちは、日本のカルチャーを牽引する「漫画」と「ゲーム」の分野に特化し、独自のシナジーを生み出す事業を展開しています。大手通信キャリア、スーパーゼネコン、そして大手ITベンダー系列での多様な実務経験を持つ代表こみねの強力なバックボーンのもと、クリエイティブとテクノロジーを融合させたサービスを提供いたします。</p>
+            <p>漫画とゲーム関係に特化した企業です。大手通信キャリア、スーパーゼネコン、ITベンダー系列での経験を活かし、クリエイティブとテクノロジーを融合させたサービスを提供いたします。</p>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 設立・2023 三鷹夢新聞 漫画＆ゲーム特化型エンターテインメント企業 All Rights Reserved.</p>
+        &copy; 2023-2026 三鷹夢新聞
     </footer>
 </div>
-
-<br>
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>会社概要</title>
-    <style>
-        /* 柔らかい丸文字風のフォントを指定 */
-        body {
-            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
-            background-color: #f7f3f0; /* 温かみのあるオフホワイト */
-            color: #4a3f35; /* 黒すぎない優しいブラウン */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-        }
-
-        /* メインのカード部分 */
-        .profile-card {
-            background-color: #ffffff;
-            border: 3px solid #e6ded7; /* 柔らかい境界線 */
-            border-radius: 24px; /* しっかりとした丸み */
-            padding: 30px;
-            max-width: 450px;
-            width: 100%;
-            box-shadow: 0 8px 24px rgba(74, 63, 53, 0.06); /* 優しく浮かび上がる影 */
-            transition: transform 0.3s ease;
-        }
-
-        /* マウスを乗せたときに少し動く遊び心 */
-        .profile-card:hover {
-            transform: translateY(-4px);
-        }
-
-        /* タイトル（ヘッダー） */
-        .profile-card h2 {
-            margin-top: 0;
-            font-size: 1.5rem;
-            color: #d9774d; /* どこかレトロなオレンジ */
-            text-align: center;
-            border-bottom: 2px dashed #f0e6df; /* 点線で柔らかさを演出 */
-            padding-bottom: 15px;
-            margin-bottom: 20px;
-        }
-
-        /* 各情報セクション */
-        .info-group {
-            margin-bottom: 20px;
-        }
-
-        /* 項目名（会社規模、経営業態） */
-        .info-label {
-            display: inline-block;
-            font-size: 0.85rem;
-            font-weight: bold;
-            background-color: #fcefe9; /* 淡いパステルオレンジ */
-            color: #d9774d;
-            padding: 4px 12px;
-            border-radius: 12px; /* ラベルも丸く */
-            margin-bottom: 8px;
-            letter-spacing: 0.05em;
-        }
-
-        /* 本文テキスト */
-        .info-content {
-            font-size: 1rem;
-            line-height: 1.6;
-            padding-left: 6px;
-            margin: 0;
-        }
-
-        /* フッターの小さなおまけ */
-        .profile-footer {
-            text-align: center;
-            font-size: 0.8rem;
-            color: #a89a8e;
-            margin-top: 25px;
-            border-top: 1px solid #f0e6df;
-            padding-top: 15px;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="profile-card">
-        <h2>About Us / 会社概要</h2>
-        
-        <div class="info-group">
-            <span class="info-label">会社規模</span>
-            <p class="info-content">
-                90年代でいうスーパーファミコン屋程度の規模を、アパートの一室に縮小しました。
-            </p>
-        </div>
-
-        <div class="info-group">
-            <span class="info-label">経営業態</span>
-            <p class="info-content">
-                個人事業主
-            </p>
-        </div>
-
-        <div class="profile-footer">
-            Welcome to our cozy room.
-        </div>
-    </div>
-
-</body>
-</html>
-
 
 </body>
 </html>
