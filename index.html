@@ -5,7 +5,79 @@
 <br>
 
 
-<h1 class="mitaka-game-title">あなたのまちのゲーム屋さん</h1>
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>三鷹イメージ タイトルデザイン</title>
+    <style>
+        /* --- Google Fonts から三鷹の雰囲気に合うレトロな丸文字を読み込み --- */
+        @import url('https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@700&display=swap');
+
+        /* 背景と全体のセッティング（文字を引き立たせるための柔らかな生成り色） */
+        body {
+            background-color: #f7f6f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* --- 三鷹イメージのタイトルCSS --- */
+        .mitaka-game-title {
+            /* フォント設定 */
+            font-family: 'Kiwi Maru', serif;
+            font-weight: 700;
+            font-size: 2.5rem;
+            text-align: center;
+            line-height: 1.4;
+            letter-spacing: 0.1em;
+            
+            /* カラー：井の頭公園の深い緑から木漏れ日の緑へのグラデーション */
+            background: linear-gradient(135deg, #1b3d31 0%, #3d7054 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            
+            /* 影：絵本や木彫りの看板のようなレトロな立体感（ウッドブラウン） */
+            filter: drop-shadow(2px 3px 0px #bfa17a);
+            
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        /* タイトルの前に「三鷹の森の葉っぱ」を自動で追加 */
+        .mitaka-game-title::before {
+            content: "🍃";
+            font-size: 2rem;
+            margin-right: 0.5rem;
+            /* 葉っぱには文字グラデーションを適用しない設定 */
+            filter: none;
+            -webkit-text-fill-color: initial; 
+        }
+
+        /* スマホ表示用の微調整 */
+        @media (max-width: 600px) {
+            .mitaka-game-title {
+                font-size: 1.8rem;
+                padding: 0 1rem;
+            }
+            .mitaka-game-title::before {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 三鷹の街角にある、緑あふれるゲーム屋さんをイメージしたタイトル -->
+    <h1 class="mitaka-game-title">あなたのまちのゲーム屋さん</h1>
+
+</body>
+</html>
 
 <br>
 
