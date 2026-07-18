@@ -36,7 +36,7 @@
             box-sizing: border-box;
         }
 
-        /* 追加：画像（ロゴ・イメージ）のスタイル設定 */
+        /* 画像（ロゴ・イメージ）のスタイル設定 */
         .profile-image-container {
             text-align: center;
             margin-bottom: 15px;
@@ -109,13 +109,47 @@
             padding-left: 5px;
         }
 
-        /* 特色ボックス */
+        /* 特色・沿革ボックス */
         .highlight-box {
             background-color: #fff9f6;
             border: 2px solid #fcefe9;
             padding: 15px;
             border-radius: 16px;
             font-size: 14px;
+        }
+
+        /* 沿革のリストスタイル */
+        .history-list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .history-list li {
+            position: relative;
+            padding-left: 15px;
+            margin-bottom: 10px;
+        }
+
+        .history-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* タイムライン風のドット記号 */
+        .history-list li::before {
+            content: "•";
+            color: var(--accent-color);
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-weight: bold;
+        }
+
+        .history-date {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-right: 5px;
+            display: block; /* スマホで日付と内容が綺麗に改行されるように調整 */
         }
 
         /* フッター */
@@ -157,6 +191,28 @@
                 <span class="career-label">経営業態</span>
                 <span class="career-value">個人事業主</span>
             </div>
+            <!-- 追加：固定採用 -->
+            <div class="career-item">
+                <span class="career-label">採用形態</span>
+                <span class="career-value">固定採用</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 沿革 -->
+    <section class="profile-section">
+        <h2>沿革</h2>
+        <div class="highlight-box" style="background-color: #faf8f5; border-color: #ebdacf;">
+            <ul class="history-list">
+                <li>
+                    <span class="history-date">2023年10月11日</span>
+                    三鷹夢新聞 設立
+                </li>
+                <li>
+                    <span class="history-date">2026年4月19日</span>
+                    夢GAMEs.Lab へ社名変更
+                </li>
+            </ul>
         </div>
     </section>
 
