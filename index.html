@@ -335,6 +335,204 @@
             </div>
         </section>
 
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>⚾ BSO ボールカウンター (DBレス版)</title>
+  <style>
+    body {
+      background-color: #1b4332;
+      color: #fff;
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .scoreboard {
+      background: #081c15;
+      padding: 30px;
+      border-radius: 15px;
+      border: 4px solid #d8f3dc;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+      width: 320px;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      margin: 15px 0;
+    }
+
+    .label {
+      font-size: 28px;
+      font-weight: bold;
+      width: 50px;
+    }
+
+    .ball-label { color: #52b788; }   /* 緑 (Ball) */
+    .strike-label { color: #ffb703; } /* 黄 (Strike) */
+    .out-label { color: #e63946; }    /* 赤 (Out) */
+
+    .lights {
+      display: flex;
+      gap: 12px;
+    }
+
+    .light {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background-color: #2d3748;
+      border: 2px solid #fff;
+      transition: background-color 0.2s, box-shadow 0.2s;
+    }
+
+    /* ランプ点灯のスタイル */
+    .ball-light.on { background-color: #52b788; box-shadow: 0 0 15px #52b788; }
+    .strike-light.on { background-color: #ffb703; box-shadow: 0 0 15px #ffb703; }
+    .out-light.on { background-color: #e63946; box-shadow: 0 0 15px #e63946; }
+
+    .controls {
+      margin-top: 25px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      width: 380px;
+    }
+
+    button {
+      padding: 14px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      color: #fff;
+      transition: opacity 0.2s;
+    }
+
+    button:hover { opacity: 0.8; }
+    button:active { transform: scale(0.98); }
+
+    .btn-b { background-color: #2d6a4f; }
+    .btn-s { background-color: #d97706; }
+    .btn-o { background-color: #991b1b; }
+    .btn-reset { background-color: #4b5563; grid-column: span 2; }
+  </style>
+</head>
+<body>
+
+  <h1>⚾ BSO COUNTER</h1>
+
+  <div class="scoreboard">
+    <!-- Ball (緑3つ) -->
+    <div class="row">
+      <div class="label ball-label">B</div>
+      <div class="lights">
+        <div class="light ball-light" id="b1"></div>
+        <div class="light ball-light" id="b2"></div>
+        <div class="light ball-light" id="b3"></div>
+      </div>
+    </div>
+
+    <!-- Strike (黄2つ) -->
+    <div class="row">
+      <div class="label strike-label">S</div>
+      <div class="lights">
+        <div class="light strike-light" id="s1"></div>
+        <div class="light strike-light" id="s2"></div>
+      </div>
+    </div>
+
+    <!-- Out (赤2つ) -->
+    <div class="row">
+      <div class="label out-label">O</div>
+      <div class="lights">
+        <div class="light out-light" id="o1"></div>
+        <div class="light out-light" id="o2"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="btn-b" onclick="addBall()">BALL (+1)</button>
+    <button class="btn-s" onclick="addStrike()">STRIKE (+1)</button>
+    <button class="btn-o" onclick="addOut()">OUT (+1)</button>
+    <button class="btn-reset" onclick="resetAll()">RESET (全リセット)</button>
+  </div>
+
+  <script>
+    // ブラウザに保存されているカウントがあれば読み込む（なければ初期値0）
+    let state = JSON.parse(localStorage.getItem('bso_state')) || { balls: 0, strikes: 0, outs: 0 };
+
+    // 画面のランプ表示と保存を行う関数
+    function renderAndSave() {
+      // 1. ブラウザのlocalStorageに状態を保存（データベース代わり）
+      localStorage.setItem('bso_state', JSON.stringify(state));
+
+      // 2. ランプのON/OFF切り替え
+      ['b1', 'b2', 'b3'].forEach((id, i) => {
+        document.getElementById(id).classList.toggle('on', i < state.balls);
+      });
+      ['s1', 's2'].forEach((id, i) => {
+        document.getElementById(id).classList.toggle('on', i < state.strikes);
+      });
+      ['o1', 'o2'].forEach((id, i) => {
+        document.getElementById(id).classList.toggle('on', i < state.outs);
+      });
+    }
+
+    // --- カウントロジック ---
+
+    function addBall() {
+      state.balls++;
+      if (state.balls >= 4) { // 4ボールでリセット
+        state.balls = 0;
+        state.strikes = 0;
+      }
+      renderAndSave();
+    }
+
+    function addStrike() {
+      state.strikes++;
+      if (state.strikes >= 3) { // 3ストライクで1アウト追加
+        state.balls = 0;
+        state.strikes = 0;
+        addOut();
+        return;
+      }
+      renderAndSave();
+    }
+
+    function addOut() {
+      state.outs++;
+      state.balls = 0;
+      state.strikes = 0;
+      if (state.outs >= 3) { // 3アウトでチェンジ（全リセット）
+        state.outs = 0;
+      }
+      renderAndSave();
+    }
+
+    function resetAll() {
+      state = { balls: 0, strikes: 0, outs: 0 };
+      renderAndSave();
+    }
+
+    // 初回読み込み時に表示を同期
+    renderAndSave();
+  </script>
+</body>
+</html>
+
+
         <!-- 言語情報 -->
         <div style="border: 1px solid #1f883d; background-color: #dafbe1; color: #1a7f37;" class="lang-box">
             当社は、令和という時代に合わせ、完全ペーパーレス化を行っています。
