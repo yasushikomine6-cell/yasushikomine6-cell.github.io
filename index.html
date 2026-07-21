@@ -5,172 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>夢GAMEs & 三鷹の街</title>
 
-
-<br>
-<head>
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Visitor Counter</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      background-color: #0f172a;
-      color: #f8fafc;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 20px;
-    }
-
-    /* 🌐 右上固定の言語切替ボタンエリア */
-    .lang-container {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      display: flex;
-      gap: 6px;
-      background: #1e293b;
-      padding: 6px;
-      border-radius: 12px;
-      border: 1px solid #334155;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    }
-
-    .lang-btn {
-      background: transparent;
-      color: #94a3b8;
-      border: none;
-      padding: 6px 12px;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .lang-btn:hover {
-      color: #f8fafc;
-      background: #334155;
-    }
-
-    /* 選択中の言語の見た目 */
-    .lang-btn.active {
-      background: #38bdf8;
-      color: #0f172a;
-    }
-
-    /* レスポンシブ対応のカウンターカード */
-    .counter-card {
-      background: #1e293b;
-      border: 1px solid #334155;
-      padding: 40px 30px;
-      border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-      text-align: center;
-      width: 100%;
-      max-width: 400px;
-    }
-
-    .title {
-      font-size: 14px;
-      color: #94a3b8;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      margin-bottom: 16px;
-    }
-
-    /* 画面幅に合わせて自動リサイズされる数字 */
-    .count-display {
-      font-size: clamp(36px, 8vw, 8px);
-      font-weight: 800;
-      color: #38bdf8;
-      font-family: "Courier New", Courier, monospace;
-      letter-spacing: 2px;
-    }
-
-    /* スマホ画面での右上ボタン位置調整 */
-    @media (max-width: 480px) {
-      .lang-container {
-        top: 10px;
-        right: 10px;
-        padding: 4px;
-      }
-      .lang-btn {
-        padding: 5px 8px;
-        font-size: 12px;
-      }
-    }
-  </style>
-</head>
-<body>
-
-  <!-- 🌐 右上に配置された多言語切り替えボタン -->
-  <div class="lang-container">
-    <button class="lang-btn active" onclick="setLanguage('ja')">日本語</button>
-    <button class="lang-btn" onclick="setLanguage('en')">English</button>
-    <button class="lang-btn" onclick="setLanguage('ko')">한국어</button>
-  </div>
-
-  <!-- カウンターカード本体 -->
-  <div class="counter-card">
-    <div class="title" id="title-text">累計訪問者数</div>
-    <div class="count-display" id="visit-count">Loading...</div>
-  </div>
-
-  <script>
-    // 1. 3か国語の辞書データ
-    const i18n = {
-      ja: { title: "累計訪問者数", loading: "読み込み中..." },
-      en: { title: "TOTAL VISITS", loading: "Loading..." },
-      ko: { title: "누적 방문자 수", loading: "로딩 중..." }
-    };
-
-    let currentLang = 'ja';
-
-    // 2. 言語切り替え処理
-    function setLanguage(lang) {
-      currentLang = lang;
-      
-      // ボタンのアクティブ化表示を更新
-      const buttons = document.querySelectorAll('.lang-btn');
-      buttons[0].classList.toggle('active', lang === 'ja');
-      buttons[1].classList.toggle('active', lang === 'en');
-      buttons[2].classList.toggle('active', lang === 'ko');
-
-      // テキストを切り替え
-      document.getElementById('title-text').textContent = i18n[lang].title;
-    }
-
-    // 3. カウンターAPI処理
-    const SITE_ID = 'my-unique-github-site-2026'; // ★ご自身のIDに変更してください
-
-    async function getVisitCount() {
-      try {
-        const response = await fetch(`https://api.codetabs.com/v1/counter?key=${SITE_ID}`);
-        const count = await response.text();
-        document.getElementById('visit-count').textContent = parseInt(count).toLocaleString();
-      } catch (error) {
-        console.error('API Error:', error);
-        document.getElementById('visit-count').textContent = 'Error';
-      }
-    }
-
-    getVisitCount();
-  </script>
-</body>
-</html>
-
-
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@700&display=swap" rel="stylesheet">
     
@@ -178,15 +12,53 @@
         /* --- 基本設定 & スマホ最適化 --- */
         *, *::before, *::after {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
         body {
             font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', sans-serif;
             background-color: #f7f6f0;
             color: #3a352a;
-            margin: 0;
-            padding: 0;
             line-height: 1.6;
             -webkit-text-size-adjust: 100%;
+            padding-top: 60px; /* 右上ボタンと文字が被らないように上部に余白を確保 */
+        }
+
+        /* --- 🌐 右上固定の多言語切替ボタン（レスポンシブ対応） --- */
+        .lang-container {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            display: flex;
+            gap: 4px;
+            background: #1e293b;
+            padding: 4px;
+            border-radius: 10px;
+            border: 1px solid #334155;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        .lang-btn {
+            background: transparent;
+            color: #94a3b8;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 7px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn:hover {
+            color: #f8fafc;
+            background: #334155;
+        }
+
+        .lang-btn.active {
+            background: #38bdf8;
+            color: #0f172a;
         }
 
         /* --- コンテナと余白（スマホ幅対応） --- */
@@ -197,7 +69,7 @@
             width: 100%;
         }
 
-        /* --- アクセスカウンターカードの調整 --- */
+        /* --- アクセスカウンターカード --- */
         .counter-card {
             background: #1e293b;
             border: 1px solid #334155;
@@ -216,7 +88,7 @@
             margin-bottom: 8px;
         }
         .counter-card .count-display {
-            font-size: 38px;
+            font-size: clamp(32px, 8vw, 44px);
             font-weight: 800;
             color: #38bdf8;
             font-family: "Courier New", Courier, monospace;
@@ -238,7 +110,6 @@
             border-radius: 25px;
             text-decoration: none;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            transition: 0.2s;
             box-sizing: border-box;
         }
         .x-link-button:active {
@@ -293,7 +164,6 @@
             text-decoration: none;
             border: none;
             cursor: pointer;
-            transition: 0.2s;
             box-sizing: border-box;
         }
 
@@ -398,7 +268,7 @@
             float: right;
         }
 
-        /* --- スマホ完全対応画像ラッパー --- */
+        /* --- 画像レスポンシブ対応 --- */
         .image-container {
             width: 100%;
             margin: 20px 0;
@@ -445,6 +315,21 @@
             margin: 0;
         }
 
+        /* --- 電話ボタン --- */
+        .tel-btn {
+            display: block;
+            text-align: center;
+            padding: 14px;
+            background: #27ae60;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 0.95rem;
+            border-radius: 25px;
+            text-decoration: none;
+            margin: 15px 0;
+            box-shadow: 0 4px 10px rgba(39, 174, 96, 0.3);
+        }
+
         /* --- 多言語対応メッセージ --- */
         .lang-box {
             padding: 12px;
@@ -457,128 +342,67 @@
 </head>
 <body>
 
-<br>
+    <!-- 🌐 右上に配置された多言語切り替えボタン -->
+    <div class="lang-container">
+        <button class="lang-btn active" onclick="setLanguage('ja')">日本語</button>
+        <button class="lang-btn" onclick="setLanguage('en')">English</button>
+        <button class="lang-btn" onclick="setLanguage('ko')">한국어</button>
+    </div>
 
     <div class="container">
         <!-- ヘッダー -->
         <div class="hero">
-            <h2>ようこそ夢GAMEsへ</h2>
+            <h2 id="welcome-text">ようこそ夢GAMEsへ</h2>
         </div>
 
-        <h1 class="mitaka-game-title">あなたのまちのゲーム屋さん</h1>
+        <h1 class="mitaka-game-title" id="store-title">あなたのまちのゲーム屋さん</h1>
 
         <!-- アクセス・カウンター -->
         <div class="counter-card">
-            <div class="title">Total Visits</div>
+            <div class="title" id="counter-title">Total Visits</div>
             <div class="count-display" id="visit-count">Loading...</div>
         </div>
 
         <!-- 公式X（旧Twitter）リンクボタン -->
         <div class="sns-link-container">
-            <a href="https://x.com/dream_games2023" target="_blank" rel="noopener noreferrer" class="x-link-button">
+            <a href="https://x.com/dream_games2023" target="_blank" rel="noopener noreferrer" class="x-link-button" id="x-btn-text">
                 公式X（@dream_games2023）はこちら
             </a>
         </div>
 
         <!-- ボタンエリア -->
         <div class="btn-wrapper">
-            <a href="https://yasushikomine6-cell.github.io/drames_02.html" class="btn-shiny">創設者プロフィールへ進む ➔</a>
-            <a href="https://yasushikomine6-cell.github.io/yui_cyan.html" class="btn-shiny">ゆいちゃんの公式ページ ➔</a>
-            <a href="https://yasushikomine6-cell.github.io/employee.html" target="_blank" class="press-btn">🔥 デジタルプレス室 優秀従業員名簿</a>
+            <a href="https://yasushikomine6-cell.github.io/drames_02.html" class="btn-shiny" id="btn-profile">創設者プロフィールへ進む ➔</a>
+            <a href="https://yasushikomine6-cell.github.io/yui_cyan.html" class="btn-shiny" id="btn-yui">ゆいちゃんの公式ページ ➔</a>
+            <a href="https://yasushikomine6-cell.github.io/employee.html" target="_blank" class="press-btn" id="btn-employee">🔥 デジタルプレス室 優秀従業員名簿</a>
         </div>
 
         <!-- ゆいちゃんリンク集カード -->
         <div class="yui-card">
-            <h1 class="main-title">ドジっ子・ゆいちゃん</h1>
+            <h1 class="main-title" id="yui-card-title">ドジっ子・ゆいちゃん</h1>
             <table class="link-table">
                 <thead>
                     <tr>
-                        <th>ページを選択して移動する</th>
+                        <th id="table-header">ページを選択して移動する</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>
-                            <a href="https://2026-07-06.yasushikomine6.workers.dev/" target="_blank" class="table-link">
-                                7月6日号 
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="https://07-07-2026.yasushikomine6.workers.dev/" target="_blank" class="table-link">
-                                7月7日号 
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="https://tight-meadow-1e81.yasushikomine6.workers.dev/" target="_blank" class="table-link">
-                                7月8日号
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="https://yui-cyan07-09.yasushikomine6.workers.dev/" target="_blank" class="table-link">
-                                7月9日号
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="https://yui-2026-07-10.yasushikomine6.workers.dev/" target="_blank" class="table-link">
-                                 7月10日号
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="https://yui2026-07-11.yasushikomine6.workers.dev/" target="_blank" class="table-link">
-                                 7月11日号
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="https://yuicyan2026-07-12.yasushikomine6.workers.dev/" target="_blank" class="table-link">
-                                 7月12日号
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="https://yui-2026-07-13.yasushikomine6.workers.dev/" target="_blank" class="table-link">
-                                 7月13日号
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="https://2026-07-13-3.yasushikomine6.workers.dev/" target="_blank" class="table-link">
-                                 7月13日号 (追加)
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="https://yui-cayn-2026-10.yasushikomine6.workers.dev/" target="_blank" class="table-link">
-                                 7月14日号
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="https://yui-cyan-2026-11.yasushikomine6.workers.dev/" target="_blank" class="table-link">
-                                 7月15日号
-                            </a>
-                        </td>
-                    </tr>
+                    <tr><td><a href="https://2026-07-06.yasushikomine6.workers.dev/" target="_blank" class="table-link">7月6日号</a></td></tr>
+                    <tr><td><a href="https://07-07-2026.yasushikomine6.workers.dev/" target="_blank" class="table-link">7月7日号</a></td></tr>
+                    <tr><td><a href="https://tight-meadow-1e81.yasushikomine6.workers.dev/" target="_blank" class="table-link">7月8日号</a></td></tr>
+                    <tr><td><a href="https://yui-cyan07-09.yasushikomine6.workers.dev/" target="_blank" class="table-link">7月9日号</a></td></tr>
+                    <tr><td><a href="https://yui-2026-07-10.yasushikomine6.workers.dev/" target="_blank" class="table-link">7月10日号</a></td></tr>
+                    <tr><td><a href="https://yui2026-07-11.yasushikomine6.workers.dev/" target="_blank" class="table-link">7月11日号</a></td></tr>
+                    <tr><td><a href="https://yuicyan2026-07-12.yasushikomine6.workers.dev/" target="_blank" class="table-link">7月12日号</a></td></tr>
+                    <tr><td><a href="https://yui-2026-07-13.yasushikomine6.workers.dev/" target="_blank" class="table-link">7月13日号</a></td></tr>
+                    <tr><td><a href="https://2026-07-13-3.yasushikomine6.workers.dev/" target="_blank" class="table-link">7月13日号 (追加)</a></td></tr>
+                    <tr><td><a href="https://yui-cayn-2026-10.yasushikomine6.workers.dev/" target="_blank" class="table-link">7月14日号</a></td></tr>
+                    <tr><td><a href="https://yui-cyan-2026-11.yasushikomine6.workers.dev/" target="_blank" class="table-link">7月15日号</a></td></tr>
                 </tbody>
             </table>
         </div>
 
-        <!-- スマホリサイズ対応の画像リンク部分 -->
+        <!-- 画像リンク部分 -->
         <div class="image-container">
             <a href="https://github.com/yasushikomine6-cell/yasushikomine6-cell.github.io/blob/main/1784622949536.png" target="_blank" rel="noopener noreferrer">
                 <img src="https://raw.githubusercontent.com/yasushikomine6-cell/yasushikomine6-cell.github.io/main/1784622949536.png" alt="1784622949536.png" class="responsive-img">
@@ -588,42 +412,134 @@
         <!-- ギャラリー -->
         <section class="section-market">
             <div class="overlay-box">
-                <h3>音楽院の街角にて</h3>
-                <p>素敵な音楽が聴こえてきそうじゃろ？</p>
+                <h3 id="gallery-1-title">音楽院の街角にて</h3>
+                <p id="gallery-1-desc">素敵な音楽が聴こえてきそうじゃろ？</p>
             </div>
         </section>
 
         <section class="section-piano">
             <div class="overlay-box">
-                <h3>運命のコンサート</h3>
-                <p>ドキドキをエネルギーに変えるんよ！</p>
+                <h3 id="gallery-2-title">運命のコンサート</h3>
+                <p id="gallery-2-desc">ドキドキをエネルギーに変えるんよ！</p>
             </div>
         </section>
 
         <section class="section-taxi-stage">
             <div class="overlay-box">
-                <h3>緊迫のラストステージ</h3>
-                <p>今度は、私の番...！</p>
+                <h3 id="gallery-3-title">緊迫のラストステージ</h3>
+                <p id="gallery-3-desc">今度は、私の番...！</p>
             </div>
         </section>
 
-
-<a href="tel:07012500937" class="tel-btn">
-  電話をかける (070-1250-0937)
-</a>
-
+        <a href="tel:07012500937" class="tel-btn" id="tel-btn-text">
+          電話をかける (070-1250-0937)
+        </a>
 
         <!-- 言語情報 -->
-        <div style="border: 1px solid #1f883d; background-color: #dafbe1; color: #1a7f37;" class="lang-box">
+        <div style="border: 1px solid #1f883d; background-color: #dafbe1; color: #1a7f37;" class="lang-box" id="notice-1">
             当社は、令和という時代に合わせ、完全ペーパーレス化を行っています。
         </div>
-        <div style="border: 1px solid #0969da; background-color: #ddf4ff; color: #0969da;" class="lang-box">
+        <div style="border: 1px solid #0969da; background-color: #ddf4ff; color: #0969da;" class="lang-box" id="notice-2">
             당사는 레이와(令和) 시대에 발맞추어 완전한 페이퍼리스(무지화)를 실천하고 있습니다.
         </div>
     </div>
 
-  <!-- アクセスカウンター動作用スクリプト -->
+  <!-- 多言語切り替えとアクセスカウンターのスクリプト -->
   <script>
+    // 1. 多言語辞書データ
+    const i18n = {
+      ja: {
+        welcome: "ようこそ夢GAMEsへ",
+        storeTitle: "あなたのまちのゲーム屋さん",
+        counterTitle: "TOTAL VISITS",
+        xBtn: "公式X（@dream_games2023）はこちら",
+        profile: "創設者プロフィールへ進む ➔",
+        yui: "ゆいちゃんの公式ページ ➔",
+        employee: "🔥 デジタルプレス室 優秀従業員名簿",
+        yuiCardTitle: "ドジっ子・ゆいちゃん",
+        tableHeader: "ページを選択して移動する",
+        gallery1Title: "音楽院の街角にて",
+        gallery1Desc: "素敵な音楽が聴こえてきそうじゃろ？",
+        gallery2Title: "運命のコンサート",
+        gallery2Desc: "ドキドキをエネルギーに変えるんよ！",
+        gallery3Title: "緊迫のラストステージ",
+        gallery3Desc: "今度は、私の番...！",
+        telBtn: "電話をかける (070-1250-0937)",
+        notice1: "当社は、令和という時代に合わせ、完全ペーパーレス化を行っています。",
+        notice2: "당사는 레이와(令和) 시대에 발맞추어 완전한 페이퍼리스(무지화)를 실천하고 있습니다."
+      },
+      en: {
+        welcome: "Welcome to Yume GAMEs",
+        storeTitle: "Your Neighborhood Game Shop",
+        counterTitle: "TOTAL VISITS",
+        xBtn: "Official X (@dream_games2023)",
+        profile: "Founder Profile ➔",
+        yui: "Yui-chan's Official Page ➔",
+        employee: "🔥 Digital Press Room Employee List",
+        yuiCardTitle: "Clumsy Yui-chan",
+        tableHeader: "Select a page to jump",
+        gallery1Title: "At the Conservatory Corner",
+        gallery1Desc: "Can you hear the lovely music?",
+        gallery2Title: "Concert of Destiny",
+        gallery2Desc: "Turn your excitement into energy!",
+        gallery3Title: "Tense Last Stage",
+        gallery3Desc: "Now it's my turn...!",
+        telBtn: "Call Us (070-1250-0937)",
+        notice1: "We are fully paperless in accordance with the Reiwa era.",
+        notice2: "We are fully paperless in accordance with the Reiwa era."
+      },
+      ko: {
+        welcome: "꿈 GAMEs에 오신 것을 환영합니다",
+        storeTitle: "당신의 동네 게임 샵",
+        counterTitle: "TOTAL VISITS",
+        xBtn: "공식 X (@dream_games2023)",
+        profile: "창설자 프로필로 이동 ➔",
+        yui: "유이짱 공식 페이지 ➔",
+        employee: "🔥 디지털 프레스실 우수 직원 명부",
+        yuiCardTitle: "허당 유이짱",
+        tableHeader: "이동할 페이지를 선택하세요",
+        gallery1Title: "음악원 모퉁이에서",
+        gallery1Desc: "멋진 음악이 들려올 것 같지 않나요?",
+        gallery2Title: "운명의 콘서트",
+        gallery2Desc: "두근거림을 에너지로 바꾸는 거야!",
+        gallery3Title: "긴박한 라스트 스테이지",
+        gallery3Desc: "이번엔 내 차례야...!",
+        telBtn: "전화하기 (070-1250-0937)",
+        notice1: "당사는 레이와 시대에 발맞추어 완전한 페이퍼리스를 실천하고 있습니다.",
+        notice2: "당사는 레이와 시대에 발맞추어 완전한 페이퍼리스를 실천하고 있습니다."
+      }
+    };
+
+    function setLanguage(lang) {
+      // ボタンのアクティブ状態更新
+      const buttons = document.querySelectorAll('.lang-btn');
+      buttons[0].classList.toggle('active', lang === 'ja');
+      buttons[1].classList.toggle('active', lang === 'en');
+      buttons[2].classList.toggle('active', lang === 'ko');
+
+      // テキストの切り替え
+      const t = i18n[lang];
+      document.getElementById('welcome-text').textContent = t.welcome;
+      document.getElementById('store-title').textContent = t.storeTitle;
+      document.getElementById('counter-title').textContent = t.counterTitle;
+      document.getElementById('x-btn-text').textContent = t.xBtn;
+      document.getElementById('btn-profile').textContent = t.profile;
+      document.getElementById('btn-yui').textContent = t.yui;
+      document.getElementById('btn-employee').textContent = t.employee;
+      document.getElementById('yui-cardTitle').textContent = t.yuiCardTitle;
+      document.getElementById('table-header').textContent = t.tableHeader;
+      document.getElementById('gallery-1-title').textContent = t.gallery1Title;
+      document.getElementById('gallery-1-desc').textContent = t.gallery1Desc;
+      document.getElementById('gallery-2-title').textContent = t.gallery2Title;
+      document.getElementById('gallery-2-desc').textContent = t.gallery2Desc;
+      document.getElementById('gallery-3-title').textContent = t.gallery3Title;
+      document.getElementById('gallery-3-desc').textContent = t.gallery3Desc;
+      document.getElementById('tel-btn-text').textContent = t.telBtn;
+      document.getElementById('notice-1').textContent = t.notice1;
+      document.getElementById('notice-2').textContent = t.notice2;
+    }
+
+    // 2. アクセスカウンターAPI処理
     const NAMESPACE = 'my-github-site-2026'; 
     const KEY = 'visits';
 
