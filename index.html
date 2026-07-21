@@ -7,7 +7,6 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@700&display=swap" rel="stylesheet">
     
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -57,21 +56,31 @@
 
   <div class="counter-card">
     <div class="title">Total Visits</div>
-    <div class="count-display" id="visit-count">...</div>
+    <div class="count-display" id="visit-count">Loading...</div>
   </div>
 
   <script>
-    // ※ 他の人とかぶらないユニークな文字列に設定してください
-    const COUNTER_KEY = 'my_simple_site_counter_2026';
+    // ★重要: ここをご自身のリポジトリ名やユニークな名前に変えてください（他人のデータと被らないため）
+    const NAMESPACE = 'my-github-site-2026'; 
+    const KEY = 'visits';
 
     async function getVisitCount() {
       try {
-        const response = await fetch(`https://api.countapi.xyz/hit/my-app-space/${COUNTER_KEY}`);
+        // CounterAPIを使って+1加算
+        const response = await fetch(`https://api.counterapi.dev/v1/${NAMESPACE}/${KEY}/up`);
         const data = await response.json();
-        document.getElementById('visit-count').textContent = data.value.toLocaleString();
+        
+        if (data && data.count !== undefined) {
+          document.getElementById('visit-count').textContent = data.count.toLocaleString();
+        } else {
+          // 初期化されていない場合は初期化コマンドを叩く
+          const initRes = await fetch(`https://api.counterapi.dev/v1/${NAMESPACE}/${KEY}/set?count=1`);
+          const initData = await initRes.json();
+          document.getElementById('visit-count').textContent = initData.count || '1';
+        }
       } catch (error) {
-        // エラー時（ローカルファイル実行時など）のフォールバック
-        document.getElementById('visit-count').textContent = '1';
+        console.error('カウンターエラー:', error);
+        document.getElementById('visit-count').textContent = 'Error';
       }
     }
 
