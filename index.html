@@ -7,6 +7,79 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@700&display=swap" rel="stylesheet">
     
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>アクセス・カウンター</title>
+  <style>
+    body {
+      background-color: #0f172a;
+      color: #f8fafc;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .counter-card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      padding: 30px 50px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      min-width: 200px;
+    }
+
+    .title {
+      font-size: 14px;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
+
+    .count-display {
+      font-size: 48px;
+      font-weight: 800;
+      color: #38bdf8;
+      font-family: "Courier New", Courier, monospace;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="counter-card">
+    <div class="title">Total Visits</div>
+    <div class="count-display" id="visit-count">...</div>
+  </div>
+
+  <script>
+    // ※ 他の人とかぶらないユニークな文字列に設定してください
+    const COUNTER_KEY = 'my_simple_site_counter_2026';
+
+    async function getVisitCount() {
+      try {
+        const response = await fetch(`https://api.countapi.xyz/hit/my-app-space/${COUNTER_KEY}`);
+        const data = await response.json();
+        document.getElementById('visit-count').textContent = data.value.toLocaleString();
+      } catch (error) {
+        // エラー時（ローカルファイル実行時など）のフォールバック
+        document.getElementById('visit-count').textContent = '1';
+      }
+    }
+
+    getVisitCount();
+  </script>
+</body>
+</html>
+
     <style>
         /* --- 基本設定 & スマホ最適化 --- */
         *, *::before, *::after {
