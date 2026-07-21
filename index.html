@@ -7,97 +7,6 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@700&display=swap" rel="stylesheet">
     
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>アクセス・カウンター</title>
-  <style>
-    body {
-      background-color: #0f172a;
-      color: #f8fafc;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      margin: 0;
-    }
-
-    .counter-card {
-      background: #1e293b;
-      border: 1px solid #334155;
-      padding: 30px 50px;
-      border-radius: 16px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-      text-align: center;
-      min-width: 200px;
-    }
-
-    .title {
-      font-size: 14px;
-      color: #94a3b8;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      margin-bottom: 12px;
-    }
-
-    .count-display {
-      font-size: 48px;
-      font-weight: 800;
-      color: #38bdf8;
-      font-family: "Courier New", Courier, monospace;
-      letter-spacing: 1px;
-    }
-  </style>
-</head>
-<body>
-
-  <div class="counter-card">
-    <div class="title">Total Visits</div>
-    <div class="count-display" id="visit-count">Loading...</div>
-  </div>
-
-  <script>
-    // ★重要: ここをご自身のリポジトリ名やユニークな名前に変えてください（他人のデータと被らないため）
-    const NAMESPACE = 'my-github-site-2026'; 
-    const KEY = 'visits';
-
-    async function getVisitCount() {
-      try {
-        // CounterAPIを使って+1加算
-        const response = await fetch(`https://api.counterapi.dev/v1/${NAMESPACE}/${KEY}/up`);
-        const data = await response.json();
-        
-        if (data && data.count !== undefined) {
-          document.getElementById('visit-count').textContent = data.count.toLocaleString();
-        } else {
-          // 初期化されていない場合は初期化コマンドを叩く
-          const initRes = await fetch(`https://api.counterapi.dev/v1/${NAMESPACE}/${KEY}/set?count=1`);
-          const initData = await initRes.json();
-          document.getElementById('visit-count').textContent = initData.count || '1';
-        }
-      } catch (error) {
-        console.error('カウンターエラー:', error);
-        document.getElementById('visit-count').textContent = 'Error';
-      }
-    }
-
-    getVisitCount();
-  </script>
-</body>
-</html>
-
-<br>
-
-<!-- 公式X（旧Twitter）リンクボタン -->
-<div class="sns-link-container">
-    <a href="https://x.com/dream_games2023" target="_blank" rel="noopener noreferrer" class="x-link-button">
-        公式X（@dream_games2023）はこちら
-    </a>
-</div>
-
     <style>
         /* --- 基本設定 & スマホ最適化 --- */
         *, *::before, *::after {
@@ -121,7 +30,55 @@
             width: 100%;
         }
 
-        /* --- ヘッダー・タイトル部分（三鷹デザイン） --- */
+        /* --- アクセスカウンターカードの調整 --- */
+        .counter-card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            margin: 15px 0;
+            width: 100%;
+        }
+        .counter-card .title {
+            font-size: 13px;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+        .counter-card .count-display {
+            font-size: 38px;
+            font-weight: 800;
+            color: #38bdf8;
+            font-family: "Courier New", Courier, monospace;
+        }
+
+        /* --- 公式Xリンクボタン --- */
+        .sns-link-container {
+            margin: 15px 0;
+            text-align: center;
+        }
+        .x-link-button {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background-color: #000000;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 0.95rem;
+            border-radius: 25px;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: 0.2s;
+            box-sizing: border-box;
+        }
+        .x-link-button:active {
+            opacity: 0.8;
+        }
+
+        /* --- ヘッダー・タイトル部分 --- */
         .hero h2 {
             font-size: 1.2rem;
             text-align: center;
@@ -131,9 +88,9 @@
 
         .mitaka-game-title {
             font-family: 'Kiwi Maru', serif;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             text-align: center;
-            padding: 15px 10px;
+            padding: 12px 10px;
             background: linear-gradient(135deg, #1b3d31 0%, #3d7054 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -146,7 +103,7 @@
         }
         .mitaka-game-title::before {
             content: "🍃";
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             margin-right: 0.4rem;
             -webkit-text-fill-color: initial;
         }
@@ -191,7 +148,7 @@
             opacity: 0.9;
         }
 
-        /* --- インラインのゆいちゃんリンク部分用カード --- */
+        /* --- ゆいちゃんリンク集カード --- */
         .yui-card {
             background-color: #ffffff;
             padding: 12px;
@@ -203,7 +160,7 @@
 
         .main-title {
             font-family: 'Kiwi Maru', serif;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             text-align: center;
             margin: 5px 0 15px 0;
             background: linear-gradient(135deg, #1b3d31 0%, #3d7054 100%);
@@ -216,7 +173,7 @@
         }
         .main-title::before {
             content: "🍃";
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             margin-right: 0.4rem;
             -webkit-text-fill-color: initial;
         }
@@ -292,7 +249,7 @@
 
         /* --- ギャラリーセクション --- */
         section {
-            min-height: 150px;
+            min-height: 140px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -313,11 +270,11 @@
             width: 100%;
         }
         .overlay-box h3 {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             margin: 0 0 5px 0;
         }
         .overlay-box p {
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             margin: 0;
         }
 
@@ -325,7 +282,7 @@
         .lang-box {
             padding: 12px;
             border-radius: 8px;
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             margin-top: 15px;
             word-break: break-all;
         }
@@ -341,6 +298,19 @@
 
         <h1 class="mitaka-game-title">あなたのまちのゲーム屋さん</h1>
 
+        <!-- アクセス・カウンター -->
+        <div class="counter-card">
+            <div class="title">Total Visits</div>
+            <div class="count-display" id="visit-count">Loading...</div>
+        </div>
+
+        <!-- 公式X（旧Twitter）リンクボタン -->
+        <div class="sns-link-container">
+            <a href="https://x.com/dream_games2023" target="_blank" rel="noopener noreferrer" class="x-link-button">
+                公式X（@dream_games2023）はこちら
+            </a>
+        </div>
+
         <!-- ボタンエリア -->
         <div class="btn-wrapper">
             <a href="https://yasushikomine6-cell.github.io/drames_02.html" class="btn-shiny">創設者プロフィールへ進む ➔</a>
@@ -348,7 +318,7 @@
             <a href="https://yasushikomine6-cell.github.io/employee.html" target="_blank" class="press-btn">🔥 デジタルプレス室 優秀従業員名簿</a>
         </div>
 
-              <!-- ゆいちゃんリンク集カード -->
+        <!-- ゆいちゃんリンク集カード -->
         <div class="yui-card">
             <h1 class="main-title">ドジっ子・ゆいちゃん</h1>
             <table class="link-table">
@@ -439,7 +409,6 @@
             </table>
         </div>
 
-
         <!-- スマホリサイズ対応の画像リンク部分 -->
         <div class="image-container">
             <a href="https://github.com/yasushikomine6-cell/yasushikomine6-cell.github.io/blob/main/1784622949536.png" target="_blank" rel="noopener noreferrer">
@@ -469,15 +438,6 @@
             </div>
         </section>
 
-
-    
-   
-     
-
-   
-  
-
-
         <!-- 言語情報 -->
         <div style="border: 1px solid #1f883d; background-color: #dafbe1; color: #1a7f37;" class="lang-box">
             当社は、令和という時代に合わせ、完全ペーパーレス化を行っています。
@@ -487,5 +447,30 @@
         </div>
     </div>
 
+  <!-- アクセスカウンター動作用スクリプト -->
+  <script>
+    const NAMESPACE = 'my-github-site-2026'; 
+    const KEY = 'visits';
+
+    async function getVisitCount() {
+      try {
+        const response = await fetch(`https://api.counterapi.dev/v1/${NAMESPACE}/${KEY}/up`);
+        const data = await response.json();
+        
+        if (data && data.count !== undefined) {
+          document.getElementById('visit-count').textContent = data.count.toLocaleString();
+        } else {
+          const initRes = await fetch(`https://api.counterapi.dev/v1/${NAMESPACE}/${KEY}/set?count=1`);
+          const initData = await initRes.json();
+          document.getElementById('visit-count').textContent = initData.count || '1';
+        }
+      } catch (error) {
+        console.error('カウンターエラー:', error);
+        document.getElementById('visit-count').textContent = 'Error';
+      }
+    }
+
+    getVisitCount();
+  </script>
 </body>
 </html>
