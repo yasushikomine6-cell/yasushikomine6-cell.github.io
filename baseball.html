@@ -1,0 +1,1788 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>監督！nice！采配ですよ⚾ - Consumer Edition</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-color: #f1f5f9;
+            --primary-color: #38bdf8;
+            --accent-color: #f43f5e;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --cond-best: #ef4444;
+            --cond-good: #f97316;
+            --cond-normal: #22c55e;
+            --cond-bad: #3b82f6;
+            --cond-worst: #8b5cf6;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        #game-container {
+            width: 100%;
+            max-width: 450px;
+            height: 100vh;
+            height: 100dvh;
+            max-height: 850px;
+            background: #0f172a;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.6);
+            border: 2px solid #334155;
+            overflow: hidden;
+        }
+
+        header {
+            background-color: #020617;
+            color: white;
+            padding: 8px 10px;
+            text-align: center;
+            border-bottom: 2px solid #1e293b;
+            flex-shrink: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-title {
+            flex: 1;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+            color: #f59e0b;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 4px;
+        }
+
+        .header-btn {
+            background: #1e293b;
+            border: 1px solid #475569;
+            color: #38bdf8;
+            width: 28px;
+            height: 28px;
+            border-radius: 4px;
+            font-size: 0.6rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-btn:hover {
+            background: #334155;
+        }
+
+        .scoreboard {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255,255,255,0.05);
+            border-radius: 4px;
+            overflow: hidden;
+            font-size: 0.75rem;
+        }
+
+        .scoreboard th, .scoreboard td {
+            padding: 3px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .screen {
+            display: none;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            padding: 12px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .screen.active {
+            display: flex;
+        }
+
+        .kpi-dashboard {
+            background: #1e293b;
+            border: 2px solid var(--primary-color);
+            border-radius: 8px;
+            padding: 8px 10px;
+            margin-bottom: 10px;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr 1fr;
+            gap: 4px;
+            font-size: 0.7rem;
+            flex-shrink: 0;
+        }
+
+        .kpi-block {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .kpi-label { color: #94a3b8; font-size: 0.6rem; }
+        .kpi-val { font-weight: bold; color: #fff; }
+        .kpi-val.highlight { color: #38bdf8; }
+
+        .tactical-board {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 10px;
+            max-height: 240px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        .board-title {
+            font-size: 0.8rem;
+            color: var(--primary-color);
+            border-left: 3px solid var(--primary-color);
+            padding-left: 6px;
+            margin-top: 4px;
+            margin-bottom: 4px;
+            font-weight: bold;
+        }
+
+        .order-slot {
+            display: flex;
+            align-items: center;
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 6px;
+            padding: 4px 6px;
+            gap: 6px;
+        }
+
+        .order-badge {
+            width: 18px;
+            height: 18px;
+            background: var(--warning-color);
+            color: #020617;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.75rem;
+            flex-shrink: 0;
+        }
+
+        .order-select-wrapper {
+            flex: 1;
+        }
+
+        .order-select {
+            width: 100%;
+            background: #0f172a;
+            color: white;
+            border: 1px solid #475569;
+            padding: 4px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            outline: none;
+        }
+
+        .player-bench-list {
+            background: #111827;
+            border-radius: 8px;
+            padding: 6px;
+            border: 1px dashed #334155;
+            max-height: 160px;
+            overflow-y: auto;
+            margin-bottom: 8px;
+        }
+
+        .bench-player-card {
+            display: grid;
+            grid-template-columns: 1.5fr 0.8fr 1.2fr;
+            align-items: center;
+            padding: 4px 2px;
+            border-bottom: 1px solid #1e293b;
+            font-size: 0.65rem;
+            gap: 2px;
+        }
+
+        .bench-player-card.farm-status {
+            background: rgba(139, 92, 246, 0.08);
+        }
+
+        .player-name-col {
+            font-weight: bold;
+            color: #f1f5f9;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .condition-indicator {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1px 4px;
+            border-radius: 8px;
+            font-size: 0.55rem;
+            font-weight: bold;
+            color: #fff;
+            width: fit-content;
+        }
+
+        .cond-best { background-color: var(--cond-best); }
+        .cond-good { background-color: var(--cond-good); }
+        .cond-normal { background-color: var(--cond-normal); }
+        .cond-bad { background-color: var(--cond-bad); }
+        .cond-worst { background-color: var(--cond-worst); }
+
+        .stat-badge {
+            text-align: center;
+            font-size: 0.6rem;
+            background: #1e293b;
+            padding: 2px 4px;
+            border-radius: 4px;
+            color: #94a3b8;
+            white-space: nowrap;
+        }
+
+        .pennant-dashboard {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .pennant-status-card {
+            background: #1e293b;
+            border-radius: 8px;
+            padding: 8px 10px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .league-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.7rem;
+            background: #1e293b;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-top: 2px;
+        }
+
+        .league-table th, .league-table td {
+            padding: 4px;
+            text-align: center;
+            border-bottom: 1px solid #334155;
+        }
+
+        .league-table th {
+            background: #0f172a;
+            color: var(--primary-color);
+        }
+
+        .field-section {
+            flex: 1;
+            position: relative;
+            background: radial-gradient(circle at bottom center, #22c55e 0%, #15803d 80%);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 10px;
+            min-height: 240px;
+        }
+
+        .diamond-box {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin: 5px auto;
+            transform: rotate(45deg);
+            border: 2px dashed rgba(255,255,255,0.4);
+        }
+
+        .base {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: white;
+            border: 1px solid #999;
+            transform: rotate(-45deg);
+        }
+
+        #base-1 { top: 42px; right: -7px; }
+        #base-2 { top: -7px; left: 42px; }
+        #base-3 { top: 42px; left: -7px; }
+        #base-home { bottom: -7px; left: 42px; background: #eee; }
+
+        .base.runner {
+            background: var(--accent-color) !important;
+            box-shadow: 0 0 8px var(--accent-color);
+        }
+
+        .bso-container {
+            background: rgba(0, 0, 0, 0.75);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-weight: bold;
+            font-size: 0.75rem;
+            align-self: flex-start;
+        }
+
+        .bso-row { display: flex; align-items: center; margin: 1px 0; }
+        .bso-label { width: 14px; }
+        .dot { width: 8px; height: 8px; border-radius: 50%; background: #444; margin-left: 3px; display: inline-block; }
+        .dot.ball { background: #38bdf8; }
+        .dot.strike { background: #f59e0b; }
+        .dot.out { background: #ef4444; }
+
+        .log-section {
+            height: 90px;
+            background: #020617;
+            color: #22c55e;
+            padding: 6px;
+            font-family: monospace;
+            font-size: 0.7rem;
+            overflow-y: auto;
+            border-top: 2px solid #1e293b;
+            border-bottom: 2px solid #1e293b;
+            flex-shrink: 0;
+        }
+
+        .action-section {
+            background: #1e293b;
+            padding: 8px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        .btn {
+            background: #0f172a;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 8px 2px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 0.75rem;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.15s;
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+            background: var(--primary-color);
+            color: #0f172a;
+        }
+
+        .btn-main {
+            width: 100%;
+            background: #f59e0b;
+            color: #020617;
+            border: 2px solid #f59e0b;
+            font-size: 0.85rem;
+            padding: 8px;
+            margin-top: 4px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .btn-main:active {
+            transform: scale(0.98);
+            background: #d97706;
+        }
+
+        .btn-secondary {
+            background: #475569;
+            border: 2px solid #64748b;
+            color: #fff;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(15, 23, 42, 0.96);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .modal-content {
+            background: #0f172a;
+            padding: 14px;
+            border-radius: 12px;
+            border: 2px solid #f59e0b;
+            width: 100%;
+            max-width: 380px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.8);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        #title-canvas, #office-canvas {
+            background: #1e293b;
+            border: 2px solid #fff;
+            border-radius: 6px;
+            margin: 0 auto 8px auto;
+            width: 100%;
+            max-width: 320px;
+            height: 120px;
+            display: block;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+        }
+
+        #office-canvas { border-color: #f59e0b; height: 140px; }
+
+        .dialogue-box {
+            background: rgba(0, 0, 0, 0.85);
+            border: 2px solid #38bdf8;
+            border-radius: 8px;
+            padding: 8px;
+            margin: 8px auto;
+            width: 100%;
+            max-width: 320px;
+            min-height: 70px;
+            text-align: left;
+            font-family: monospace;
+            font-size: 0.7rem;
+            line-height: 1.4;
+            color: #f0f9ff;
+        }
+
+        .dialogue-name {
+            color: #38bdf8;
+            font-weight: bold;
+            margin-bottom: 2px;
+            font-size: 0.75rem;
+            border-bottom: 1px dashed #38bdf8;
+        }
+
+        .profile-form {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 6px;
+            text-align: left;
+        }
+
+        .profile-form label { font-size: 0.7rem; color: #38bdf8; font-weight: bold; }
+        .profile-form input {
+            background: #020617; border: 1px solid #334155; color: #f1f5f9;
+            padding: 6px 8px; border-radius: 6px; font-size: 0.8rem; width: 100%; outline: none;
+        }
+
+        .difficulty-selector {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 8px;
+        }
+
+        .diff-btn {
+            flex: 1;
+            padding: 8px;
+            border: 2px solid #475569;
+            background: #1e293b;
+            color: #94a3b8;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .diff-btn.active {
+            background: var(--primary-color);
+            color: #020617;
+            border-color: var(--primary-color);
+        }
+
+        .stats-panel {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 6px;
+            padding: 8px;
+            margin-bottom: 8px;
+            font-size: 0.7rem;
+        }
+
+        .stats-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 2px 0;
+            border-bottom: 1px solid #0f172a;
+        }
+
+        .stats-label { color: #94a3b8; }
+        .stats-value { color: #38bdf8; font-weight: bold; }
+
+        .save-load-section {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 8px;
+        }
+
+        .save-load-btn {
+            flex: 1;
+            padding: 6px;
+            background: #10b981;
+            border: 1px solid #059669;
+            color: white;
+            border-radius: 4px;
+            font-size: 0.65rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .save-load-btn.load { background: #3b82f6; border-color: #2563eb; }
+        .save-load-btn:active { transform: scale(0.98); }
+
+        .toast-notification {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e293b;
+            border: 2px solid var(--success-color);
+            color: var(--success-color);
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 20;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateX(-50%) translateY(60px); opacity: 0; }
+            to { transform: translateX(-50%) translateY(0); opacity: 1; }
+        }
+
+        .draft-pool, .trade-pool, .amateur-pool {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            max-height: 180px;
+            overflow-y: auto;
+            margin: 6px 0;
+            background: #020617;
+            padding: 6px;
+            border-radius: 6px;
+        }
+
+        .draft-card, .trade-row, .amateur-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #1e293b;
+            padding: 6px;
+            border-radius: 4px;
+            font-size: 0.65rem;
+        }
+
+        .draft-btn, .trade-btn, .amateur-btn {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.6rem;
+        }
+
+        .setting-toggle {
+            display: flex;
+            background: #020617;
+            border: 1px solid #334155;
+            border-radius: 6px;
+            padding: 2px;
+            margin-bottom: 6px;
+        }
+
+        .toggle-btn {
+            flex: 1;
+            padding: 5px;
+            font-size: 0.7rem;
+            background: transparent;
+            color: #64748b;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 4px;
+            text-align: center;
+            transition: all 0.15s;
+        }
+
+        .toggle-btn.active {
+            background: var(--primary-color);
+            color: #020217;
+        }
+    </style>
+</head>
+<body>
+
+<div id="game-container">
+    <!-- ヘッダーメニュー -->
+    <header>
+        <div class="header-title">
+            <h1>監督！nice！采配ですよ⚾</h1>
+        </div>
+        <div class="header-buttons">
+            <button class="header-btn" title="保存" onclick="quickSaveGame()">💾</button>
+            <button class="header-btn" title="統計" onclick="toggleStatsPanel()">📊</button>
+            <button class="header-btn" title="設定" onclick="openSettings()">⚙️</button>
+        </div>
+    </header>
+
+    <!-- 画面1: ペナントシミュレーター -->
+    <div id="screen-pennant" class="screen active">
+        <div class="kpi-dashboard">
+            <div class="kpi-block">
+                <span class="kpi-label">資金残高</span>
+                <span class="kpi-val highlight" id="kpi-capital">30,000,000</span>
+            </div>
+            <div class="kpi-block">
+                <span class="kpi-label">ファン人数</span>
+                <span class="kpi-val" id="kpi-fans">5,000人</span>
+            </div>
+            <div class="kpi-block">
+                <span class="kpi-label">知名度ランク</span>
+                <span class="kpi-val" style="color:var(--warning-color);" id="kpi-fame">E-1</span>
+            </div>
+        </div>
+
+        <div class="pennant-dashboard">
+            <div class="pennant-status-card">
+                <h3 style="color:var(--primary-color); font-size: 0.85rem;" id="current-date-display">1年目 1月</h3>
+                <p style="font-size:0.75rem; margin-top:2px;" id="pennant-news">シーズンに向けて準備を整えましょう。2月にキャンプが始まります！</p>
+            </div>
+
+            <div style="display: flex; gap: 6px; margin-bottom: 2px;">
+                <button class="btn btn-main" id="btn-advance-month" style="flex: 2; margin:0;" onclick="advanceMonth()">日程を進める (1ヶ月)</button>
+                <button class="btn btn-main btn-secondary" id="btn-open-trade" style="flex: 1; margin:0;" onclick="openTradeModal()">🤝</button>
+            </div>
+            <button class="btn btn-main btn-secondary" id="btn-open-amateur" style="margin:0 0 4px 0; background:#8b5cf6; border-color:#8b5cf6;" onclick="openAmateurScoutModal()">🏆</button>
+
+            <div>
+                <h4 style="margin-bottom:2px; font-size:0.75rem;" id="roster-count-label">📊 リーグ順位</h4>
+                <table class="league-table" id="table-forest">
+                    <thead><tr><th>順位</th><th>球団名</th><th>勝</th><th>敗</th><th>引</th></tr></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- 画面2: 球団事務所 -->
+    <div id="screen-office" class="screen">
+        <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
+            <h2 style="color:#38bdf8; font-size:1.0rem; text-align:center; margin-bottom:6px;">📊 NBL 球団経営フロント</h2>
+            <canvas id="office-canvas" width="320" height="140"></canvas>
+            <div class="dialogue-box">
+                <div class="dialogue-name" id="speaker-name">あんの</div>
+                <div id="dialogue-text">…</div>
+            </div>
+            <button class="btn btn-main" id="office-btn" style="max-width:320px; margin:0 auto;" onclick="progressDialogue()">次へ</button>
+        </div>
+    </div>
+
+    <!-- 画面3: キャンプ・タクティカルオーダー編成 -->
+    <div id="screen-camp-lineup" class="screen">
+        <div class="setup-header" style="text-align: center; margin-bottom: 4px;">
+            <h2 style="color:#f59e0b; font-size:0.95rem; margin-bottom:2px;">⛺ 春季キャンプ戦術＆主力オーダーボード</h2>
+            <p style="font-size:0.6rem; color:#94a3b8;">DH制を選択し、1〜9番打順を決定します。</p>
+        </div>
+
+        <div class="setting-toggle">
+            <button id="dh-off-btn" class="toggle-btn active" onclick="setDhMode(false)">DHなし</button>
+            <button id="dh-on-btn" class="toggle-btn" onclick="setDhMode(true)">DHあり</button>
+        </div>
+
+        <div class="board-title">📋 1番〜9番 スタメン打順決定</div>
+        <div class="tactical-board" id="tactical-board-container"></div>
+
+        <div class="board-title">⚾ 主力スター＆注目投手</div>
+        <div class="player-bench-list" id="bench-list-container"></div>
+
+        <button class="btn-main" style="margin-top: 4px;" onclick="finalizeCampLineup()">オーダー確定</button>
+    </div>
+
+    <!-- 画面4: 試合画面 -->
+    <div id="screen-game" class="screen" style="padding:0;">
+        <header>
+            <div class="header-title">
+                <h1>日本シリーズ決戦</h1>
+            </div>
+            <div class="header-buttons" style="display:none;"></div>
+        </header>
+
+        <div class="field-section">
+            <div style="display:flex; justify-content:space-between; width:100%;">
+                <div class="bso-container">
+                    <div class="bso-row"><span class="bso-label">B</span><span id="b-dots"></span></div>
+                    <div class="bso-row"><span class="bso-label">S</span><span id="s-dots"></span></div>
+                    <div class="bso-row"><span class="bso-label">O</span><span id="o-dots"></span></div>
+                </div>
+                <div id="inning-display" style="color:white; background:rgba(0,0,0,0.7); padding:4px 8px; border-radius:6px; font-weight:bold; height:fit-content; font-size:0.7rem;">
+                    9回裏 攻撃中
+                </div>
+            </div>
+
+            <div class="diamond-box">
+                <div class="base" id="base-1"></div>
+                <div class="base" id="base-2"></div>
+                <div class="base" id="base-3"></div>
+                <div class="base" id="base-home"></div>
+            </div>
+
+            <div id="batter-info" style="color:white; background:rgba(0,0,0,0.8); padding:4px; border-radius:6px; text-align:center; font-size:0.7rem;">
+                バッター読み込み中...
+            </div>
+        </div>
+
+        <div class="log-section" id="log-box"></div>
+
+        <div class="action-section">
+            <button class="btn" onclick="playTurn('hit')">強振<br><span style="font-size:0.55rem;font-weight:normal;">一発狙い</span></button>
+            <button class="btn" onclick="playTurn('meet')">ミート<br><span style="font-size:0.55rem;font-weight:normal;">確実</span></button>
+            <button class="btn" onclick="playTurn('bunt')">バント<br><span style="font-size:0.55rem;font-weight:normal;">進塁重視</span></button>
+        </div>
+    </div>
+
+    <!-- オーバーレイ -->
+    <div class="overlay" id="overlay">
+        <!-- モード1: タイトル画面 -->
+        <div class="modal-content" id="title-mode">
+            <h2 style="color:#f59e0b; font-size:1.0rem; margin-bottom:6px;">監督！nice！采配ですよ⚾</h2>
+            <p style="font-size:0.65rem; line-height:1.3; text-align:left; background:rgba(0,0,0,0.3); padding:6px; border-radius:6px; margin-bottom: 6px;">
+                初期資金3000万円からNBL制覇を目指す！<br>
+                【目標】フォレストリーグ1位で日本シリーズ進出
+            </p>
+            
+            <div style="margin-bottom:8px;">
+                <label style="font-size:0.7rem; color:#94a3b8; margin-bottom:4px; display:block;">難易度を選択</label>
+                <div class="difficulty-selector">
+                    <button class="diff-btn active" onclick="setDifficulty('normal')">普通</button>
+                    <button class="diff-btn" onclick="setDifficulty('hard')">難しい</button>
+                    <button class="diff-btn" onclick="setDifficulty('veryhard')">鬼畜</button>
+                </div>
+            </div>
+
+            <div class="profile-form">
+                <div><label for="owner-name-input">オーナー名</label><input type="text" id="owner-name-input" value="新庄"></div>
+                <div><label for="team-name-input">球団名</label><input type="text" id="team-name-input" value="ネオ・プレイヤーズ"></div>
+            </div>
+            <button class="btn btn-main" onclick="onStartClicked()">オーナー就任！</button>
+        </div>
+
+        <!-- モード3: ユニフォームスポンサー選択 -->
+        <div class="modal-content" id="sponsor-uniform-section" style="display:none;">
+            <h2 style="color:#38bdf8; font-size:0.95rem;">👕 ユニフォームスポンサー</h2>
+            <div class="sponsor-grid" id="uniform-pool"></div>
+        </div>
+
+        <!-- モード4: 中継スポンサー選択 -->
+        <div class="modal-content" id="sponsor-media-section" style="display:none;">
+            <h2 style="color:#f59e0b; font-size:0.95rem;">📺 放映権契約</h2>
+            <div class="sponsor-grid" id="media-pool"></div>
+        </div>
+
+        <!-- モード5: ドラフト会議 -->
+        <div class="modal-content" id="draft-section" style="display:none;">
+            <h2 style="color:#10b981; font-size:1.0rem; margin-bottom:4px;">🤝 ドラフト会議</h2>
+            <p style="font-size:0.65rem; color:#94a3b8; margin-bottom:4px;">有望な新人選手を指名しよう！</p>
+            <div class="draft-pool" id="draft-pool-container"></div>
+        </div>
+
+        <!-- モード6: トレード交渉 -->
+        <div class="modal-content" id="trade-section" style="display:none;">
+            <h2 style="color:#38bdf8; font-size:1.0rem; margin-bottom:4px;">🤝 トレード市場</h2>
+            <div style="text-align: left; margin-bottom: 4px;">
+                <label style="font-size:0.65rem; color:#f59e0b; font-weight:bold;">放出選手：</label>
+                <select id="trade-my-player-select" style="width:100%; background:#020617; color:#fff; padding:4px; font-size:0.7rem; border:1px solid #334155; border-radius:4px; margin-top:2px;"></select>
+            </div>
+            <div class="trade-pool" id="trade-pool-container"></div>
+            <button class="btn btn-main btn-secondary" onclick="closeTradeModal()" style="margin-top:4px;">戻る</button>
+        </div>
+
+        <!-- モード7: アマチュア大会視察 -->
+        <div class="modal-content" id="amateur-section" style="display:none;">
+            <h2 style="color:#8b5cf6; font-size:1.0rem; margin-bottom:4px;">🏆 アマチュア視察</h2>
+            <p style="font-size:0.65rem; color:#94a3b8; margin-bottom:4px;">隠れた逸材を発掘する！</p>
+            <div class="amateur-pool" id="amateur-pool-container"></div>
+            <button class="btn btn-main btn-secondary" onclick="closeAmateurModal()" style="margin-top:4px;">戻る</button>
+        </div>
+
+        <!-- モード8: オフシーズン報告 -->
+        <div class="modal-content" id="retire-section" style="display:none;">
+            <h2 style="color:#f43f5e; font-size:1.0rem; margin-bottom:4px;">🍂 ストーブリーグ</h2>
+            <div class="retire-list" id="retire-list-container"></div>
+            <button class="btn btn-main" onclick="closeRetireSection()" style="margin-top:4px;">新シーズンへ</button>
+        </div>
+
+        <!-- モード9: 設定・セーブ/ロード -->
+        <div class="modal-content" id="settings-section" style="display:none;">
+            <h2 style="color:#38bdf8; font-size:1.0rem; margin-bottom:4px;">⚙️ 設定・データ管理</h2>
+            <div class="save-load-section">
+                <button class="save-load-btn" onclick="quickSaveGame()">💾 セーブ</button>
+                <button class="save-load-btn load" onclick="quickLoadGame()">📂 ロード</button>
+            </div>
+            <div class="stats-panel" id="settings-stats">
+                <div class="stats-row">
+                    <span class="stats-label">ゲーム時間</span>
+                    <span class="stats-value" id="playtime-display">0:00</span>
+                </div>
+                <div class="stats-row">
+                    <span class="stats-label">総獲得ファン</span>
+                    <span class="stats-value" id="total-fans-display">0人</span>
+                </div>
+                <div class="stats-row">
+                    <span class="stats-label">総支出額</span>
+                    <span class="stats-value" id="total-spent-display">0円</span>
+                </div>
+            </div>
+            <button class="btn btn-main btn-secondary" onclick="closeSettings()" style="margin-top:4px;">戻る</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ================== CONFIG & CONSTANTS ==================
+    const CONFIG = { 
+        initialCapital: 30000000, 
+        monthlyExpenses: 2500000,
+        difficulties: {
+            normal: { opponent_power: 1.0, income_mult: 1.0, expense_mult: 1.0 },
+            hard: { opponent_power: 1.15, income_mult: 0.85, expense_mult: 1.15 },
+            veryhard: { opponent_power: 1.35, income_mult: 0.7, expense_mult: 1.3 }
+        }
+    };
+
+    const CONDITION_TYPES = {
+        0: { name: "絶好調", mark: "↑", class: "cond-best", buff: 0.15 },
+        1: { name: "好調", mark: "↗", class: "cond-good", buff: 0.07 },
+        2: { name: "普通", mark: "➔", class: "cond-normal", buff: 0.0 },
+        3: { name: "不調", mark: "↘", class: "cond-bad", buff: -0.07 },
+        4: { name: "絶不調", mark: "↓", class: "cond-worst", buff: -0.15 }
+    };
+
+    const POSITIONS = ["捕手", "一塁", "二塁", "三塁", "遊撃", "外野", "指名"];
+    const LAST_NAMES = ["佐藤", "鈴木", "高橋", "田中", "渡辺", "伊藤", "山本", "中村", "小林", "加藤"];
+    const FIRST_NAMES = ["翔", "大翔", "拓海", "蓮", "颯太", "大輝", "陸", "悠人", "陽翔"];
+
+    // ================== GAME STATE ==================
+    let pState = {
+        ownerName: "新庄",
+        teamName: "ネオ・プレイヤーズ",
+        difficulty: "normal",
+        capital: CONFIG.initialCapital,
+        fans: 5000,
+        fameLevel: 1,
+        year: 1,
+        month: 1,
+        myRoster: [],
+        selectedOrderIds: [],
+        isDhMode: false,
+        activeScreen: 'screen-pennant',
+        scoutedProspects: [],
+        amateurPoolByMonth: {},
+        sponsorMedia: null,
+        teams: [],
+        gameStartTime: Date.now(),
+        totalFansPeak: 5000,
+        totalMoneySpent: 0,
+        stats: { wins: 0, losses: 0 }
+    };
+
+    // ================== UTILITY FUNCTIONS ==================
+    function generateRandomName() {
+        return LAST_NAMES[Math.floor(Math.random() * LAST_NAMES.length)] + " " + FIRST_NAMES[Math.floor(Math.random() * FIRST_NAMES.length)];
+    }
+
+    function getFameRankString(lv) {
+        const classes = ["E", "D", "C", "B", "A", "S"];
+        let classIdx = Math.floor((lv - 1) / 10);
+        return `${classes[Math.min(classIdx, 5)]}-${lv}`;
+    }
+
+    function getRank(v) {
+        if(v >= 0.75) return "S"; if(v >= 0.60) return "A"; if(v >= 0.45) return "B"; return "C";
+    }
+
+    function showToast(msg, duration = 2000) {
+        const toast = document.createElement('div');
+        toast.className = 'toast-notification';
+        toast.innerText = msg;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), duration);
+    }
+
+    // ================== SAVE/LOAD SYSTEM ==================
+    function quickSaveGame() {
+        try {
+            if (!localStorage) {
+                showToast('⚠️ ブラウザの保存機能が利用できません');
+                return;
+            }
+            const saveData = JSON.stringify({
+                version: "1.0",
+                pState: pState,
+                gameState: gameState,
+                timestamp: new Date().toLocaleString('ja-JP')
+            });
+            localStorage.setItem('baseball_save', saveData);
+            showToast('💾 ゲームを保存しました');
+        } catch (e) {
+            if (e.name === 'QuotaExceededError') {
+                showToast('⚠️ 保存領域が満杯です');
+            } else {
+                showToast('⚠️ 保存に失敗しました');
+            }
+        }
+    }
+
+    function quickLoadGame() {
+        try {
+            if (!localStorage) {
+                showToast('⚠️ ブラウザの保存機能が利用できません');
+                return;
+            }
+            const saveData = localStorage.getItem('baseball_save');
+            if (!saveData) {
+                showToast('⚠️ 保存データがありません');
+                return;
+            }
+            const data = JSON.parse(saveData);
+            // バージョンチェック
+            if (!data.version || data.version !== "1.0") {
+                showToast('⚠️ 保存データが古いバージョンです');
+                return;
+            }
+            pState = data.pState;
+            gameState = data.gameState;
+            showToast(`📂 ${data.timestamp} のデータを読み込みました`);
+            updatePennantDashboard();
+            switchScreen('screen-pennant');
+            document.getElementById('overlay').style.display = 'none';
+        } catch (e) {
+            showToast('⚠️ ロードに失敗しました');
+            console.error(e);
+        }
+    }
+
+    // ================== SETTINGS ==================
+    function setDifficulty(diff) {
+        pState.difficulty = diff;
+        document.querySelectorAll('.diff-btn').forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+    }
+
+    function openSettings() {
+        document.getElementById('overlay').style.display = 'flex';
+        document.getElementById('settings-section').style.display = 'block';
+        
+        const playtime = Math.floor((Date.now() - pState.gameStartTime) / 1000 / 60);
+        document.getElementById('playtime-display').innerText = `${Math.floor(playtime / 60)}:${String(playtime % 60).padStart(2, '0')}`;
+        document.getElementById('total-fans-display').innerText = pState.totalFansPeak.toLocaleString() + '人';
+        document.getElementById('total-spent-display').innerText = (CONFIG.initialCapital - pState.capital).toLocaleString() + '円';
+    }
+
+    function closeSettings() {
+        document.getElementById('settings-section').style.display = 'none';
+        document.getElementById('overlay').style.display = 'none';
+    }
+
+    function toggleStatsPanel() {
+        // TODO: 詳細統計パネルを表示
+        alert(`📊 チーム統計\n\n${pState.teamName}\n現在年度: ${pState.year}年目\nファン: ${pState.fans.toLocaleString()}人\n資金: ${pState.capital.toLocaleString()}円`);
+    }
+
+    // ================== SCREEN MANAGEMENT ==================
+    function switchScreen(screenId) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById(screenId).classList.add('active');
+        pState.activeScreen = screenId;
+    }
+
+    // ================== ROSTER INITIALIZATION ==================
+    let BASE_STAR_PLAYERS = [
+        { id: "p_kanzaki", name: "神崎", type: "野手", pos: "外野", desc: "巧打の俊足外野手", power: 0.45, meet: 0.82, speedStat: 0.85, defenseStat: 0.70, bunt: 0.7, condition: 2, isFarm: false, yearsInTeam: 1 },
+        { id: "p_tojo", name: "東条", type: "野手", pos: "遊撃", desc: "選球眼抜群の名手", power: 0.55, meet: 0.75, speedStat: 0.65, defenseStat: 0.88, bunt: 0.8, condition: 2, isFarm: false, yearsInTeam: 2 },
+        { id: "p_kujo", name: "九条", type: "野手", pos: "一塁", desc: "一撃必殺の4番大砲", power: 0.92, meet: 0.45, speedStat: 0.30, defenseStat: 0.40, bunt: 0.1, condition: 2, isFarm: false, yearsInTeam: 3 },
+        { id: "p_makabe", name: "真壁", type: "野手", pos: "捕手", desc: "職人肌のいぶし銀捕手", power: 0.42, meet: 0.65, speedStat: 0.35, defenseStat: 0.85, bunt: 0.9, condition: 2, isFarm: false, yearsInTeam: 4 },
+        { id: "p_sakuraba", name: "桜庭", type: "野手", pos: "二塁", desc: "電光石火の韋駄天", power: 0.32, meet: 0.78, speedStat: 0.92, defenseStat: 0.75, bunt: 0.6, condition: 2, isFarm: false, yearsInTeam: 1 },
+        { id: "p_dojima", name: "堂島", type: "野手", pos: "三塁", desc: "強肩強打の主砲候補", power: 0.75, meet: 0.58, speedStat: 0.50, defenseStat: 0.65, bunt: 0.3, condition: 2, isFarm: false, yearsInTeam: 2 },
+        { id: "p_usami", name: "宇佐美", type: "野手", pos: "二塁", desc: "隙のない万能内野手", power: 0.52, meet: 0.62, speedStat: 0.60, defenseStat: 0.70, bunt: 0.7, condition: 2, isFarm: false, yearsInTeam: 3 },
+        { id: "p_aisaka", name: "逢坂", type: "野手", pos: "外野", desc: "チャンスに強い仕事人", power: 0.60, meet: 0.70, speedStat: 0.55, defenseStat: 0.60, bunt: 0.5, condition: 2, isFarm: false, yearsInTeam: 1 },
+        { id: "p_kamijo", name: "上条", type: "野手", pos: "指名", desc: "超大型スラッガー候補", power: 0.82, meet: 0.38, speedStat: 0.25, defenseStat: 0.30, bunt: 0.2, condition: 2, isFarm: false, yearsInTeam: 2 },
+        { id: "p_ace_fujishima", name: "藤島", type: "投手", pos: "投手", desc: "絶対的エース", power: 0.10, meet: 0.20, speedStat: 0.20, defenseStat: 0.50, bunt: 0.5, condition: 2, isFarm: false, yearsInTeam: 4, speed: 154, breaking: 0.85, stamina: 0.88 }
+    ];
+
+    function init70ManRoster() {
+        pState.myRoster = [];
+        BASE_STAR_PLAYERS.forEach(p => {
+            pState.myRoster.push(Object.assign({}, p));
+        });
+        for (let i = 0; i < 60; i++) {
+            let isPitcher = (i < 25);
+            let pObj = {
+                id: `gen_${i}_${Date.now()}`,
+                name: generateRandomName(),
+                type: isPitcher ? "投手" : "野手",
+                pos: isPitcher ? "投手" : POSITIONS[Math.floor(Math.random() * (POSITIONS.length - 1))],
+                desc: isPitcher ? "ファーム支える右腕" : "一軍昇格狙う若手",
+                power: Math.random() * 0.4 + 0.1,
+                meet: Math.random() * 0.4 + 0.2,
+                speedStat: Math.random() * 0.5 + 0.2,
+                defenseStat: Math.random() * 0.5 + 0.2,
+                bunt: Math.random() * 0.6 + 0.3,
+                condition: Math.floor(Math.random() * 5),
+                isFarm: i >= 18,
+                yearsInTeam: Math.floor(Math.random() * 3) + 1
+            };
+            if (isPitcher) {
+                pObj.speed = Math.floor(Math.random() * 20) + 138;
+                pObj.breaking = Math.random() * 0.5 + 0.3;
+                pObj.stamina = Math.random() * 0.5 + 0.3;
+            }
+            pState.myRoster.push(pObj);
+        }
+        pState.selectedOrderIds = pState.myRoster.filter(p => p.type === "野手").slice(0, 9).map(p => p.id);
+    }
+
+    // ================== GAME FLOW ==================
+    const TEAMS_DEF = [
+        { id: 0, name: "東京グリフィンズ", league: "forest", wins: 0, losses: 0, draws: 0, strength: 80 },
+        { id: 1, name: "横浜オーシャンズ", league: "forest", wins: 0, losses: 0, draws: 0, strength: 75 },
+        { id: 2, name: "千葉アルマダ", league: "forest", wins: 0, losses: 0, draws: 0, strength: 72 },
+        { id: 3, name: "さいたまブレイズ", league: "forest", wins: 0, losses: 0, draws: 0, strength: 70 },
+        { id: 4, name: "仙台ファルコンズ", league: "forest", wins: 0, losses: 0, draws: 0, strength: 68 },
+        { id: 5, name: "札幌ブリザーズ", league: "forest", wins: 0, losses: 0, draws: 0, strength: 65 },
+        { id: 10, name: "我が球団", league: "forest", wins: 0, losses: 0, draws: 0, strength: 65 }
+    ];
+
+    function onStartClicked() {
+        const ownerVal = document.getElementById('owner-name-input').value.trim();
+        const teamVal = document.getElementById('team-name-input').value.trim();
+        if(ownerVal) pState.ownerName = ownerVal;
+        if(teamVal) pState.teamName = teamVal;
+
+        document.getElementById('title-mode').style.display = 'none';
+        init70ManRoster();
+        pState.teams = JSON.parse(JSON.stringify(TEAMS_DEF));
+        pState.teams.find(t => t.id === 10).name = pState.teamName;
+        
+        switchScreen('screen-pennant');
+        updatePennantDashboard();
+        document.getElementById('overlay').style.display = 'none';
+        showToast('🎮 ゲーム開始！');
+    }
+
+    function updatePennantDashboard() {
+        const diff = CONFIG.difficulties[pState.difficulty];
+        document.getElementById('kpi-capital').innerText = pState.capital.toLocaleString() + " 円";
+        document.getElementById('kpi-fans').innerText = pState.fans.toLocaleString() + " 人";
+        document.getElementById('kpi-fame').innerText = getFameRankString(pState.fameLevel);
+        document.getElementById('current-date-display').innerText = `${pState.year}年目 ${pState.month}月`;
+
+        renderLeagueTable("forest", "table-forest");
+
+        let forestSorted = pState.teams.filter(t => t.league === "forest").sort((a,b) => b.wins - a.wins || a.losses - b.losses);
+        let myRank = forestSorted.findIndex(t => t.id === 10) + 1;
+        
+        const amBtn = document.getElementById('btn-open-amateur');
+        if ([3, 4, 8, 10].includes(pState.month)) {
+            amBtn.style.display = 'block';
+        } else {
+            amBtn.style.display = 'none';
+        }
+
+        const news = document.getElementById('pennant-news');
+        if (pState.month === 1) {
+            news.innerText = "オフ調整期間。2月に春季キャンプが始まります。";
+        } else if (pState.month === 2) {
+            news.innerText = "春季キャンプ中！主力オーダーを指定してください。";
+        } else if (pState.month === 3) {
+            news.innerText = "オープン戦＆春季選抜甲子園期間！";
+        } else if (pState.month >= 4 && pState.month <= 9) {
+            const rankTexts = ["🔥 首位独走中！", "⚡ 2位追撃中！", "📈 3位停滞", "⚠️ 4位苦戦", "📉 5位危機", "💥 最下位"];
+            news.innerText = `【フォレストリーグ ${myRank}位】${rankTexts[Math.min(myRank - 1, 5)]}`;
+        } else if (pState.month === 10) {
+            if (myRank === 1) {
+                news.innerText = `🏆 優勝！日本シリーズ進出！`;
+            } else {
+                news.innerText = `ペナント終了（${myRank}位）。日本シリーズ進出は1位のみです。`;
+            }
+        } else if (pState.month === 11) {
+            news.innerText = "11月ドラフト会議。新人選手を獲得します。";
+        } else if (pState.month === 12) {
+            news.innerText = "12月ストーブリーグ。来年に向けて布陣を整えます。";
+        }
+    }
+
+    function renderLeagueTable(league, tableId) {
+        const tbody = document.querySelector(`#${tableId} tbody`);
+        tbody.innerHTML = "";
+        let sorted = pState.teams.filter(t => t.league === league).sort((a, b) => b.wins - a.wins || a.losses - b.losses);
+        sorted.forEach((t, i) => {
+            const tr = document.createElement('tr');
+            if (t.id === 10) tr.style.background = "rgba(56, 189, 248, 0.25)";
+            tr.innerHTML = `<td>${i+1}</td><td>${t.name}</td><td>${t.wins}</td><td>${t.losses}</td><td>${t.draws}</td>`;
+            tbody.appendChild(tr);
+        });
+    }
+
+    function getTeamPower(teamId) {
+        const diff = CONFIG.difficulties[pState.difficulty];
+        if (teamId !== 10) {
+            const teamDef = TEAMS_DEF.find(t => t.id === teamId);
+            return Math.max(30, Math.min(99, teamDef.strength * diff.opponent_power));
+        }
+        
+        let activePlayers = pState.selectedOrderIds.map(id => pState.myRoster.find(r => r.id === id)).filter(Boolean);
+        if (activePlayers.length === 0) activePlayers = pState.myRoster.slice(0, 9);
+        
+        let batterScore = activePlayers.reduce((sum, p) => {
+            const buff = CONDITION_TYPES[p.condition].buff;
+            return sum + (p.power * 0.35 + p.meet * 0.35 + (p.speedStat || 0.5) * 0.15 + (p.defenseStat || 0.5) * 0.15) * (1 + buff) * 100;
+        }, 0) / activePlayers.length;
+
+        let pitchers = pState.myRoster.filter(p => p.type === "投手" && !p.isFarm);
+        let pitcherScore = 0;
+        if (pitchers.length > 0) {
+            pitcherScore = pitchers.slice(0, 5).reduce((sum, p) => {
+                const buff = CONDITION_TYPES[p.condition].buff;
+                return sum + (((p.speed || 140) - 130) * 2 + (p.breaking || 0.5) * 50) * (1 + buff);
+            }, 0) / Math.min(5, pitchers.length);
+        }
+
+        return Math.max(25, Math.min(98, Math.round((batterScore * 0.5) + (pitcherScore * 0.4) + pState.fameLevel * 0.2)));
+    }
+
+    function simulateMonthMatches() {
+        const diff = CONFIG.difficulties[pState.difficulty];
+        let expense = CONFIG.monthlyExpenses * diff.expense_mult;
+        pState.capital -= expense;
+        pState.totalMoneySpent += expense;
+
+        let prevWins = pState.teams.find(t => t.id === 10).wins;
+        
+        for (let i = 0; i < 22; i++) {
+            let t1 = pState.teams[Math.floor(Math.random() * pState.teams.length)];
+            let t2 = pState.teams.find(t => t.id !== t1.id);
+            
+            let p1 = getTeamPower(t1.id) + (Math.random() * 26 - 13);
+            let p2 = getTeamPower(t2.id) + (Math.random() * 26 - 13);
+
+            if (Math.abs(p1 - p2) < 2) {
+                t1.draws++; t2.draws++;
+            } else if (p1 > p2) {
+                t1.wins++; t2.losses++;
+            } else {
+                t2.wins++; t1.losses++;
+            }
+        }
+
+        let myTeam = pState.teams.find(t => t.id === 10);
+        let monthlyWins = myTeam.wins - prevWins;
+        let fanGain = (monthlyWins * 150 - (22 - monthlyWins) * 45) * diff.income_mult;
+        pState.fans = Math.max(100, pState.fans + fanGain);
+        pState.totalFansPeak = Math.max(pState.totalFansPeak, pState.fans);
+
+        if (pState.month === 7) {
+            pState.fans += 2500;
+            pState.fameLevel = Math.min(50, pState.fameLevel + 1);
+        }
+
+        pState.month++;
+        updatePennantDashboard();
+    }
+
+    function advanceMonth() {
+        if (pState.month === 1) { pState.month = 2; openCampLineupScreen(); return; }
+        if (pState.month === 2) { openCampLineupScreen(); return; }
+        if (pState.month === 3) { openSponsorNegotiation(); return; }
+        if (pState.month >= 4 && pState.month <= 9) { simulateMonthMatches(); return; }
+        if (pState.month === 10) {
+            let forestSorted = pState.teams.filter(t => t.league === "forest").sort((a,b) => b.wins - a.wins || a.losses - b.losses);
+            let myRank = forestSorted.findIndex(t => t.id === 10) + 1;
+            if (myRank === 1) { startClimaxGame(); } 
+            else { pState.month = 11; openDraftConference(); }
+            return;
+        }
+        if (pState.month === 11) { openDraftConference(); return; }
+        if (pState.month === 12) { openRetirementAndRelease(); return; }
+    }
+
+    // ================== CAMP LINEUP SETUP ==================
+    function setDhMode(isActive) {
+        pState.isDhMode = isActive;
+        document.getElementById('dh-on-btn').classList.toggle('active', isActive);
+        document.getElementById('dh-off-btn').classList.toggle('active', !isActive);
+        rebuildOrderSelects();
+    }
+
+    function openCampLineupScreen() {
+        switchScreen('screen-camp-lineup');
+        setDhMode(pState.isDhMode);
+        renderBenchPlayersList();
+    }
+
+    function rebuildOrderSelects() {
+        const container = document.getElementById('tactical-board-container');
+        container.innerHTML = "";
+
+        let availableBatters = pState.myRoster.filter(p => p.type === "野手");
+        let availablePitchers = pState.myRoster.filter(p => p.type === "投手");
+
+        for (let i = 0; i < 9; i++) {
+            let isPitcherSlot = (!pState.isDhMode && i === 8);
+            let slotHtml = `<div class="order-slot"><div class="order-badge">${i+1}</div><div class="order-select-wrapper"><select id="camp-order-${i}" class="order-select" onchange="onOrderChanged()">`;
+            
+            let loopPlayers = isPitcherSlot ? availablePitchers : availableBatters;
+            loopPlayers.forEach(p => {
+                const cond = CONDITION_TYPES[p.condition];
+                let currentSelectedId = pState.selectedOrderIds[i];
+                let selectedAttr = (currentSelectedId === p.id) ? "selected" : "";
+                let displayStat = p.type === "投手" ? `${p.speed || 145}km` : `${getRank(p.meet)}`;
+                slotHtml += `<option value="${p.id}" ${selectedAttr}>${cond.mark} ${p.name} (${displayStat})</option>`;
+            });
+
+            slotHtml += `</select></div></div>`;
+            container.innerHTML += slotHtml;
+        }
+    }
+
+    function renderBenchPlayersList() {
+        const container = document.getElementById('bench-list-container');
+        container.innerHTML = "";
+        pState.myRoster.slice(0, 12).forEach(b => {
+            const cond = CONDITION_TYPES[b.condition];
+            let statHtml = b.type === "投手"
+                ? `<div class="stat-badge">${b.speed || 145}km</div>`
+                : `<div class="stat-badge">${b.pos}</div>`;
+            
+            container.innerHTML += `
+                <div class="bench-player-card ${b.isFarm ? 'farm-status' : ''}">
+                    <div class="player-name-col">[${b.type}] ${b.name}</div>
+                    <div><span class="condition-indicator ${cond.class}">${cond.mark}</span></div>
+                    <div>${statHtml}</div>
+                </div>
+            `;
+        });
+    }
+
+    function onOrderChanged() {
+        for (let i = 0; i < 9; i++) {
+            pState.selectedOrderIds[i] = document.getElementById(`camp-order-${i}`).value;
+        }
+        renderBenchPlayersList();
+    }
+
+    function finalizeCampLineup() {
+        const uniqueIds = new Set(pState.selectedOrderIds.filter(id => id));
+        if (uniqueIds.size !== 9) {
+            alert("⚠️ 異なる9名の選手を選出してください");
+            return;
+        }
+        pState.month = 3;
+        switchScreen('screen-pennant');
+        updatePennantDashboard();
+        showToast('✅ オーダーを確定しました');
+    }
+
+    // ================== SPONSORSHIP ==================
+    function openSponsorNegotiation() {
+        document.getElementById('overlay').style.display = 'flex';
+        document.getElementById('sponsor-uniform-section').style.display = 'block';
+        const uPool = document.getElementById('uniform-pool');
+        uPool.innerHTML = `
+            <div class="sponsor-card" onclick="selectUniformSponsor(15000000)"><h4>サイバーネクスト</h4><p>一時金【15,000,000円】支給</p></div>
+            <div class="sponsor-card" onclick="selectUniformSponsor(25000000)"><h4>磐石重工業</h4><p>一時金【25,000,000円】支給</p></div>
+        `;
+    }
+
+    function selectUniformSponsor(pay) {
+        pState.capital += pay;
+        document.getElementById('sponsor-uniform-section').style.display = 'none';
+        document.getElementById('sponsor-media-section').style.display = 'block';
+        
+        const mPool = document.getElementById('media-pool');
+        mPool.innerHTML = `
+            <div class="sponsor-card" onclick="selectMediaSponsor(3000000)"><h4>東日本メガテレビ</h4><p>毎月【300万円】支給</p></div>
+            <div class="sponsor-card" onclick="selectMediaSponsor(5000000)"><h4>NBL-LIVE配信</h4><p>毎月【500万円】支給</p></div>
+        `;
+    }
+
+    function selectMediaSponsor(pay) {
+        pState.sponsorMedia = { monthlyPay: pay };
+        document.getElementById('sponsor-media-section').style.display = 'none';
+        document.getElementById('overlay').style.display = 'none';
+        pState.month = 4;
+        updatePennantDashboard();
+    }
+
+    // ================== SCOUT SYSTEM ==================
+    function generateAmateurProspectsForMonth(m) {
+        if (pState.amateurPoolByMonth[m]) return pState.amateurPoolByMonth[m];
+        
+        let pool = [];
+        for (let i = 0; i < 3; i++) {
+            let isPitcher = (i === 1);
+            let prospect = {
+                id: `am_${m}_${i}`,
+                name: generateRandomName(),
+                type: isPitcher ? "投手" : "野手",
+                pos: isPitcher ? "投手" : POSITIONS[Math.floor(Math.random() * (POSITIONS.length - 1))],
+                power: Math.random() * 0.5 + 0.4,
+                meet: Math.random() * 0.5 + 0.4,
+                speedStat: Math.random() * 0.5 + 0.4,
+                defenseStat: Math.random() * 0.5 + 0.4,
+                speed: isPitcher ? Math.floor(Math.random() * 15) + 145 : 0,
+                breaking: isPitcher ? Math.random() * 0.4 + 0.5 : 0,
+                stamina: isPitcher ? Math.random() * 0.4 + 0.5 : 0
+            };
+            pool.push(prospect);
+        }
+        pState.amateurPoolByMonth[m] = pool;
+        return pool;
+    }
+
+    function openAmateurScoutModal() {
+        document.getElementById('overlay').style.display = 'flex';
+        document.getElementById('amateur-section').style.display = 'block';
+        
+        const container = document.getElementById('amateur-pool-container');
+        container.innerHTML = "";
+        const prospects = generateAmateurProspectsForMonth(pState.month);
+
+        prospects.forEach(p => {
+            let isScouted = pState.scoutedProspects.some(sp => sp.id === p.id);
+            let detailInfo = isScouted 
+                ? (p.type === "投手" ? `最速:${p.speed}km/h` : `守位:${p.pos}`)
+                : `能力: ??? (要視察)`;
+
+            container.innerHTML += `
+                <div class="amateur-card">
+                    <div>
+                        <strong style="color:var(--warning-color);">[${p.type}] ${p.name}</strong><br>
+                        <span style="font-size:0.6rem; color:#cbd5e1;">${detailInfo}</span>
+                    </div>
+                    <button class="amateur-btn" ${isScouted ? 'disabled' : ''} onclick="scoutProspect('${p.id}', '${p.name}', '${p.type}', '${p.pos}', ${p.power}, ${p.meet}, ${p.speedStat}, ${p.defenseStat}, ${p.speed}, ${p.breaking}, ${p.stamina})">
+                        ${isScouted ? '済' : '視察'}
+                    </button>
+                </div>
+            `;
+        });
+    }
+
+    function scoutProspect(id, name, type, pos, power, meet, speedStat, defenseStat, speed, breaking, stamina) {
+        if (pState.capital < 3000000) {
+            showToast("⚠️ 資金不足です");
+            return;
+        }
+        pState.capital -= 3000000;
+        pState.scoutedProspects.push({ id, name, type, pos, power, meet, speedStat, defenseStat, speed, breaking, stamina });
+        showToast(`✅ ${name} を視察しました`);
+        updatePennantDashboard();
+        openAmateurScoutModal();
+    }
+
+    function closeAmateurModal() {
+        document.getElementById('amateur-section').style.display = 'none';
+        document.getElementById('overlay').style.display = 'none';
+    }
+
+    // ================== TRADE SYSTEM ==================
+    function openTradeModal() {
+        document.getElementById('overlay').style.display = 'flex';
+        document.getElementById('trade-section').style.display = 'block';
+        
+        const mySelect = document.getElementById('trade-my-player-select');
+        mySelect.innerHTML = "";
+        pState.myRoster.forEach(p => {
+            let stat = p.type === "投手" ? `${p.speed}km` : `巧:${getRank(p.meet)}`;
+            mySelect.innerHTML += `<option value="${p.id}">${p.name} (${stat})</option>`;
+        });
+
+        const poolContainer = document.getElementById('trade-pool-container');
+        poolContainer.innerHTML = "";
+        
+        const trades = [
+            { name: generateRandomName(), type: "野手", pos: "外野", power: 0.50, meet: 0.85, speedStat: 0.88, defenseStat: 0.70, bunt: 0.75, speed: 0, breaking: 0, stamina: 0 },
+            { name: generateRandomName(), type: "野手", pos: "一塁", power: 0.95, meet: 0.38, speedStat: 0.25, defenseStat: 0.40, bunt: 0.10, speed: 0, breaking: 0, stamina: 0 },
+            { name: generateRandomName(), type: "投手", pos: "投手", power: 0.10, meet: 0.15, speedStat: 0.20, defenseStat: 0.50, bunt: 0.70, speed: 152, breaking: 0.80, stamina: 0.75 }
+        ];
+
+        trades.forEach((t, idx) => {
+            let detail = t.type === "投手" ? `${t.speed}km/h` : `${getRank(t.meet)}`;
+            poolContainer.innerHTML += `
+                <div class="trade-row">
+                    <div><strong style="color:var(--primary-color);">${t.name}</strong> (${detail})</div>
+                    <button class="trade-btn" onclick="executeTradeDeal('${t.name}','${t.type}','${t.pos}',${t.power},${t.meet},${t.speedStat},${t.defenseStat},${t.bunt},${t.speed},${t.breaking},${t.stamina},${idx})">成立</button>
+                </div>
+            `;
+        });
+    }
+
+    function executeTradeDeal(eName, eType, ePos, ePower, eMeet, eSpeedStat, eDefenseStat, eBunt, eSpeed, eBreaking, eStamina, idx) {
+        const mySelect = document.getElementById('trade-my-player-select');
+        const myPlayerId = mySelect.value;
+        let myPlayerIdx = pState.myRoster.findIndex(p => p.id === myPlayerId);
+        let myPlayer = pState.myRoster[myPlayerIdx];
+
+        pState.myRoster.splice(myPlayerIdx, 1);
+        pState.myRoster.push({
+            id: `trade_${Date.now()}`,
+            name: eName,
+            type: eType,
+            pos: ePos,
+            desc: "トレード獲得",
+            power: ePower,
+            meet: eMeet,
+            speedStat: eSpeedStat,
+            defenseStat: eDefenseStat,
+            bunt: eBunt,
+            speed: eSpeed,
+            breaking: eBreaking,
+            stamina: eStamina,
+            condition: 2,
+            isFarm: false,
+            yearsInTeam: 1
+        });
+
+        closeTradeModal();
+        showToast(`✅ ${eName} を獲得しました`);
+        updatePennantDashboard();
+    }
+
+    function closeTradeModal() {
+        document.getElementById('trade-section').style.display = 'none';
+        document.getElementById('overlay').style.display = 'none';
+    }
+
+    // ================== DRAFT SYSTEM ==================
+    function openDraftConference() {
+        document.getElementById('overlay').style.display = 'flex';
+        document.getElementById('draft-section').style.display = 'block';
+        const poolContainer = document.getElementById('draft-pool-container');
+        poolContainer.innerHTML = "";
+
+        let dPlayers = [];
+        pState.scoutedProspects.forEach(sp => {
+            dPlayers.push({
+                id: sp.id,
+                name: sp.name,
+                type: sp.type,
+                pos: sp.pos,
+                desc: "★視察調査済み",
+                power: sp.power,
+                meet: sp.meet,
+                speedStat: sp.speedStat,
+                defenseStat: sp.defenseStat,
+                bunt: 0.5,
+                speed: sp.speed,
+                breaking: sp.breaking,
+                stamina: sp.stamina,
+                salary: 8000000
+            });
+        });
+
+        for (let i = 0; i < 2; i++) {
+            dPlayers.push({
+                id: `draft_${i}`,
+                name: generateRandomName(),
+                type: Math.random() > 0.6 ? "投手" : "野手",
+                pos: Math.random() > 0.6 ? "投手" : "外野",
+                desc: "新鋭選手",
+                power: Math.random() * 0.5 + 0.4,
+                meet: Math.random() * 0.5 + 0.4,
+                speedStat: Math.random() * 0.5 + 0.4,
+                defenseStat: Math.random() * 0.5 + 0.4,
+                bunt: 0.5,
+                speed: Math.random() > 0.5 ? Math.floor(Math.random() * 15) + 145 : 0,
+                breaking: Math.random() > 0.5 ? Math.random() * 0.4 + 0.5 : 0,
+                stamina: Math.random() > 0.5 ? Math.random() * 0.4 + 0.5 : 0,
+                salary: 10000000
+            });
+        }
+
+        dPlayers.forEach(dp => {
+            let stat = dp.type === "投手" ? `${dp.speed}km/h` : `[${dp.pos}]`;
+            poolContainer.innerHTML += `
+                <div class="draft-card">
+                    <div>
+                        <strong>[${dp.type}] ${dp.name}</strong> (${stat})<br>
+                        <span style="font-size:0.6rem; color:#94a3b8;">${dp.desc}</span>
+                    </div>
+                    <button class="draft-btn" onclick="executeDraft('${dp.name}','${dp.type}','${dp.pos}',${dp.power},${dp.meet},${dp.speedStat},${dp.defenseStat},${dp.bunt},${dp.speed},${dp.breaking},${dp.stamina},${dp.salary})">獲得</button>
+                </div>
+            `;
+        });
+    }
+
+    function executeDraft(name, type, pos, power, meet, speedStat, defenseStat, bunt, speed, breaking, stamina, salary) {
+        let totalCost = 5000000 + salary;
+        if (pState.capital < totalCost) {
+            showToast("⚠️ 資金不足");
+            return;
+        }
+
+        pState.myRoster.push({
+            id: `rookie_${Date.now()}`,
+            name: name,
+            type: type,
+            pos: pos,
+            desc: "ドラフト新人",
+            power: power,
+            meet: meet,
+            speedStat: speedStat,
+            defenseStat: defenseStat,
+            bunt: bunt,
+            speed: speed,
+            breaking: breaking,
+            stamina: stamina,
+            condition: 1,
+            isFarm: false,
+            yearsInTeam: 1
+        });
+        
+        pState.capital -= totalCost;
+        showToast(`✅ ${name} を獲得！`);
+        
+        document.getElementById('draft-section').style.display = 'none';
+        document.getElementById('overlay').style.display = 'none';
+        
+        pState.month = 12;
+        updatePennantDashboard();
+    }
+
+    // ================== OFF-SEASON ==================
+    function openRetirementAndRelease() {
+        document.getElementById('overlay').style.display = 'flex';
+        document.getElementById('retire-section').style.display = 'block';
+        const listContainer = document.getElementById('retire-list-container');
+
+        let outRev = pState.fans * 1000;
+        pState.capital += outRev;
+
+        pState.myRoster.forEach(p => {
+            p.yearsInTeam = (p.yearsInTeam || 1) + 1;
+        });
+
+        listContainer.innerHTML = `
+            <div>【決算】ファン動員利益 +${outRev.toLocaleString()}円</div><br>
+            <div>【更新】全選手の在籍年数が1年進みました</div>
+        `;
+    }
+
+    function closeRetireSection() {
+        document.getElementById('retire-section').style.display = 'none';
+        document.getElementById('overlay').style.display = 'none';
+        
+        pState.year++;
+        pState.month = 1;
+        pState.teams.forEach(t => { t.wins = 0; t.losses = 0; t.draws = 0; });
+        pState.scoutedProspects = [];
+        pState.amateurPoolByMonth = {};
+        
+        updatePennantDashboard();
+        showToast(`🎍 ${pState.year}年目開始！`);
+    }
+
+    // ================== GAME ENGINE ==================
+    let gameState = { scoreEnemy: 1, scorePlayer: 0, balls: 0, strikes: 0, outs: 2, bases: [true, true, true], batterOrderIndex: 0, gameOver: false };
+    let matchBatters = [];
+
+    function startClimaxGame() {
+        switchScreen('screen-game');
+        gameState = { scoreEnemy: 1, scorePlayer: 0, balls: 0, strikes: 0, outs: 2, bases: [true, true, true], batterOrderIndex: 0, gameOver: false };
+        matchBatters = pState.selectedOrderIds.map(id => pState.myRoster.find(r => r.id === id)).filter(Boolean);
+        
+        document.getElementById('log-box').innerHTML = `<div>【実況】日本シリーズ決戦！9回裏2死満塁！</div>`;
+        updateUI();
+    }
+
+    function log(msg) {
+        const box = document.getElementById('log-box');
+        box.innerHTML += `<div>${msg}</div>`;
+        box.scrollTop = box.scrollHeight;
+    }
+
+    function updateUI() {
+        document.getElementById('b-dots').innerHTML = '●'.repeat(gameState.balls) + '○'.repeat(3 - gameState.balls);
+        document.getElementById('s-dots').innerHTML = '●'.repeat(gameState.strikes) + '○'.repeat(2 - gameState.strikes);
+        document.getElementById('o-dots').innerHTML = '●'.repeat(gameState.outs) + '○'.repeat(2 - gameState.outs);
+
+        document.getElementById('base-1').className = 'base' + (gameState.bases[0] ? ' runner' : '');
+        document.getElementById('base-2').className = 'base' + (gameState.bases[1] ? ' runner' : '');
+        document.getElementById('base-3').className = 'base' + (gameState.bases[2] ? ' runner' : '');
+
+        document.getElementById('score-player').innerText = gameState.scorePlayer;
+
+        if (!gameState.gameOver && matchBatters.length > 0) {
+            let currentBatter = matchBatters[gameState.batterOrderIndex];
+            let cond = CONDITION_TYPES[currentBatter.condition];
+            document.getElementById('batter-info').innerText = `【${gameState.batterOrderIndex + 1}番】 ${currentBatter.name} ${cond.mark}`;
+        }
+    }
+
+    function playTurn(command) {
+        if (gameState.gameOver) return;
+        let batter = matchBatters[gameState.batterOrderIndex];
+        let r = Math.random();
+        
+        log(`📢 「${command === 'hit' ? '強振' : command === 'meet' ? 'ミート' : 'バント'}」`);
+
+        if (command === 'bunt') {
+            if (r < (batter.bunt || 0.5)) {
+                log(`➔ スクイズ成功！3塁ランナー生還！`);
+                gameState.scorePlayer++;
+                gameState.outs++;
+                nextBatter();
+            } else {
+                log(`➔ 小フライでアウト！`);
+                gameState.outs++;
+                nextBatter();
+            }
+        } else {
+            let hitChance = command === 'meet' ? batter.meet * 1.2 : batter.meet * 0.7;
+            if (r < 0.35) {
+                if (Math.random() > 0.5) {
+                    gameState.strikes++;
+                    log(`➔ ストライク！`);
+                    if (gameState.strikes >= 3) {
+                        log(`➔ 三振！`);
+                        gameState.outs++;
+                        nextBatter();
+                    }
+                } else {
+                    gameState.balls++;
+                    log(`➔ ボール！`);
+                    if (gameState.balls >= 4) {
+                        log(`➔ 押し出し四球！同点！`);
+                        gameState.scorePlayer++;
+                        nextBatter();
+                    }
+                }
+            } else {
+                if (Math.random() < hitChance) {
+                    if (command === 'hit' && Math.random() < batter.power) {
+                        log(`🎉 サヨナラホームラン！！`);
+                        gameState.scorePlayer += 4;
+                    } else {
+                        log(`✨ サヨナラ適時打！`);
+                        gameState.scorePlayer++;
+                    }
+                } else {
+                    log(`➔ ゴロでアウト！`);
+                    gameState.outs++;
+                    nextBatter();
+                }
+            }
+        }
+        checkGameStatus();
+        updateUI();
+    }
+
+    function nextBatter() {
+        gameState.balls = 0;
+        gameState.strikes = 0;
+        gameState.batterOrderIndex = (gameState.batterOrderIndex + 1) % matchBatters.length;
+    }
+
+    function checkGameStatus() {
+        if (gameState.scorePlayer > gameState.scoreEnemy) {
+            gameState.gameOver = true;
+            pState.fans += 4000;
+            pState.fameLevel = Math.min(50, pState.fameLevel + 3);
+            pState.stats.wins++;
+            showToast('🏆 日本一！');
+            endGame(true);
+        } else if (gameState.outs >= 3) {
+            gameState.gameOver = true;
+            pState.stats.losses++;
+            showToast('😭 ゲームセット');
+            endGame(false);
+        }
+    }
+
+    function endGame(isWin) {
+        setTimeout(() => {
+            alert(isWin ? '🏆 劇的日本一！\n新シーズンへ進みます' : '😭 敗退\nオフの補強へ');
+            pState.month = 11;
+            switchScreen('screen-pennant');
+            openDraftConference();
+        }, 500);
+    }
+
+    // ================== INIT ==================
+    document.addEventListener('DOMContentLoaded', () => {
+        drawTitleGraphics();
+    });
+
+    function drawTitleGraphics() {
+        const canvas = document.getElementById('title-canvas');
+        const ctx = canvas.getContext('2d');
+        let frame = 0;
+
+        const animate = () => {
+            frame++;
+            let bgGrad = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            bgGrad.addColorStop(0, "#0f172a");
+            bgGrad.addColorStop(1, "#311042");
+            ctx.fillStyle = bgGrad;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = "#a16207";
+            ctx.beginPath();
+            ctx.ellipse(160, 100, 130, 20, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            let pX = 140 + Math.sin(frame * 0.04) * 2;
+            ctx.fillStyle = "#cbd5e1";
+            ctx.fillRect(pX + 4, 80, 8, 16);
+            ctx.fillRect(pX + 16, 80, 9, 14);
+
+            if (frame < 300) requestAnimationFrame(animate);
+        };
+        animate();
+    }
+</script>
+</body>
+</html>
