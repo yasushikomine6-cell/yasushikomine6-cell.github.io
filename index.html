@@ -439,6 +439,173 @@
             <a href="https://yasushikomine6-cell.github.io/employee.html" target="_blank" class="press-btn" id="btn-employee">🔥 デジタルプレス室 優秀従業員名簿</a>
         </div>
 
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>エピソードリンク集</title>
+  <style>
+    :root {
+      --primary-color: #0066cc;
+      --bg-color: #f8f9fa;
+      --border-color: #dee2e6;
+      --text-color: #333;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.6;
+      color: var(--text-color);
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 0 15px;
+      background-color: #fff;
+    }
+
+    h2 {
+      text-align: center;
+      color: #222;
+      margin-bottom: 20px;
+    }
+
+    /* --- PC / タブレット用：テーブルスタイル --- */
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    th {
+      background-color: var(--bg-color);
+      font-weight: bold;
+      color: #555;
+    }
+
+    tr:hover {
+      background-color: #f1f5f9;
+    }
+
+    a {
+      color: var(--primary-color);
+      text-decoration: none;
+      word-break: break-all;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* --- スマホ用：プルダウンリスト（初期状態は非表示） --- */
+    .mobile-dropdown-container {
+      display: none;
+      margin-bottom: 20px;
+    }
+
+    .dropdown-label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    select {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      background-color: #fff;
+      color: var(--text-color);
+      cursor: pointer;
+    }
+
+    select:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    /* --- レスポンシブ切替（画面幅600px以下のスマホサイズ） --- */
+    @media screen and (max-width: 600px) {
+      /* テーブルを非表示にし、プルダウンを表示 */
+      .table-container {
+        display: none;
+      }
+
+      .mobile-dropdown-container {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h2>エピソード一覧（第16話〜第20話）</h2>
+
+  <!-- PC・タブレット用テーブル表示 -->
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 20%;">話数</th>
+          <th style="width: 80%;">リンク</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>第16話</td>
+          <td><a href="https://yui13.yasushikomine6.workers.dev/" target="_blank" rel="noopener noreferrer">https://yui13.yasushikomine6.workers.dev/</a></td>
+        </tr>
+        <tr>
+          <td>第17話</td>
+          <td><a href="https://yui17.yasushikomine6.workers.dev/" target="_blank" rel="noopener noreferrer">https://yui17.yasushikomine6.workers.dev/</a></td>
+        </tr>
+        <tr>
+          <td>第18話</td>
+          <td><a href="https://yui18.yasushikomine6.workers.dev/" target="_blank" rel="noopener noreferrer">https://yui18.yasushikomine6.workers.dev/</a></td>
+        </tr>
+        <tr>
+          <td>第19話</td>
+          <td><a href="https://yui19.yasushikomine6.workers.dev/" target="_blank" rel="noopener noreferrer">https://yui19.yasushikomine6.workers.dev/</a></td>
+        </tr>
+        <tr>
+          <td>第20話</td>
+          <td><a href="https://yui20.yasushikomine6.workers.dev/" target="_blank" rel="noopener noreferrer">https://yui20.yasushikomine6.workers.dev/</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- スマホ用プルダウンメニュー表示 -->
+  <div class="mobile-dropdown-container">
+    <label for="episode-select" class="dropdown-label">話数を選択して移動:</label>
+    <select id="episode-select" onchange="if(this.value) window.open(this.value, '_blank')">
+      <option value="">-- 話数を選択してください --</option>
+      <option value="https://yui13.yasushikomine6.workers.dev/">第16話</option>
+      <option value="https://yui17.yasushikomine6.workers.dev/">第17話</option>
+      <option value="https://yui18.yasushikomine6.workers.dev/">第18話</option>
+      <option value="https://yui19.yasushikomine6.workers.dev/">第19話</option>
+      <option value="https://yui20.yasushikomine6.workers.dev/">第20話</option>
+    </select>
+  </div>
+
+</body>
+</html>
+
+
         <!-- ゆいちゃんリンク集カード -->
         <div class="yui-card">
             <h1 class="main-title" id="yui-card-title">ドジっ子・ゆいちゃん</h1>
