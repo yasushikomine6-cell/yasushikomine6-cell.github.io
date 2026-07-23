@@ -3,16 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>夢GAMEs & 三鷹の街</title>
-
-<head>
-  <meta charset="UTF-8">
-  <title>ドジっ子・女子アナ・ゆいちゃん</title>
-
-  <!-- 検索エンジン用の説明文 -->
-  <meta name="description" content="音楽院の街角にて。「ようこそ！うちの街へ。素敵な音楽が聞こえてきそうじゃろ？」運命のコンサート。「よし、私の番！ドキドキするけど頑張るぞ！」ドジっ子女子アナ・ゆいちゃんの物語。">
-</head>
-
+    <title>夢GAMEs & 三鷹市 ゲーム検索</title>
+    <meta name="description" content="音楽院の街角にて。「ようこそ！うちの街へ。素敵な音楽が聞こえてきそうじゃろ？」運命のコンサート。「よし、私の番！ドキドキするけど頑張るぞ！」ドジっ子女子アナ・ゆいちゃんの物語と三鷹市のゲーム検索。">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@700&display=swap" rel="stylesheet">
@@ -25,15 +17,16 @@
             padding: 0;
         }
         body {
-            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, 'Hiragino Kaku Gothic ProN', sans-serif;
             background-color: #f7f6f0;
             color: #3a352a;
             line-height: 1.6;
             -webkit-text-size-adjust: 100%;
             padding-top: 60px; /* 右上ボタンと文字が被らないように上部に余白を確保 */
+            padding-bottom: 40px;
         }
 
-        /* --- 🌐 右上固定の多言語切替ボタン（レスポンシブ対応） --- */
+        /* --- 🌐 右上固定の多言語切替ボタン --- */
         .lang-container {
             position: absolute;
             top: 12px;
@@ -70,12 +63,60 @@
             color: #0f172a;
         }
 
-        /* --- コンテナと余白（スマホ幅対応） --- */
+        /* --- コンテナと余白（スマホ幅・レスポンシブ対応） --- */
         .container {
             padding: 12px;
             max-width: 480px;
             margin: 0 auto;
             width: 100%;
+        }
+
+        /* --- 検索カード（レスポンシブ幅） --- */
+        .search-card {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(43, 76, 63, 0.08);
+            border: 1px solid #e8e5dd;
+            margin: 20px 0;
+            text-align: center;
+            width: 100%;
+        }
+        .search-card h2 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        .input-group {
+            display: flex;
+            gap: 8px;
+            width: 100%;
+        }
+        input[type="text"] {
+            flex: 1;
+            min-width: 0; /* フレックスアイテムの縮小バグ防止 */
+            padding: 12px 14px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            outline: none;
+        }
+        input[type="text"]:focus {
+            border-color: #007bff;
+        }
+        .search-card button {
+            padding: 12px 16px;
+            font-size: 1rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            white-space: nowrap;
+        }
+        .search-card button:hover {
+            background-color: #0056b3;
         }
 
         /* --- アクセスカウンターカード --- */
@@ -294,7 +335,7 @@
         }
 
         /* --- ギャラリーセクション --- */
-        section {
+        section.gallery-section {
             min-height: 140px;
             display: flex;
             align-items: center;
@@ -366,6 +407,18 @@
 
         <h1 class="mitaka-game-title" id="store-title">あなたのまちのゲーム屋さん</h1>
 
+        <!-- 三鷹市ゲーム検索カード -->
+        <div class="search-card">
+            <h2 id="search-card-title">三鷹市 ゲーム検索</h2>
+            <form action="https://www.google.com/search" method="get" target="_blank" onsubmit="appendKeywords(event)">
+                <div class="input-group">
+                    <input type="text" id="user-query" placeholder="キーワードを入力 (例: ショップ)" required>
+                    <input type="hidden" name="q" id="final-query">
+                    <button type="submit" id="search-btn-text">検索</button>
+                </div>
+            </form>
+        </div>
+
         <!-- アクセス・カウンター -->
         <div class="counter-card">
             <div class="title" id="counter-title">Total Visits</div>
@@ -419,21 +472,21 @@
         </div>
 
         <!-- ギャラリー -->
-        <section class="section-market">
+        <section class="gallery-section">
             <div class="overlay-box">
                 <h3 id="gallery-1-title">音楽院の街角にて</h3>
                 <p id="gallery-1-desc">素敵な音楽が聴こえてきそうじゃろ？</p>
             </div>
         </section>
 
-        <section class="section-piano">
+        <section class="gallery-section">
             <div class="overlay-box">
                 <h3 id="gallery-2-title">運命のコンサート</h3>
                 <p id="gallery-2-desc">ドキドキをエネルギーに変えるんよ！</p>
             </div>
         </section>
 
-        <section class="section-taxi-stage">
+        <section class="gallery-section">
             <div class="overlay-box">
                 <h3 id="gallery-3-title">緊迫のラストステージ</h3>
                 <p id="gallery-3-desc">今度は、私の番...！</p>
@@ -453,13 +506,23 @@
         </div>
     </div>
 
-  <!-- 多言語切り替えとアクセスカウンターのスクリプト -->
+  <!-- スクリプト (多言語対応・検索キーワード合成・アクセスカウンター) -->
   <script>
-    // 1. 多言語辞書データ
+    // 1. 検索用キーワード結合スクリプト
+    function appendKeywords(event) {
+        const userInput = document.getElementById('user-query').value.trim();
+        const fullQuery = `ゲーム 三鷹市 ${userInput}`;
+        document.getElementById('final-query').value = fullQuery;
+    }
+
+    // 2. 多言語辞書データ
     const i18n = {
       ja: {
         welcome: "ようこそ夢GAMEsへ",
         storeTitle: "あなたのまちのゲーム屋さん",
+        searchCardTitle: "三鷹市 ゲーム検索",
+        searchPlaceholder: "キーワードを入力 (例: ショップ)",
+        searchBtn: "検索",
         counterTitle: "TOTAL VISITS",
         xBtn: "公式X（@dream_games2023）はこちら",
         profile: "創設者プロフィールへ進む ➔",
@@ -480,6 +543,9 @@
       en: {
         welcome: "Welcome to Yume GAMEs",
         storeTitle: "Your Neighborhood Game Shop",
+        searchCardTitle: "Mitaka Game Search",
+        searchPlaceholder: "Enter keyword (e.g. shop)",
+        searchBtn: "Search",
         counterTitle: "TOTAL VISITS",
         xBtn: "Official X (@dream_games2023)",
         profile: "Founder Profile ➔",
@@ -500,6 +566,9 @@
       ko: {
         welcome: "꿈 GAMEs에 오신 것을 환영합니다",
         storeTitle: "당신의 동네 게임 샵",
+        searchCardTitle: "미타카시 게임 검색",
+        searchPlaceholder: "키워드 입력 (예: 샵)",
+        searchBtn: "검색",
         counterTitle: "TOTAL VISITS",
         xBtn: "공식 X (@dream_games2023)",
         profile: "창설자 프로필로 이동 ➔",
@@ -520,22 +589,23 @@
     };
 
     function setLanguage(lang) {
-      // ボタンのアクティブ状態更新
       const buttons = document.querySelectorAll('.lang-btn');
       buttons[0].classList.toggle('active', lang === 'ja');
       buttons[1].classList.toggle('active', lang === 'en');
       buttons[2].classList.toggle('active', lang === 'ko');
 
-      // テキストの切り替え
       const t = i18n[lang];
       document.getElementById('welcome-text').textContent = t.welcome;
       document.getElementById('store-title').textContent = t.storeTitle;
+      document.getElementById('search-card-title').textContent = t.searchCardTitle;
+      document.getElementById('user-query').placeholder = t.searchPlaceholder;
+      document.getElementById('search-btn-text').textContent = t.searchBtn;
       document.getElementById('counter-title').textContent = t.counterTitle;
       document.getElementById('x-btn-text').textContent = t.xBtn;
       document.getElementById('btn-profile').textContent = t.profile;
       document.getElementById('btn-yui').textContent = t.yui;
       document.getElementById('btn-employee').textContent = t.employee;
-      document.getElementById('yui-cardTitle').textContent = t.yuiCardTitle;
+      document.getElementById('yui-card-title').textContent = t.yuiCardTitle;
       document.getElementById('table-header').textContent = t.tableHeader;
       document.getElementById('gallery-1-title').textContent = t.gallery1Title;
       document.getElementById('gallery-1-desc').textContent = t.gallery1Desc;
@@ -548,7 +618,7 @@
       document.getElementById('notice-2').textContent = t.notice2;
     }
 
-    // 2. アクセスカウンターAPI処理
+    // 3. アクセスカウンターAPI処理
     const NAMESPACE = 'my-github-site-2026'; 
     const KEY = 'visits';
 
@@ -572,91 +642,5 @@
 
     getVisitCount();
   </script>
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>三鷹市 ゲーム検索</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background-color: #f4f4f9;
-        }
-        .search-card {
-            background: #ffffff;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            max-width: 400px;
-            width: 90%;
-        }
-        h1 {
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            color: #333;
-        }
-        .input-group {
-            display: flex;
-            gap: 8px;
-        }
-        input[type="text"] {
-            flex: 1;
-            padding: 10px 14px;
-            font-size: 1rem;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            outline: none;
-        }
-        input[type="text"]:focus {
-            border-color: #007bff;
-        }
-        button {
-            padding: 10px 16px;
-            font-size: 1rem;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-    </style>
-</head>
-<body>
-
-<div class="search-card">
-    <h1>三鷹市 ゲーム検索</h1>
-    <form action="https://www.google.com/search" method="get" target="_blank" onsubmit="appendKeywords(event)">
-        <div class="input-group">
-            <input type="text" id="user-query" placeholder="キーワードを入力 (例: ショップ)" required>
-            <input type="hidden" name="q" id="final-query">
-            <button type="submit">検索</button>
-        </div>
-    </form>
-</div>
-
-<script>
-    function appendKeywords(event) {
-        const userInput = document.getElementById('user-query').value.trim();
-        // 入力値に「ゲーム 三鷹市」を自動で付与
-        const fullQuery = `ゲーム 三鷹市 ${userInput}`;
-        document.getElementById('final-query').value = fullQuery;
-    }
-</script>
-
-</body>
-</html>
-
-
 </body>
 </html>
