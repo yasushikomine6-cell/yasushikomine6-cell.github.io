@@ -22,11 +22,11 @@
             color: #3a352a;
             line-height: 1.6;
             -webkit-text-size-adjust: 100%;
-            padding-top: 60px; /* 右上ボタンと文字が被らないように上部に余白を確保 */
+            padding-top: 60px;
             padding-bottom: 40px;
         }
 
-        /* --- 🌐 右上固定の多言語切替ボタン --- */
+        /* --- 多言語切替ボタン --- */
         .lang-container {
             position: absolute;
             top: 12px;
@@ -40,7 +40,6 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             z-index: 1000;
         }
-
         .lang-btn {
             background: transparent;
             color: #94a3b8;
@@ -52,18 +51,16 @@
             cursor: pointer;
             transition: all 0.2s ease;
         }
-
         .lang-btn:hover {
             color: #f8fafc;
             background: #334155;
         }
-
         .lang-btn.active {
             background: #38bdf8;
             color: #0f172a;
         }
 
-        /* --- コンテナと余白（スマホ幅・レスポンシブ対応） --- */
+        /* --- レイアウトコンテナ --- */
         .container {
             padding: 12px;
             max-width: 480px;
@@ -71,16 +68,19 @@
             width: 100%;
         }
 
-        /* --- 検索カード（レスポンシブ幅） --- */
-        .search-card {
+        /* --- カード汎用スタイル --- */
+        .card {
             background: #ffffff;
             padding: 20px;
             border-radius: 16px;
             box-shadow: 0 4px 15px rgba(43, 76, 63, 0.08);
             border: 1px solid #e8e5dd;
             margin: 20px 0;
+        }
+
+        /* --- 検索カード --- */
+        .search-card {
             text-align: center;
-            width: 100%;
         }
         .search-card h2 {
             font-size: 1.2rem;
@@ -94,7 +94,7 @@
         }
         input[type="text"] {
             flex: 1;
-            min-width: 0; /* フレックスアイテムの縮小バグ防止 */
+            min-width: 0;
             padding: 12px 14px;
             font-size: 1rem;
             border: 1px solid #ccc;
@@ -145,10 +145,6 @@
         }
 
         /* --- 公式Xリンクボタン --- */
-        .sns-link-container {
-            margin: 15px 0;
-            text-align: center;
-        }
         .x-link-button {
             display: block;
             width: 100%;
@@ -159,51 +155,64 @@
             font-size: 0.95rem;
             border-radius: 25px;
             text-decoration: none;
+            text-align: center;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            box-sizing: border-box;
+            margin: 15px 0;
         }
-        .x-link-button:active {
-            opacity: 0.8;
-        }
+        .x-link-button:active { opacity: 0.8; }
 
-        /* --- ヘッダー・タイトル部分 --- */
+        /* --- GitHub風ボタン --- */
+        .btn-github {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: #ffffff;
+            background-color: #24292e;
+            border-radius: 25px;
+            text-decoration: none;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            margin: 15px 0;
+            transition: background-color 0.2s ease;
+        }
+        .btn-github:hover { background-color: #0366d6; }
+
+        /* --- タイトル部分 --- */
         .hero h2 {
             font-size: 1.2rem;
             text-align: center;
             margin: 10px 0 5px 0;
             color: #3a352a;
         }
-
-        .mitaka-game-title {
+        .mitaka-game-title, .main-title {
             font-family: 'Kiwi Maru', serif;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             text-align: center;
-            padding: 12px 10px;
+            margin: 15px 0;
             background: linear-gradient(135deg, #1b3d31 0%, #3d7054 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(2px 3px 0px #bfa17a);
+            filter: drop-shadow(2px 2px 0px #bfa17a);
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 10px 0;
-            word-break: break-all;
         }
-        .mitaka-game-title::before {
+        .mitaka-game-title::before, .main-title::before {
             content: "🍃";
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             margin-right: 0.4rem;
             -webkit-text-fill-color: initial;
         }
 
-        /* --- ボタン共通スタイル --- */
+        /* --- ボタン共通 --- */
         .btn-wrapper {
             display: flex;
             flex-direction: column;
             gap: 12px;
             margin: 15px 0;
         }
-        
         .btn-shiny, .press-btn {
             display: block;
             text-align: center;
@@ -213,118 +222,50 @@
             border-radius: 25px;
             text-decoration: none;
             border: none;
-            cursor: pointer;
-            box-sizing: border-box;
         }
-
         .btn-shiny {
             background: #fff;
             border: 2px solid #3d7054;
             color: #3d7054;
         }
-        .btn-shiny:active {
-            background: #f0ede4;
-        }
-
+        .btn-shiny:active { background: #f0ede4; }
         .press-btn {
             background: linear-gradient(135deg, #d35400, #e67e22);
             color: #ffffff;
             box-shadow: 0 4px 10px rgba(211, 84, 0, 0.3);
         }
-        .press-btn:active {
-            opacity: 0.9;
-        }
 
-        /* --- ゆいちゃんリンク集カード --- */
-        .yui-card {
-            background-color: #ffffff;
-            padding: 12px;
-            border-radius: 16px;
-            box-shadow: 0 4px 15px rgba(43, 76, 63, 0.08);
-            border: 1px solid #e8e5dd;
-            margin: 20px 0;
-        }
-
-        .main-title {
-            font-family: 'Kiwi Maru', serif;
-            font-size: 1.3rem;
-            text-align: center;
-            margin: 5px 0 15px 0;
-            background: linear-gradient(135deg, #1b3d31 0%, #3d7054 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(2px 2px 0px #bfa17a);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .main-title::before {
-            content: "🍃";
-            font-size: 1.1rem;
-            margin-right: 0.4rem;
-            -webkit-text-fill-color: initial;
-        }
-
+        /* --- テーブルリンクスタイル --- */
         .link-table {
             width: 100%;
-            border-collapse: separate;
-            border-spacing: 0 6px;
+            border-collapse: collapse;
+            margin: 10px 0;
         }
-
+        .link-table th, .link-table td {
+            padding: 10px;
+            border-bottom: 1px solid #e2ece9;
+            text-align: left;
+            font-size: 0.9rem;
+        }
         .link-table th {
             background-color: #2b4c3f;
             color: #ffffff;
-            padding: 8px;
-            font-size: 0.8rem;
-            border-radius: 6px;
-            text-align: center;
-            display: block;
-            margin-bottom: 4px;
+            border-radius: 4px;
         }
-
-        .link-table tr {
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        .link-table td {
-            display: block;
-            background-color: #faf9f5;
-            border: 1px solid #e2ece9;
-            border-radius: 8px;
-            padding: 0;
-            transition: transform 0.2s;
-        }
-
-        .link-table td:active {
-            transform: scale(0.98);
-            background-color: #f0ede4;
-        }
-
-        .table-link {
-            display: block;
-            width: 100%;
-            padding: 12px 10px;
-            color: #2b4c3f;
+        .link-table a {
+            color: #0066cc;
             text-decoration: none;
             font-weight: bold;
-            font-size: 0.88rem;
-            box-sizing: border-box;
+            word-break: break-all;
         }
+        .link-table a:hover { text-decoration: underline; }
 
-        .table-link::after {
-            content: " ➔";
-            color: #bd7a5c;
-            float: right;
-        }
-
-        /* --- 画像レスポンシブ対応 --- */
+        /* --- 画像レスポンシブ --- */
         .image-container {
             width: 100%;
             margin: 20px 0;
             text-align: center;
         }
-
         .responsive-img {
             width: 100%;
             max-width: 100%;
@@ -336,7 +277,7 @@
 
         /* --- ギャラリーセクション --- */
         section.gallery-section {
-            min-height: 140px;
+            min-height: 120px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -345,24 +286,13 @@
             border-radius: 12px;
             margin-bottom: 12px;
             background-color: #333;
-            background-size: cover;
-            background-position: center;
             padding: 15px;
-            box-sizing: border-box;
         }
         .overlay-box {
             background: rgba(0,0,0,0.5);
             padding: 12px;
             border-radius: 8px;
             width: 100%;
-        }
-        .overlay-box h3 {
-            font-size: 1.05rem;
-            margin: 0 0 5px 0;
-        }
-        .overlay-box p {
-            font-size: 0.82rem;
-            margin: 0;
         }
 
         /* --- 電話ボタン --- */
@@ -380,7 +310,7 @@
             box-shadow: 0 4px 10px rgba(39, 174, 96, 0.3);
         }
 
-        /* --- 多言語対応メッセージ --- */
+        /* --- お知らせボックス --- */
         .lang-box {
             padding: 12px;
             border-radius: 8px;
@@ -392,7 +322,7 @@
 </head>
 <body>
 
-    <!-- 🌐 右上に配置された多言語切り替えボタン -->
+    <!-- 多言語切り替えボタン -->
     <div class="lang-container">
         <button class="lang-btn active" onclick="setLanguage('ja')">日本語</button>
         <button class="lang-btn" onclick="setLanguage('en')">English</button>
@@ -407,8 +337,8 @@
 
         <h1 class="mitaka-game-title" id="store-title">あなたのまちのゲーム屋さん</h1>
 
-        <!-- 三鷹市ゲーム検索カード -->
-        <div class="search-card">
+        <!-- 三鷹市ゲーム検索 -->
+        <div class="card search-card">
             <h2 id="search-card-title">三鷹市 ゲーム検索</h2>
             <form action="https://www.google.com/search" method="get" target="_blank" onsubmit="appendKeywords(event)">
                 <div class="input-group">
@@ -419,271 +349,78 @@
             </form>
         </div>
 
-        <!-- アクセス・カウンター -->
+        <!-- アクセスカウンター -->
         <div class="counter-card">
             <div class="title" id="counter-title">Total Visits</div>
             <div class="count-display" id="visit-count">Loading...</div>
         </div>
 
-        <!-- 公式X（旧Twitter）リンクボタン -->
-        <div class="sns-link-container">
-            <a href="https://x.com/dream_games2023" target="_blank" rel="noopener noreferrer" class="x-link-button" id="x-btn-text">
-                公式X（@dream_games2023）はこちら
-            </a>
-        </div>
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>リンクボタン</title>
-  <style>
-    /* ボタンのスタイル定義 */
-    .btn-github {
-      display: inline-block;
-      padding: 12px 24px;
-      font-size: 16px;
-      font-weight: bold;
-      color: #ffffff;
-      background-color: #24292e; /* GitHub風のダークグレー */
-      border: none;
-      border-radius: 6px;
-      text-decoration: none;
-      cursor: pointer;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
-    }
+        <!-- 公式X リンク -->
+        <a href="https://x.com/dream_games2023" target="_blank" rel="noopener noreferrer" class="x-link-button" id="x-btn-text">
+            公式X（@dream_games2023）はこちら
+        </a>
 
-    /* ホバー（カーソルを乗せたとき）のスタイル */
-    .btn-github:hover {
-      background-color: #0366d6; /* ホバー時に鮮やかなブルーへ変化 */
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-      color: #ffffff;
-    }
+        <!-- G市原明日香・公式ホームページ->
+        <a href="https://github.com/yasushikomine6-cell/yasushikomine6-cell.github.io/blob/c7bbcaa9d9c7293af23e4111bd0dfe14d646e91f/asuka_html" target="_blank" rel="noopener noreferrer" class="btn-github">
+            GitHubでファイルを開く
+        </a>
 
-    /* クリック（押した瞬間）のスタイル */
-    .btn-github:active {
-      transform: translateY(1px);
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-    }
-  </style>
-</head>
-<body>
-
-  <!-- ボタン本体 -->
-  <a href="https://github.com/yasushikomine6-cell/yasushikomine6-cell.github.io/blob/c7bbcaa9d9c7293af23e4111bd0dfe14d646e91f/asuka_html" 
-     class="btn-github" 
-     target="_blank" 
-     rel="noopener noreferrer">
-    GitHubでファイルを開く
-  </a>
-
-</body>
-</html>
-
-        <!-- ボタンエリア -->
+        <!-- 関連ナビゲーションボタン -->
         <div class="btn-wrapper">
-            <a href="https://yasushikomine6-cell.github.io/drames_02.html" class="btn-shiny" id="btn-profile">創設者プロフィールへ進む ➔</a>
-            <a href="https://yasushikomine6-cell.github.io/yui_cyan.html" class="btn-shiny" id="btn-yui">ゆいちゃんの公式ページ ➔</a>
-            <a href="https://yasushikomine6-cell.github.io/employee.html" target="_blank" class="press-btn" id="btn-employee">🔥 デジタルプレス室 優秀従業員名簿</a>
+            <a href="https://yasushikomine6-cell.github.io/drames_02.html" target="_blank" rel="noopener noreferrer" class="btn-shiny" id="btn-profile">創設者プロフィールへ進む ➔</a>
+            <a href="https://yasushikomine6-cell.github.io/yui_cyan.html" target="_blank" rel="noopener noreferrer" class="btn-shiny" id="btn-yui">ゆいちゃんの公式ページ ➔</a>
+            <a href="https://yasushikomine6-cell.github.io/employee.html" target="_blank" rel="noopener noreferrer" class="press-btn" id="btn-employee">🔥 デジタルプレス室 優秀従業員名簿</a>
         </div>
 
-
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>エピソードリンク集</title>
-  <style>
-    :root {
-      --primary-color: #0066cc;
-      --bg-color: #f8f9fa;
-      --border-color: #dee2e6;
-      --text-color: #333;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      line-height: 1.6;
-      color: var(--text-color);
-      max-width: 800px;
-      margin: 20px auto;
-      padding: 0 15px;
-      background-color: #fff;
-    }
-
-    h2 {
-      text-align: center;
-      color: #222;
-      margin-bottom: 20px;
-    }
-
-    /* --- PC / タブレット用：テーブルスタイル --- */
-    .table-container {
-      width: 100%;
-      overflow-x: auto;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 20px;
-      background-color: #fff;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    }
-
-    th, td {
-      padding: 12px 15px;
-      text-align: left;
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    th {
-      background-color: var(--bg-color);
-      font-weight: bold;
-      color: #555;
-    }
-
-    tr:hover {
-      background-color: #f1f5f9;
-    }
-
-    a {
-      color: var(--primary-color);
-      text-decoration: none;
-      word-break: break-all;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    /* --- スマホ用：プルダウンリスト（初期状態は非表示） --- */
-    .mobile-dropdown-container {
-      display: none;
-      margin-bottom: 20px;
-    }
-
-    .dropdown-label {
-      display: block;
-      font-weight: bold;
-      margin-bottom: 8px;
-    }
-
-    select {
-      width: 100%;
-      padding: 12px;
-      font-size: 16px;
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      background-color: #fff;
-      color: var(--text-color);
-      cursor: pointer;
-    }
-
-    select:focus {
-      outline: none;
-      border-color: var(--primary-color);
-    }
-
-    /* --- レスポンシブ切替（画面幅600px以下のスマホサイズ） --- */
-    @media screen and (max-width: 600px) {
-      /* テーブルを非表示にし、プルダウンを表示 */
-      .table-container {
-        display: none;
-      }
-
-      .mobile-dropdown-container {
-        display: block;
-      }
-    }
-  </style>
-</head>
-<body>
-
-  <h2>エピソード一覧（第16話〜第20話）</h2>
-
-  <!-- PC・タブレット用テーブル表示 -->
-  <div class="table-container">
-    <table>
-      <thead>
-        <tr>
-          <th style="width: 20%;">話数</th>
-          <th style="width: 80%;">リンク</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>第16話</td>
-          <td><a href="https://yui13.yasushikomine6.workers.dev/" target="_blank" rel="noopener noreferrer">https://yui13.yasushikomine6.workers.dev/</a></td>
-        </tr>
-        <tr>
-          <td>第17話</td>
-          <td><a href="https://yui17.yasushikomine6.workers.dev/" target="_blank" rel="noopener noreferrer">https://yui17.yasushikomine6.workers.dev/</a></td>
-        </tr>
-        <tr>
-          <td>第18話</td>
-          <td><a href="https://yui18.yasushikomine6.workers.dev/" target="_blank" rel="noopener noreferrer">https://yui18.yasushikomine6.workers.dev/</a></td>
-        </tr>
-        <tr>
-          <td>第19話</td>
-          <td><a href="https://yui19.yasushikomine6.workers.dev/" target="_blank" rel="noopener noreferrer">https://yui19.yasushikomine6.workers.dev/</a></td>
-        </tr>
-        <tr>
-          <td>第20話</td>
-          <td><a href="https://yui20.yasushikomine6.workers.dev/" target="_blank" rel="noopener noreferrer">https://yui20.yasushikomine6.workers.dev/</a></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- スマホ用プルダウンメニュー表示 -->
-  <div class="mobile-dropdown-container">
-    <label for="episode-select" class="dropdown-label">話数を選択して移動:</label>
-    <select id="episode-select" onchange="if(this.value) window.open(this.value, '_blank')">
-      <option value="">-- 話数を選択してください --</option>
-      <option value="https://yui13.yasushikomine6.workers.dev/">第16話</option>
-      <option value="https://yui17.yasushikomine6.workers.dev/">第17話</option>
-      <option value="https://yui18.yasushikomine6.workers.dev/">第18話</option>
-      <option value="https://yui19.yasushikomine6.workers.dev/">第19話</option>
-      <option value="https://yui20.yasushikomine6.workers.dev/">第20話</option>
-    </select>
-  </div>
-
-</body>
-</html>
-
-
-        <!-- ゆいちゃんリンク集カード -->
-        <div class="yui-card">
-            <h1 class="main-title" id="yui-card-title">ドジっ子・ゆいちゃん</h1>
+        <!-- エピソード一覧カード -->
+        <div class="card">
+            <h2 style="font-size: 1.1rem; text-align: center; margin-bottom: 12px;">エピソード一覧（第16話〜第20話）</h2>
             <table class="link-table">
                 <thead>
                     <tr>
-                        <th id="table-header">ページを選択して移動する</th>
+                        <th style="width: 30%;">話数</th>
+                        <th style="width: 70%;">リンク</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><td><a href="https://2026-07-06.yasushikomine6.workers.dev/" target="_blank" class="table-link">7月6日号</a></td></tr>
-                    <tr><td><a href="https://07-07-2026.yasushikomine6.workers.dev/" target="_blank" class="table-link">7月7日号</a></td></tr>
-                    <tr><td><a href="https://tight-meadow-1e81.yasushikomine6.workers.dev/" target="_blank" class="table-link">7月8日号</a></td></tr>
-                    <tr><td><a href="https://yui-cyan07-09.yasushikomine6.workers.dev/" target="_blank" class="table-link">7月9日号</a></td></tr>
-                    <tr><td><a href="https://yui-2026-07-10.yasushikomine6.workers.dev/" target="_blank" class="table-link">7月10日号</a></td></tr>
-                    <tr><td><a href="https://yui2026-07-11.yasushikomine6.workers.dev/" target="_blank" class="table-link">7月11日号</a></td></tr>
-                    <tr><td><a href="https://yuicyan2026-07-12.yasushikomine6.workers.dev/" target="_blank" class="table-link">7月12日号</a></td></tr>
-                    <tr><td><a href="https://yui-2026-07-13.yasushikomine6.workers.dev/" target="_blank" class="table-link">7月13日号</a></td></tr>
-                    <tr><td><a href="https://2026-07-13-3.yasushikomine6.workers.dev/" target="_blank" class="table-link">7月13日号 (追加)</a></td></tr>
-                    <tr><td><a href="https://yui-cayn-2026-10.yasushikomine6.workers.dev/" target="_blank" class="table-link">7月14日号</a></td></tr>
-                    <tr><td><a href="https://yui-cyan-2026-11.yasushikomine6.workers.dev/" target="_blank" class="table-link">7月15日号</a></td></tr>
+                    <tr><td>第16話</td><td><a href="https://yui13.yasushikomine6.workers.dev/" target="_blank" rel="noopener noreferrer">第16話を見る</a></td></tr>
+                    <tr><td>第17話</td><td><a href="https://yui17.yasushikomine6.workers.dev/" target="_blank" rel="noopener noreferrer">第17話を見る</a></td></tr>
+                    <tr><td>第18話</td><td><a href="https://yui18.yasushikomine6.workers.dev/" target="_blank" rel="noopener noreferrer">第18話を見る</a></td></tr>
+                    <tr><td>第19話</td><td><a href="https://yui19.yasushikomine6.workers.dev/" target="_blank" rel="noopener noreferrer">第19話を見る</a></td></tr>
+                    <tr><td>第20話</td><td><a href="https://yui20.yasushikomine6.workers.dev/" target="_blank" rel="noopener noreferrer">第20話を見る</a></td></tr>
                 </tbody>
             </table>
         </div>
 
-        <!-- 画像リンク部分 -->
+        <!-- ドジっ子ゆいちゃん 日刊リンク集 -->
+        <div class="card">
+            <h1 class="main-title" id="yui-card-title">ドジっ子・ゆいちゃん</h1>
+            <table class="link-table">
+                <thead>
+                    <tr>
+                        <th id="table-header" colspan="2">ページを選択して移動する</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>7月6日号</td><td><a href="https://2026-07-06.yasushikomine6.workers.dev/" target="_blank" rel="noopener noreferrer">閲覧する ➔</a></td></tr>
+                    <tr><td>7月7日号</td><td><a href="https://07-07-2026.yasushikomine6.workers.dev/" target="_blank" rel="noopener noreferrer">閲覧する ➔</a></td></tr>
+                    <tr><td>7月8日号</td><td><a href="https://tight-meadow-1e81.yasushikomine6.workers.dev/" target="_blank" rel="noopener noreferrer">閲覧する ➔</a></td></tr>
+                    <tr><td>7月9日号</td><td><a href="https://yui-cyan07-09.yasushikomine6.workers.dev/" target="_blank" rel="noopener noreferrer">閲覧する ➔</a></td></tr>
+                    <tr><td>7月10日号</td><td><a href="https://yui-2026-07-10.yasushikomine6.workers.dev/" target="_blank" rel="noopener noreferrer">閲覧する ➔</a></td></tr>
+                    <tr><td>7月11日号</td><td><a href="https://yui2026-07-11.yasushikomine6.workers.dev/" target="_blank" rel="noopener noreferrer">閲覧する ➔</a></td></tr>
+                    <tr><td>7月12日号</td><td><a href="https://yuicyan2026-07-12.yasushikomine6.workers.dev/" target="_blank" rel="noopener noreferrer">閲覧する ➔</a></td></tr>
+                    <tr><td>7月13日号</td><td><a href="https://yui-2026-07-13.yasushikomine6.workers.dev/" target="_blank" rel="noopener noreferrer">閲覧する ➔</a></td></tr>
+                    <tr><td>7月13日号 (追加)</td><td><a href="https://2026-07-13-3.yasushikomine6.workers.dev/" target="_blank" rel="noopener noreferrer">閲覧する ➔</a></td></tr>
+                    <tr><td>7月14日号</td><td><a href="https://yui-cayn-2026-10.yasushikomine6.workers.dev/" target="_blank" rel="noopener noreferrer">閲覧する ➔</a></td></tr>
+                    <tr><td>7月15日号</td><td><a href="https://yui-cyan-2026-11.yasushikomine6.workers.dev/" target="_blank" rel="noopener noreferrer">閲覧する ➔</a></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 画像リンク -->
         <div class="image-container">
             <a href="https://github.com/yasushikomine6-cell/yasushikomine6-cell.github.io/blob/main/1784622949536.png" target="_blank" rel="noopener noreferrer">
-                <img src="https://raw.githubusercontent.com/yasushikomine6-cell/yasushikomine6-cell.github.io/main/1784622949536.png" alt="1784622949536.png" class="responsive-img">
+                <img src="https://raw.githubusercontent.com/yasushikomine6-cell/yasushikomine6-cell.github.io/main/1784622949536.png" alt="メイン画像" class="responsive-img">
             </a>
         </div>
 
@@ -709,11 +446,12 @@
             </div>
         </section>
 
+        <!-- 電話リンク -->
         <a href="tel:07012500937" class="tel-btn" id="tel-btn-text">
-          電話をかける (070-1250-0937)
+            電話をかける (070-1250-0937)
         </a>
 
-        <!-- 言語情報 -->
+        <!-- 言語情報メッセージ -->
         <div style="border: 1px solid #1f883d; background-color: #dafbe1; color: #1a7f37;" class="lang-box" id="notice-1">
             当社は、令和という時代に合わせ、完全ペーパーレス化を行っています。
         </div>
@@ -722,141 +460,138 @@
         </div>
     </div>
 
-  <!-- スクリプト (多言語対応・検索キーワード合成・アクセスカウンター) -->
-  <script>
-    // 1. 検索用キーワード結合スクリプト
-    function appendKeywords(event) {
-        const userInput = document.getElementById('user-query').value.trim();
-        const fullQuery = `ゲーム 三鷹市 ${userInput}`;
-        document.getElementById('final-query').value = fullQuery;
-    }
-
-    // 2. 多言語辞書データ
-    const i18n = {
-      ja: {
-        welcome: "ようこそ夢GAMEsへ",
-        storeTitle: "あなたのまちのゲーム屋さん",
-        searchCardTitle: "三鷹市 ゲーム検索",
-        searchPlaceholder: "キーワードを入力 (例: ショップ)",
-        searchBtn: "検索",
-        counterTitle: "TOTAL VISITS",
-        xBtn: "公式X（@dream_games2023）はこちら",
-        profile: "創設者プロフィールへ進む ➔",
-        yui: "ゆいちゃんの公式ページ ➔",
-        employee: "🔥 デジタルプレス室 優秀従業員名簿",
-        yuiCardTitle: "ドジっ子・ゆいちゃん",
-        tableHeader: "ページを選択して移動する",
-        gallery1Title: "音楽院の街角にて",
-        gallery1Desc: "素敵な音楽が聴こえてきそうじゃろ？",
-        gallery2Title: "運命のコンサート",
-        gallery2Desc: "ドキドキをエネルギーに変えるんよ！",
-        gallery3Title: "緊迫のラストステージ",
-        gallery3Desc: "今度は、私の番...！",
-        telBtn: "電話をかける (070-1250-0937)",
-        notice1: "当社は、令和という時代に合わせ、完全ペーパーレス化を行っています。",
-        notice2: "당사는 레이와(令和) 시대에 발맞추어 완전한 페이퍼리스(무지화)를 실천하고 있습니다."
-      },
-      en: {
-        welcome: "Welcome to Yume GAMEs",
-        storeTitle: "Your Neighborhood Game Shop",
-        searchCardTitle: "Mitaka Game Search",
-        searchPlaceholder: "Enter keyword (e.g. shop)",
-        searchBtn: "Search",
-        counterTitle: "TOTAL VISITS",
-        xBtn: "Official X (@dream_games2023)",
-        profile: "Founder Profile ➔",
-        yui: "Yui-chan's Official Page ➔",
-        employee: "🔥 Digital Press Room Employee List",
-        yuiCardTitle: "Clumsy Yui-chan",
-        tableHeader: "Select a page to jump",
-        gallery1Title: "At the Conservatory Corner",
-        gallery1Desc: "Can you hear the lovely music?",
-        gallery2Title: "Concert of Destiny",
-        gallery2Desc: "Turn your excitement into energy!",
-        gallery3Title: "Tense Last Stage",
-        gallery3Desc: "Now it's my turn...!",
-        telBtn: "Call Us (070-1250-0937)",
-        notice1: "We are fully paperless in accordance with the Reiwa era.",
-        notice2: "We are fully paperless in accordance with the Reiwa era."
-      },
-      ko: {
-        welcome: "꿈 GAMEs에 오신 것을 환영합니다",
-        storeTitle: "당신의 동네 게임 샵",
-        searchCardTitle: "미타카시 게임 검색",
-        searchPlaceholder: "키워드 입력 (예: 샵)",
-        searchBtn: "검색",
-        counterTitle: "TOTAL VISITS",
-        xBtn: "공식 X (@dream_games2023)",
-        profile: "창설자 프로필로 이동 ➔",
-        yui: "유이짱 공식 페이지 ➔",
-        employee: "🔥 디지털 프레스실 우수 직원 명부",
-        yuiCardTitle: "허당 유이짱",
-        tableHeader: "이동할 페이지를 선택하세요",
-        gallery1Title: "음악원 모퉁이에서",
-        gallery1Desc: "멋진 음악이 들려올 것 같지 않나요?",
-        gallery2Title: "운명의 콘서트",
-        gallery2Desc: "두근거림을 에너지로 바꾸는 거야!",
-        gallery3Title: "긴박한 라스트 스테이지",
-        gallery3Desc: "이번엔 내 차례야...!",
-        telBtn: "전화하기 (070-1250-0937)",
-        notice1: "당사는 레이와 시대에 발맞추어 완전한 페이퍼리스를 실천하고 있습니다.",
-        notice2: "당사는 레이와 시대에 발맞추어 완전한 페이퍼리스를 실천하고 있습니다."
-      }
-    };
-
-    function setLanguage(lang) {
-      const buttons = document.querySelectorAll('.lang-btn');
-      buttons[0].classList.toggle('active', lang === 'ja');
-      buttons[1].classList.toggle('active', lang === 'en');
-      buttons[2].classList.toggle('active', lang === 'ko');
-
-      const t = i18n[lang];
-      document.getElementById('welcome-text').textContent = t.welcome;
-      document.getElementById('store-title').textContent = t.storeTitle;
-      document.getElementById('search-card-title').textContent = t.searchCardTitle;
-      document.getElementById('user-query').placeholder = t.searchPlaceholder;
-      document.getElementById('search-btn-text').textContent = t.searchBtn;
-      document.getElementById('counter-title').textContent = t.counterTitle;
-      document.getElementById('x-btn-text').textContent = t.xBtn;
-      document.getElementById('btn-profile').textContent = t.profile;
-      document.getElementById('btn-yui').textContent = t.yui;
-      document.getElementById('btn-employee').textContent = t.employee;
-      document.getElementById('yui-card-title').textContent = t.yuiCardTitle;
-      document.getElementById('table-header').textContent = t.tableHeader;
-      document.getElementById('gallery-1-title').textContent = t.gallery1Title;
-      document.getElementById('gallery-1-desc').textContent = t.gallery1Desc;
-      document.getElementById('gallery-2-title').textContent = t.gallery2Title;
-      document.getElementById('gallery-2-desc').textContent = t.gallery2Desc;
-      document.getElementById('gallery-3-title').textContent = t.gallery3Title;
-      document.getElementById('gallery-3-desc').textContent = t.gallery3Desc;
-      document.getElementById('tel-btn-text').textContent = t.telBtn;
-      document.getElementById('notice-1').textContent = t.notice1;
-      document.getElementById('notice-2').textContent = t.notice2;
-    }
-
-    // 3. アクセスカウンターAPI処理
-    const NAMESPACE = 'my-github-site-2026'; 
-    const KEY = 'visits';
-
-    async function getVisitCount() {
-      try {
-        const response = await fetch(`https://api.counterapi.dev/v1/${NAMESPACE}/${KEY}/up`);
-        const data = await response.json();
-        
-        if (data && data.count !== undefined) {
-          document.getElementById('visit-count').textContent = data.count.toLocaleString();
-        } else {
-          const initRes = await fetch(`https://api.counterapi.dev/v1/${NAMESPACE}/${KEY}/set?count=1`);
-          const initData = await initRes.json();
-          document.getElementById('visit-count').textContent = initData.count || '1';
+    <!-- スクリプト (多言語対応・検索キーワード合成・アクセスカウンター) -->
+    <script>
+        function appendKeywords(event) {
+            const userInput = document.getElementById('user-query').value.trim();
+            const fullQuery = `ゲーム 三鷹市 ${userInput}`;
+            document.getElementById('final-query').value = fullQuery;
         }
-      } catch (error) {
-        console.error('カウンターエラー:', error);
-        document.getElementById('visit-count').textContent = 'Error';
-      }
-    }
 
-    getVisitCount();
-  </script>
+        const i18n = {
+            ja: {
+                welcome: "ようこそ夢GAMEsへ",
+                storeTitle: "あなたのまちのゲーム屋さん",
+                searchCardTitle: "三鷹市 ゲーム検索",
+                searchPlaceholder: "キーワードを入力 (例: ショップ)",
+                searchBtn: "検索",
+                counterTitle: "TOTAL VISITS",
+                xBtn: "公式X（@dream_games2023）はこちら",
+                profile: "創設者プロフィールへ進む ➔",
+                yui: "ゆいちゃんの公式ページ ➔",
+                employee: "🔥 デジタルプレス室 優秀従業員名簿",
+                yuiCardTitle: "ドジっ子・ゆいちゃん",
+                tableHeader: "ページを選択して移動する",
+                gallery1Title: "音楽院の街角にて",
+                gallery1Desc: "素敵な音楽が聴こえてきそうじゃろ？",
+                gallery2Title: "運命のコンサート",
+                gallery2Desc: "ドキドキをエネルギーに変えるんよ！",
+                gallery3Title: "緊迫のラストステージ",
+                gallery3Desc: "今度は、私の番...！",
+                telBtn: "電話をかける (070-1250-0937)",
+                notice1: "当社は、令和という時代に合わせ、完全ペーパーレス化を行っています。",
+                notice2: "당사는 레이와(令和) 시대에 발맞추어 완전한 페이퍼리스(무지화)를 실천하고 있습니다."
+            },
+            en: {
+                welcome: "Welcome to Yume GAMEs",
+                storeTitle: "Your Neighborhood Game Shop",
+                searchCardTitle: "Mitaka Game Search",
+                searchPlaceholder: "Enter keyword (e.g. shop)",
+                searchBtn: "Search",
+                counterTitle: "TOTAL VISITS",
+                xBtn: "Official X (@dream_games2023)",
+                profile: "Founder Profile ➔",
+                yui: "Yui-chan's Official Page ➔",
+                employee: "🔥 Digital Press Room Employee List",
+                yuiCardTitle: "Clumsy Yui-chan",
+                tableHeader: "Select a page to jump",
+                gallery1Title: "At the Conservatory Corner",
+                gallery1Desc: "Can you hear the lovely music?",
+                gallery2Title: "Concert of Destiny",
+                gallery2Desc: "Turn your excitement into energy!",
+                gallery3Title: "Tense Last Stage",
+                gallery3Desc: "Now it's my turn...!",
+                telBtn: "Call Us (070-1250-0937)",
+                notice1: "We are fully paperless in accordance with the Reiwa era.",
+                notice2: "We are fully paperless in accordance with the Reiwa era."
+            },
+            ko: {
+                welcome: "꿈 GAMEs에 오신 것을 환영합니다",
+                storeTitle: "당신의 동네 게임 샵",
+                searchCardTitle: "미타카시 게임 검색",
+                searchPlaceholder: "키워드 입력 (예: 샵)",
+                searchBtn: "검색",
+                counterTitle: "TOTAL VISITS",
+                xBtn: "공식 X (@dream_games2023)",
+                profile: "창설자 프로필로 이동 ➔",
+                yui: "유이짱 공식 페이지 ➔",
+                employee: "🔥 디지털 프레스실 우수 직원 명부",
+                yuiCardTitle: "허당 유이짱",
+                tableHeader: "이동할 페이지를 선택하세요",
+                gallery1Title: "음악원 모퉁이에서",
+                gallery1Desc: "멋진 음악이 들려올 것 같지 않나요?",
+                gallery2Title: "운명의 콘서트",
+                gallery2Desc: "두근거림을 에너지로 바꾸는 거야!",
+                gallery3Title: "긴박한 라스트 스테이지",
+                gallery3Desc: "이번엔 내 차례야...!",
+                telBtn: "전화하기 (070-1250-0937)",
+                notice1: "당사는 레이와 시대에 발맞추어 완전한 페이퍼리스를 실천하고 있습니다.",
+                notice2: "당사는 레이와 시대에 발맞추어 완전한 페이퍼리스를 실천하고 있습니다."
+            }
+        };
+
+        function setLanguage(lang) {
+            const buttons = document.querySelectorAll('.lang-btn');
+            buttons[0].classList.toggle('active', lang === 'ja');
+            buttons[1].classList.toggle('active', lang === 'en');
+            buttons[2].classList.toggle('active', lang === 'ko');
+
+            const t = i18n[lang];
+            document.getElementById('welcome-text').textContent = t.welcome;
+            document.getElementById('store-title').textContent = t.storeTitle;
+            document.getElementById('search-card-title').textContent = t.searchCardTitle;
+            document.getElementById('user-query').placeholder = t.searchPlaceholder;
+            document.getElementById('search-btn-text').textContent = t.searchBtn;
+            document.getElementById('counter-title').textContent = t.counterTitle;
+            document.getElementById('x-btn-text').textContent = t.xBtn;
+            document.getElementById('btn-profile').textContent = t.profile;
+            document.getElementById('btn-yui').textContent = t.yui;
+            document.getElementById('btn-employee').textContent = t.employee;
+            document.getElementById('yui-card-title').textContent = t.yuiCardTitle;
+            document.getElementById('table-header').textContent = t.tableHeader;
+            document.getElementById('gallery-1-title').textContent = t.gallery1Title;
+            document.getElementById('gallery-1-desc').textContent = t.gallery1Desc;
+            document.getElementById('gallery-2-title').textContent = t.gallery2Title;
+            document.getElementById('gallery-2-desc').textContent = t.gallery2Desc;
+            document.getElementById('gallery-3-title').textContent = t.gallery3Title;
+            document.getElementById('gallery-3-desc').textContent = t.gallery3Desc;
+            document.getElementById('tel-btn-text').textContent = t.telBtn;
+            document.getElementById('notice-1').textContent = t.notice1;
+            document.getElementById('notice-2').textContent = t.notice2;
+        }
+
+        const NAMESPACE = 'my-github-site-2026'; 
+        const KEY = 'visits';
+
+        async function getVisitCount() {
+            try {
+                const response = await fetch(`https://api.counterapi.dev/v1/${NAMESPACE}/${KEY}/up`);
+                const data = await response.json();
+                
+                if (data && data.count !== undefined) {
+                    document.getElementById('visit-count').textContent = data.count.toLocaleString();
+                } else {
+                    const initRes = await fetch(`https://api.counterapi.dev/v1/${NAMESPACE}/${KEY}/set?count=1`);
+                    const initData = await initRes.json();
+                    document.getElementById('visit-count').textContent = initData.count || '1';
+                }
+            } catch (error) {
+                console.error('カウンターエラー:', error);
+                document.getElementById('visit-count').textContent = 'Error';
+            }
+        }
+
+        getVisitCount();
+    </script>
 </body>
 </html>
