@@ -33,6 +33,13 @@
       font-size: 1.5rem;
       font-weight: bold;
     }
+    header a {
+      color: #ffffff;
+      text-decoration: none;
+    }
+    header a:hover {
+      text-decoration: underline;
+    }
 
     /* メインコンテンツ（スマホ対応コンテナ） */
     .container {
@@ -66,6 +73,10 @@
       white-space: pre-wrap; /* 改行を反映 */
       color: #2c3e50;
       line-height: 1.8;
+      word-break: break-all;
+    }
+    .post-content a {
+      color: #3498db;
     }
 
     /* コメント送信フォーム */
@@ -126,7 +137,8 @@
 <body>
 
   <header>
-    <h1>ゆいのブログ</h1>
+    <!-- ヘッダータイトルをブログURLへのリンクに変更 -->
+    <h1><a href="https://yasushikomine6-cell.github.io/blog.%20html">ゆいのブログ</a></h1>
   </header>
 
   <main class="container">
@@ -134,7 +146,9 @@
     <article class="post-card">
       <h2 class="post-title">ゆいのブログじゃよ！</h2>
       <div class="post-meta">投稿日: 2026-07-29 | 投稿者: ゆい</div>
-      <div class="post-content">今日からブログ始めるけぇ、みんな見ていってね！</div>
+      <div class="post-content">今日からブログ始めるけぇ、みんな見ていってね！
+
+ブログURL: <a href="https://yasushikomine6-cell.github.io/blog.%20html">https://yasushikomine6-cell.github.io/blog.%20html</a></div>
     </article>
 
     <!-- コメント入力エリア -->
