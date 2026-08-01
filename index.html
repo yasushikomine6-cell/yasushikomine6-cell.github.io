@@ -161,23 +161,23 @@
         }
         .x-link-button:active { opacity: 0.8; }
 
-        /* --- 市原明日香 公式HPボタン --- */
-        .btn-asuka {
+        /* --- GitHub風ボタン --- */
+        .btn-github {
             display: block;
             width: 100%;
             padding: 14px;
             font-size: 0.95rem;
             font-weight: bold;
             color: #ffffff;
-            background-color: #8a2be2;
+            background-color: #24292e;
             border-radius: 25px;
             text-decoration: none;
             text-align: center;
-            box-shadow: 0 4px 10px rgba(138, 43, 226, 0.3);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             margin: 15px 0;
             transition: background-color 0.2s ease;
         }
-        .btn-asuka:hover { background-color: #6a1b9a; }
+        .btn-github:hover { background-color: #0366d6; }
 
         /* --- タイトル部分 --- */
         .hero h2 {
@@ -360,9 +360,9 @@
             公式X（@dream_games2023）はこちら
         </a>
 
-        <!-- 市原明日香・公式ホームページ -->
-        <a href="https://yasushikomine6-cell.github.io/asuka_html" target="_blank" rel="noopener noreferrer" class="btn-asuka" id="asuka-btn-text">
-            市原明日香・公式ホームページ ➔
+        <!-- 市原明日香・公式ホームページ (修正部分) -->
+        <a href="https://yasushikomine6-cell.github.io/asuka_html" target="_blank" rel="noopener noreferrer" class="btn-github">
+            市原明日香・公式ホームページへ進む ➔
         </a>
 
         <!-- 関連ナビゲーションボタン -->
@@ -477,7 +477,6 @@
                 searchBtn: "検索",
                 counterTitle: "TOTAL VISITS",
                 xBtn: "公式X（@dream_games2023）はこちら",
-                asukaBtn: "市原明日香・公式ホームページ ➔",
                 profile: "創設者プロフィールへ進む ➔",
                 yui: "ゆいちゃんの公式ページ ➔",
                 employee: "🔥 デジタルプレス室 優秀従業員名簿",
@@ -491,7 +490,7 @@
                 gallery3Desc: "今度は、私の番...！",
                 telBtn: "電話をかける (070-1250-0937)",
                 notice1: "当社は、令和という時代に合わせ、完全ペーパーレス化を行っています。",
-                notice2: "당사는 레이와(令和) 시대에 발맞추어 완전한 페이퍼리스(무지화)를 실천하고 있습니다."
+                notice2: "당사는 레이와(令和) 시대에 발맞추어完全なペーパーレス化を行っています。"
             },
             en: {
                 welcome: "Welcome to Yume GAMEs",
@@ -501,7 +500,6 @@
                 searchBtn: "Search",
                 counterTitle: "TOTAL VISITS",
                 xBtn: "Official X (@dream_games2023)",
-                asukaBtn: "Asuka Ichihara Official HP ➔",
                 profile: "Founder Profile ➔",
                 yui: "Yui-chan's Official Page ➔",
                 employee: "🔥 Digital Press Room Employee List",
@@ -525,7 +523,6 @@
                 searchBtn: "검색",
                 counterTitle: "TOTAL VISITS",
                 xBtn: "공식 X (@dream_games2023)",
-                asukaBtn: "이치하라 아스카 공식 홈페이지 ➔",
                 profile: "창설자 프로필로 이동 ➔",
                 yui: "유이짱 공식 페이지 ➔",
                 employee: "🔥 디지털 프레스실 우수 직원 명부",
@@ -557,7 +554,6 @@
             document.getElementById('search-btn-text').textContent = t.searchBtn;
             document.getElementById('counter-title').textContent = t.counterTitle;
             document.getElementById('x-btn-text').textContent = t.xBtn;
-            document.getElementById('asuka-btn-text').textContent = t.asukaBtn;
             document.getElementById('btn-profile').textContent = t.profile;
             document.getElementById('btn-yui').textContent = t.yui;
             document.getElementById('btn-employee').textContent = t.employee;
