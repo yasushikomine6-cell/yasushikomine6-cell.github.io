@@ -159,7 +159,7 @@
       position: relative;
     }
 
-    /* 記事が存在するカレンダーマスのスタイル */
+    /* 記事が存在するカレンダーマス（8月1日） */
     .calendar-day.has-post {
       background: #fcefe6;
       border: 2px solid var(--accent-color);
@@ -281,9 +281,9 @@
       <!-- 2026年8月1日（土曜日始まり） -->
       <div></div><div></div><div></div><div></div><div></div><div></div>
       
-      <!-- カレンダー日付 (1日〜31日) -->
-      <!-- 1日＝記事が存在する日 -->
+      <!-- 8月1日（記事のある日） -->
       <div class="calendar-day has-post" onclick="openModal(0)">1</div>
+      <!-- 2日〜31日 -->
       <div class="calendar-day">2</div>
       <div class="calendar-day">3</div>
       <div class="calendar-day">4</div>
@@ -330,7 +330,7 @@
 </div>
 
 <script>
-  // JSONデータを配列管理（将来的に記事が増えても拡張可能）
+  // ブログデータ配列（作成日時を8月1日に設定）
   const posts = [
     {
       _id: "post_1",
@@ -341,25 +341,22 @@
     }
   ];
 
-  // プルダウンの動的設定（1記事〜最新）
+  // プルダウン初期化
   const selectEl = document.getElementById('postSelect');
   posts.forEach((post, index) => {
     const opt = document.createElement('option');
-    const dateStr = new Date(post.created_at).toLocaleDateString('ja-JP');
     opt.value = index;
-    opt.textContent = `第${index + 1}話: ${post.title} (${dateStr})`;
+    opt.textContent = `第${index + 1}話: ${post.title} (2026/8/1)`;
     selectEl.appendChild(opt);
   });
 
-  // モーダルを開く（カレンダー・プルダウンから呼び出し）
+  // 紙ダイアログを開く処理
   function openModal(index) {
     const post = posts[index];
     if (!post) return;
 
-    const dateObj = new Date(post.created_at);
-    const dateFormatted = `${dateObj.getFullYear()}年${dateObj.getMonth() + 1}月${dateObj.getDate()}日`;
-
-    document.getElementById('modalDate').innerText = dateFormatted;
+    // 1日に固定・フォーマット整形
+    document.getElementById('modalDate').innerText = "2026年8月1日";
     document.getElementById('modalTitle').innerText = post.title;
     document.getElementById('modalContent').innerText = post.content;
     document.getElementById('modalAuthor').innerText = `筆者: ${post.author}`;
@@ -374,7 +371,7 @@
     }
   }
 
-  // モーダルを閉じる
+  // モーダル閉じる
   function closeModal(e) {
     if (e.target.id === 'postModal') {
       document.getElementById('postModal').style.display = 'none';
