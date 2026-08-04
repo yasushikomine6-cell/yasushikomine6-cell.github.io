@@ -74,6 +74,57 @@
     }
 
     /* ==============================================
+       レスポンシブ対応 検索フォーム
+       ============================================== */
+    .search-container {
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto 20px auto;
+    }
+
+    .search-form {
+      display: flex;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .search-input {
+      flex: 1;
+      min-width: 0; /* スマホではみ出し防止 */
+      padding: 10px 12px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      color: var(--ink-color);
+      background-color: #fbf5e8;
+      border: 2px solid #b8a083;
+      border-radius: 6px;
+      box-shadow: inset 0 1px 3px var(--paper-shadow);
+      outline: none;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent-color);
+    }
+
+    .search-button {
+      padding: 10px 16px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      background-color: var(--accent-color);
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      white-space: nowrap; /* 文字の改行防止 */
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transition: opacity 0.2s;
+    }
+
+    .search-button:hover {
+      opacity: 0.85;
+    }
+
+    /* ==============================================
        日記帳背景のプルダウン（1記事〜最新）
        ============================================== */
     .dropdown-section {
@@ -247,7 +298,6 @@
       word-break: break-all;
     }
 
-    /* 記事画像のスタイル（角丸5.5px指定） */
     .post-image {
       width: 100%;
       height: auto;
@@ -275,8 +325,14 @@
     }
 
     /* ==============================================
-       レスポンシブ（PC・タブレット表示調整）
+       レスポンシブ（スマホ・PC調整）
        ============================================== */
+    @media (max-width: 480px) {
+      .search-input {
+        font-size: 16px; /* iOSの自動ズーム防止 */
+      }
+    }
+
     @media (min-width: 600px) {
       body {
         padding: 20px;
@@ -318,6 +374,14 @@
     <h1 id="blog-title">ゆいのブログじゃよ！</h1>
     <span class="author-badge">作者: <span id="blog-author">ゆい</span></span>
   </header>
+
+  <!-- 検索フォーム（スマホリサイズ対応） -->
+  <div class="search-container">
+    <form action="#" method="get" class="search-form">
+      <input type="text" name="q" placeholder="キーワードを入力..." class="search-input" />
+      <button type="submit" class="search-button">検索</button>
+    </form>
+  </div>
 
   <!-- 日記帳風プルダウンリスト -->
   <div class="dropdown-section">
@@ -464,15 +528,6 @@
     document.getElementById('postModal').style.display = 'none';
   }
 </script>
-
-
-<div class="search-container">
-  <form action="#" method="get" class="search-form">
-    <input type="text" name="q" placeholder="キーワードを入力..." class="search-input" />
-    <button type="submit" class="search-button">検索</button>
-  </form>
-</div>
-
 
 </body>
 </html>
