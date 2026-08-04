@@ -22,7 +22,7 @@
 
     body {
       margin: 0;
-      padding: 15px 10px;
+      padding: 10px 5px;
       background-color: #e8ded1;
       background-image: 
         radial-gradient(#d3c2af 15%, transparent 16%),
@@ -40,7 +40,7 @@
       max-width: 800px;
       background: var(--paper-bg);
       border-radius: 4px;
-      padding: 20px 15px;
+      padding: 15px 10px;
       box-shadow: 
         0 1px 1px rgba(0,0,0,0.15), 
         0 10px 0 -5px #f4ebd9, 
@@ -55,12 +55,12 @@
       text-align: center;
       border-bottom: 2px dashed var(--paper-line);
       padding-bottom: 15px;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
 
     header h1 {
       margin: 0 0 8px 0;
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       color: var(--accent-color);
       letter-spacing: 1px;
     }
@@ -79,12 +79,12 @@
     .search-container {
       width: 100%;
       max-width: 400px;
-      margin: 0 auto 20px auto;
+      margin: 0 auto 15px auto;
     }
 
     .search-form {
       display: flex;
-      gap: 8px;
+      gap: 6px;
       width: 100%;
     }
 
@@ -93,7 +93,7 @@
       min-width: 0; /* スマホではみ出し防止 */
       padding: 10px 12px;
       font-family: inherit;
-      font-size: 0.95rem;
+      font-size: 16px; /* iOSの画面ズーム防止対策 */
       color: var(--ink-color);
       background-color: #fbf5e8;
       border: 2px solid #b8a083;
@@ -107,7 +107,7 @@
     }
 
     .search-button {
-      padding: 10px 16px;
+      padding: 10px 14px;
       font-family: inherit;
       font-size: 0.95rem;
       background-color: var(--accent-color);
@@ -144,9 +144,8 @@
       max-width: 400px;
       padding: 10px 12px;
       font-family: inherit;
-      font-size: 0.95rem;
+      font-size: 16px;
       color: var(--ink-color);
-      /* 日記帳の罫線・紙背景設定 */
       background-color: #fbf5e8;
       background-image: repeating-linear-gradient(
         transparent,
@@ -174,7 +173,7 @@
     .calendar-container {
       background: #f7eedd;
       border: 1px solid #d8c3a5;
-      padding: 15px 10px;
+      padding: 12px 8px;
       border-radius: 8px;
       box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
     }
@@ -190,7 +189,7 @@
     .calendar-grid {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
-      gap: 4px;
+      gap: 3px;
       text-align: center;
     }
 
@@ -230,7 +229,7 @@
 
     .calendar-day.has-post::after {
       content: "📝";
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       margin-top: 1px;
     }
 
@@ -259,7 +258,6 @@
       box-shadow: 0 10px 25px rgba(0,0,0,0.3);
       border: 1px solid #d8c3a5;
       position: relative;
-      /* ノート風の罫線背景 */
       background-image: repeating-linear-gradient(
         transparent,
         transparent 27px,
@@ -325,14 +323,8 @@
     }
 
     /* ==============================================
-       レスポンシブ（スマホ・PC調整）
+       レスポンシブ調整（PC環境）
        ============================================== */
-    @media (max-width: 480px) {
-      .search-input {
-        font-size: 16px; /* iOSの自動ズーム防止 */
-      }
-    }
-
     @media (min-width: 600px) {
       body {
         padding: 20px;
@@ -375,10 +367,10 @@
     <span class="author-badge">作者: <span id="blog-author">ゆい</span></span>
   </header>
 
-  <!-- 検索フォーム（スマホリサイズ対応） -->
+  <!-- スマホ対応 記事内検索フォーム -->
   <div class="search-container">
-    <form action="#" method="get" class="search-form">
-      <input type="text" name="q" placeholder="キーワードを入力..." class="search-input" />
+    <form onsubmit="searchPosts(event)" class="search-form">
+      <input type="text" id="searchInput" placeholder="記事を検索..." class="search-input" />
       <button type="submit" class="search-button">検索</button>
     </form>
   </div>
@@ -481,13 +473,53 @@
   ];
 
   // プルダウン初期化
-  const selectEl = document.getElementById('postSelect');
-  posts.forEach((post, index) => {
-    const opt = document.createElement('option');
-    opt.value = index;
-    opt.textContent = `第${index + 1}話: ${post.title} (${post.formatted_date.replace(/(\d{4})年(\d{1,2})月(\d{1,2})日/, '$1/$2/$3')})`;
-    selectEl.appendChild(opt);
-  });
+  function renderDropdown(filteredPosts = null) {
+    const selectEl = document.getElementById('postSelect');
+    selectEl.innerHTML = '<option value="">-- 日記のページをめくる --</option>';
+    
+    const targetPosts = filteredPosts || posts.map((post, index) => ({ post, originalIndex: index }));
+
+    targetPosts.forEach(item => {
+      const opt = document.createElement('option');
+      opt.value = item.originalIndex;
+      opt.textContent = `第${item.originalIndex + 1}話: ${item.post.title} (${item.post.formatted_date.replace(/(\d{4})年(\d{1,2})月(\d{1,2})日/, '$1/$2/$3')})`;
+      selectEl.appendChild(opt);
+    });
+  }
+
+  // 初回読み込み時のプルダウン生成
+  renderDropdown();
+
+  // ブログ内検索処理
+  function searchPosts(e) {
+    e.preventDefault();
+    const query = document.getElementById('searchInput').value.trim().toLowerCase();
+
+    if (!query) {
+      alert('検索キーワードを入力してください。');
+      renderDropdown();
+      return;
+    }
+
+    // タイトルまたは本文にキーワードが含まれている記事を検索
+    const matched = posts
+      .map((post, index) => ({ post, originalIndex: index }))
+      .filter(item => 
+        item.post.title.toLowerCase().includes(query) || 
+        item.post.content.toLowerCase().includes(query)
+      );
+
+    if (matched.length === 1) {
+      // 1件だけ該当した場合は直接モーダルで開く
+      openModal(matched[0].originalIndex);
+    } else if (matched.length > 1) {
+      // 複数件該当した場合はプルダウンを絞り込む
+      alert(`${matched.length}件の記事が見つかりました。プルダウンから選択してください。`);
+      renderDropdown(matched);
+    } else {
+      alert('該当する記事が見つかりませんでした。');
+    }
+  }
 
   // 紙ダイアログを開く処理
   function openModal(index) {
