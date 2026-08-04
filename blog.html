@@ -159,7 +159,7 @@
       position: relative;
     }
 
-    /* 記事が存在するカレンダーマス（8月1日） */
+    /* 記事が存在するカレンダーマス（8月1日・8月4日） */
     .calendar-day.has-post {
       background: #fcefe6;
       border: 2px solid var(--accent-color);
@@ -210,6 +210,8 @@
         #e3d0b5 29px
       );
       line-height: 29px;
+      max-height: 85vh;
+      overflow-y: auto;
     }
 
     .modal-close {
@@ -234,6 +236,17 @@
       color: var(--accent-color);
       margin: 0 0 15px 0;
       border-bottom: 1px solid var(--accent-color);
+    }
+
+    /* 記事画像のスタイル（角丸5.5px指定） */
+    .post-image {
+      width: 100%;
+      max-height: 250px;
+      object-fit: cover;
+      border-radius: 5.5px;
+      margin: 10px 0 15px 0;
+      border: 1px solid #d8c3a5;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
 
     .post-content {
@@ -281,12 +294,14 @@
       <!-- 2026年8月1日（土曜日始まり） -->
       <div></div><div></div><div></div><div></div><div></div><div></div>
       
-      <!-- 8月1日（記事のある日） -->
+      <!-- 8月1日（第1話） -->
       <div class="calendar-day has-post" onclick="openModal(0)">1</div>
-      <!-- 2日〜31日 -->
+      <!-- 2日〜3日 -->
       <div class="calendar-day">2</div>
       <div class="calendar-day">3</div>
-      <div class="calendar-day">4</div>
+      <!-- 8月4日（第2話） -->
+      <div class="calendar-day has-post" onclick="openModal(1)">4</div>
+      <!-- 5日〜31日 -->
       <div class="calendar-day">5</div>
       <div class="calendar-day">6</div>
       <div class="calendar-day">7</div>
@@ -324,20 +339,31 @@
     <button class="modal-close" onclick="closeModalDirect()">&times;</button>
     <div id="modalDate" class="post-date"></div>
     <h2 id="modalTitle" class="post-title"></h2>
+    <div id="modalImageContainer"></div>
     <div id="modalContent" class="post-content"></div>
     <div id="modalAuthor" class="post-author"></div>
   </div>
 </div>
 
 <script>
-  // ブログデータ配列（作成日時を8月1日に設定）
+  // ブログデータ配列（第2話を追加）
   const posts = [
     {
       _id: "post_1",
       title: "ゆいのブログじゃよ！",
       content: "今日からブログ始めるけぇ、みんな見ていってね！",
       author: "ゆい",
-      created_at: "2026-08-01T21:29:00Z"
+      created_at: "2026-08-01T21:29:00Z",
+      formatted_date: "2026年8月1日"
+    },
+    {
+      _id: "post_2",
+      title: "ビヤホールに行ったんじゃ",
+      content: "ビヤホールに行ったんじゃ",
+      image_url: "https://yasushikomine6-cell.github.io/1785791535272.png",
+      author: "ゆい",
+      created_at: "2026-08-04T12:00:00Z",
+      formatted_date: "2026年8月4日"
     }
   ];
 
@@ -346,7 +372,7 @@
   posts.forEach((post, index) => {
     const opt = document.createElement('option');
     opt.value = index;
-    opt.textContent = `第${index + 1}話: ${post.title} (2026/8/1)`;
+    opt.textContent = `第${index + 1}話: ${post.title} (${post.formatted_date.replace(/(\d{4})年(\d{1,2})月(\d{1,2})日/, '$1/$2/$3')})`;
     selectEl.appendChild(opt);
   });
 
@@ -355,9 +381,17 @@
     const post = posts[index];
     if (!post) return;
 
-    // 1日に固定・フォーマット整形
-    document.getElementById('modalDate').innerText = "2026年8月1日";
+    document.getElementById('modalDate').innerText = post.formatted_date;
     document.getElementById('modalTitle').innerText = post.title;
+    
+    // 画像の表示処理
+    const imgContainer = document.getElementById('modalImageContainer');
+    if (post.image_url) {
+      imgContainer.innerHTML = `<img src="${post.image_url}" alt="日記画像" class="post-image">`;
+    } else {
+      imgContainer.innerHTML = '';
+    }
+
     document.getElementById('modalContent').innerText = post.content;
     document.getElementById('modalAuthor').innerText = `筆者: ${post.author}`;
 
