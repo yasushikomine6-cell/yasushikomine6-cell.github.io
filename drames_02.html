@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>会社概要・代表プロフィール | こみねやすし</title>
     <style>
+        /* グローバル変数設定 */
         :root {
             --primary-color: #4a3f35; /* 優しいブラウン */
             --accent-color: #d9774d;   /* 柔らかいオレンジ */
@@ -14,12 +15,16 @@
         }
 
         /* 全体設定 */
+        *, *::before, *::after {
+            box-sizing: border-box; /* リサイズ時のはみ出し防止 */
+        }
+
         body {
             margin: 0;
-            padding: 20px 10px; /* スマホの両端余白 */
+            padding: 20px 10px;
             background-color: var(--bg-color);
             color: var(--text-color);
-            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
             line-height: 1.6;
             display: flex;
             justify-content: center;
@@ -28,15 +33,14 @@
         /* メインコンテナ */
         .container {
             width: 100%;
-            max-width: 500px; /* スマホサイズ上限 */
+            max-width: 500px; /* スマホ最適化上限 */
             background: var(--card-bg);
             padding: 25px 20px;
-            border-radius: 24px; /* 丸みのあるデザイン */
+            border-radius: 24px;
             box-shadow: 0 8px 24px rgba(74, 63, 53, 0.08);
-            box-sizing: border-box;
         }
 
-        /* 画像（ロゴ・イメージ）のスタイル設定 */
+        /* プロフィール画像 */
         .profile-image-container {
             text-align: center;
             margin-bottom: 15px;
@@ -44,10 +48,10 @@
 
         .profile-image {
             width: 100%;
-            max-width: 200px; /* スマホで見栄えの良い最大横幅 */
+            max-width: 200px;
             height: auto;
-            border-radius: 16px; /* 全体に合わせた柔らかい角丸 */
-            box-shadow: 0 4px 12px rgba(74, 63, 53, 0.05); /* 軽い影 */
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(74, 63, 53, 0.05);
         }
 
         /* 見出し設定 */
@@ -80,7 +84,7 @@
             align-items: center;
         }
 
-        /* キャリアパスなどの情報リスト */
+        /* キャリアパス情報リスト */
         .career-path {
             display: flex;
             flex-direction: column;
@@ -107,9 +111,10 @@
         .career-value {
             font-size: 15px;
             padding-left: 5px;
+            word-break: break-word;
         }
 
-        /* 特色・沿革ボックス */
+        /* ハイライトボックス */
         .highlight-box {
             background-color: #fff9f6;
             border: 2px solid #fcefe9;
@@ -118,7 +123,7 @@
             font-size: 14px;
         }
 
-        /* 沿革のリストスタイル */
+        /* 沿革リスト */
         .history-list {
             margin: 0;
             padding: 0;
@@ -135,7 +140,6 @@
             margin-bottom: 0;
         }
 
-        /* タイムライン風のドット記号 */
         .history-list li::before {
             content: "•";
             color: var(--accent-color);
@@ -149,7 +153,51 @@
             font-weight: bold;
             color: var(--primary-color);
             margin-right: 5px;
-            display: block; /* スマホで日付と内容が綺麗に改行されるように調整 */
+            display: block;
+        }
+
+        /* 社内規定リスト */
+        .rule-list {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 0;
+        }
+
+        .rule-item {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 16px;
+            color: #444444;
+            word-break: break-word;
+        }
+
+        .rule-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .rule-item::before {
+            content: "•";
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+
+        .rule-num {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-right: 8px;
+        }
+
+        .rule-content {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .rule-sub {
+            margin-top: 2px;
+            color: #555555;
         }
 
         /* フッター */
@@ -161,13 +209,36 @@
             padding-top: 15px;
             border-top: 1px solid #f0e6df;
         }
+
+        /* スマホ用レスポンシブ（480px以下） */
+        @media (max-width: 480px) {
+            body {
+                padding: 10px 5px;
+            }
+
+            .container {
+                padding: 18px 14px;
+                border-radius: 16px;
+            }
+
+            h1 {
+                font-size: 18px;
+            }
+
+            h2 {
+                font-size: 15px;
+            }
+
+            .career-value, .highlight-box {
+                font-size: 13.5px;
+            }
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
     <header>
-        <!-- 画像追加セクション -->
         <div class="profile-image-container">
             <img src="1784348128105.png" alt="代表イメージ" class="profile-image">
         </div>
@@ -191,7 +262,6 @@
                 <span class="career-label">経営業態</span>
                 <span class="career-value">個人事業主</span>
             </div>
-            <!-- 追加：固定採用 -->
             <div class="career-item">
                 <span class="career-label">採用形態</span>
                 <span class="career-value">固定採用</span>
@@ -233,171 +303,23 @@
         </div>
     </section>
 
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>社内規定 - 夢GAMES.Lab</title>
-  <style>
-    /* 全体設定 */
-    *, *::before, *::after {
-      box-sizing: border-box; /* 要素の幅・高さにpaddingとborderを含める */
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      background-color: #f7f7f7;
-      color: #333333;
-      margin: 0;
-      padding: 16px; /* リサイズ時に画面端へ詰まりすぎないよう調整 */
-      line-height: 1.6;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 600px;
-      margin: 0 auto;
-      background-color: #ffffff;
-      padding: 24px;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    }
-
-    /* セクション見出し（オレンジ色の見出しと下部点線） */
-    .section-title {
-      color: #d96b43;
-      font-size: 1.25rem;
-      font-weight: bold;
-      margin-top: 16px;
-      margin-bottom: 8px;
-    }
-
-    .divider {
-      border: none;
-      border-bottom: 2px dotted #e5e5e5;
-      margin-bottom: 16px;
-    }
-
-    /* カード風ボックス設定 */
-    .card {
-      background-color: #fcf8f2;
-      border: 1px solid #f3e5d8;
-      border-radius: 16px;
-      padding: 16px 20px;
-      margin-bottom: 20px;
-    }
-
-    /* 箇条書きリストスタイル */
-    .rule-list {
-      list-style-type: none;
-      padding-left: 0;
-      margin: 0;
-    }
-
-    .rule-item {
-      position: relative;
-      padding-left: 20px;
-      margin-bottom: 12px;
-      color: #444444;
-      word-break: break-word; /* 長いテキストの画面外はみ出しを防止 */
-    }
-
-    .rule-item::before {
-      content: "•";
-      color: #d96b43;
-      font-size: 1.2rem;
-      position: absolute;
-      left: 0;
-      top: -2px;
-    }
-
-    .rule-num {
-      font-weight: bold;
-      color: #222222;
-      display: inline-block;
-      margin-right: 8px;
-    }
-
-    .rule-content {
-      font-weight: bold;
-      color: #222222;
-    }
-
-    .rule-sub {
-      margin-top: 4px;
-      color: #555555;
-      padding-left: 0px;
-    }
-
-    /* フッター */
-    .footer {
-      text-align: center;
-      color: #888888;
-      font-size: 0.85rem;
-      margin-top: 32px;
-      border-top: 1px solid #eeeeee;
-      padding-top: 16px;
-    }
-
-    /* モバイル（スマホ）表示用のレスポンシブ設定 */
-    @media (max-width: 480px) {
-      body {
-        padding: 8px; /* 外側の余白を狭めて画面を有効活用 */
-      }
-
-      .container {
-        padding: 16px;
-        border-radius: 8px;
-      }
-
-      .section-title {
-        font-size: 1.1rem;
-      }
-
-      .card {
-        padding: 12px 14px;
-        border-radius: 12px;
-      }
-
-      .rule-item {
-        font-size: 0.95rem;
-      }
-
-      .footer {
-        font-size: 0.75rem;
-      }
-    }
-  </style>
-</head>
-<body>
-
-  <div class="container">
-
-    <!-- 社内規定セクション -->
-    <h2 class="section-title">社内規定</h2>
-    <div class="divider"></div>
-
-    <div class="card">
-      <ul class="rule-list">
-        <li class="rule-item">
-          <span class="rule-num">1-1</span>
-          <span class="rule-content">8/6 レディーファーストの日</span>
-          <div class="rule-sub">と認定す</div>
-        </li>
-      </ul>
-    </div>
-
-    <!-- フッター -->
-    <div class="footer">
-      © 2023-2026 三鷹夢新聞→夢GAMES.Lab
-    </div>
-
-  </div>
-
-</body>
-</html>
-
+    <!-- 社内規定（追加項目） -->
+    <section class="profile-section">
+        <h2>社内規定</h2>
+        <div class="highlight-box" style="background-color: #fcf8f2; border-color: #f3e5d8;">
+            <ul class="rule-list">
+                <li class="rule-item">
+                    <span class="rule-num">1-1</span>
+                    <span class="rule-content">8/6 レディーファーストの日</span>
+                    <div class="rule-sub">と認定す</div>
+                </li>
+                <li class="rule-item">
+                    <span class="rule-num">1-2</span>
+                    <span class="rule-content">反社下位勢力との付き合いを全面的に禁ず</span>
+                </li>
+            </ul>
+        </div>
+    </section>
 
     <footer>
         &copy; 2023-2026 三鷹夢新聞→夢GAMEs.Lab
