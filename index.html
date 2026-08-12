@@ -182,5 +182,258 @@
     </ul>
   </div>
 
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ゲームアカウント - 左メニュー</title>
+  <style>
+    /* Reset & Base Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #000;
+      color: #fff;
+    }
+
+    /* 1. 左側ハンバーガーボタン */
+    .menu-btn {
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      z-index: 1000;
+      transition: background 0.2s ease;
+    }
+    .menu-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+    .menu-btn span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background-color: #fff;
+      border-radius: 2px;
+    }
+
+    /* チェックボックスでメニュー開閉状態を切り替え */
+    #menu-toggle {
+      display: none;
+    }
+
+    /* 2. ドロワーメニュー (左側からスライドイン) */
+    .drawer {
+      position: fixed;
+      top: 0;
+      left: -300px; /* 初期状態は画面外 */
+      width: 280px;
+      height: 100vh;
+      background-color: #15181c;
+      border-right: 1px solid #2f3336;
+      padding: 20px;
+      box-sizing: border-box;
+      transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 1001;
+    }
+
+    /* チェックボックスが入ったらメニューを表示 */
+    #menu-toggle:checked ~ .drawer {
+      left: 0;
+    }
+
+    /* 背景のオーバーレイ */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      z-index: 999;
+    }
+    #menu-toggle:checked ~ .overlay {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* 3. CSSでつくる「閉じる (X) マーク」 */
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .close-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    /* CSSによるX線の描画 */
+    .close-btn::before,
+    .close-btn::after {
+      content: '';
+      position: absolute;
+      width: 18px;
+      height: 2px;
+      background-color: #e7e9ea;
+      border-radius: 1px;
+    }
+    .close-btn::before {
+      transform: rotate(45deg);
+    }
+    .close-btn::after {
+      transform: rotate(-45deg);
+    }
+
+    /* 4. ゲームアカウント情報カード */
+    .account-card {
+      margin-top: 50px;
+      background: #1e2732;
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    /* Xマークのアイコン（ロゴ風CSS） */
+    .x-logo-icon {
+      width: 40px;
+      height: 40px;
+      background: #000;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .x-logo-icon::before,
+    .x-logo-icon::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 3px;
+      background-color: #fff;
+    }
+    .x-logo-icon::before {
+      transform: rotate(45deg);
+    }
+    .x-logo-icon::after {
+      transform: rotate(-45deg);
+    }
+
+    .profile-info .name {
+      font-weight: bold;
+      font-size: 1rem;
+      color: #fff;
+    }
+    .profile-info .handle {
+      font-size: 0.85rem;
+      color: #71767b;
+    }
+
+    .game-stats {
+      border-top: 1px solid #2f3336;
+      padding-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: #71767b;
+    }
+    .game-stats span strong {
+      color: #fff;
+    }
+
+    .account-link {
+      display: inline-block;
+      text-align: center;
+      background-color: #1d9bf0;
+      color: #fff;
+      padding: 8px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.85rem;
+      transition: background 0.2s;
+    }
+    .account-link:hover {
+      background-color: #1a8cd8;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- メニュー開閉用チェックボックス -->
+  <input type="checkbox" id="menu-toggle">
+
+  <!-- 画面左上のハンバーガーボタン -->
+  <label for="menu-toggle" class="menu-btn" aria-label="Open Menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </label>
+
+  <!-- 背景暗転用オーバーレイ -->
+  <label for="menu-toggle" class="overlay"></label>
+
+  <!-- 左側スライドインメニュー -->
+  <aside class="drawer">
+    <!-- メニュー内の閉じるXボタン -->
+    <label for="menu-toggle" class="close-btn" aria-label="Close Menu"></label>
+
+    <!-- ゲームアカウント情報 -->
+    <div class="account-card">
+      <div class="profile-header">
+        <div class="x-logo-icon"></div>
+        <div class="profile-info">
+          <div class="name">Yasushi Komine</div>
+          <div class="handle">@yasushi_komineg</div>
+        </div>
+      </div>
+
+      <div class="game-stats">
+        <span><strong>Game Account</strong></span>
+        <span>Active</span>
+      </div>
+
+      <a href="https://x.com/yasushi_komineg" target="_blank" rel="noopener noreferrer" class="account-link">
+        X (Twitter) プロフィール
+      </a>
+    </div>
+  </aside>
+
+</body>
+</html>
+
+
+
 </body>
 </html>
