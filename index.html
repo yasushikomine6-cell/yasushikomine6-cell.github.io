@@ -153,5 +153,128 @@
     });
   </script>
 
+〈br〉
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>夢GAMEs.lab - Flash Nostalgia</title>
+  <style>
+    /* 全体リセット & Flash風ダークテーマ */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: #0d0f12;
+      color: #00ffcc;
+      font-family: 'Courier New', Courier, monospace, "MS Gothic", sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    /* Flashコンテンツ枠風のカード */
+    .flash-container {
+      width: 100%;
+      max-width: 600px;
+      background: #11161d;
+      border: 2px solid #00ffcc;
+      box-shadow: 0 0 20px rgba(0, 255, 204, 0.3);
+      padding: 30px;
+      border-radius: 8px;
+    }
+
+    /* サイトタイトル */
+    .site-title {
+      font-size: 1.5rem;
+      color: #ff0055;
+      text-shadow: 0 0 8px #ff0055;
+      margin-bottom: 20px;
+      border-bottom: 1px dashed #ff0055;
+      padding-bottom: 10px;
+    }
+
+    /* タイプライター演出コンテナ */
+    .typewriter-wrapper {
+      display: inline-block;
+    }
+
+    /* タイプライター効果のCSS */
+    .typewriter-text {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #00ffcc;
+      white-space: nowrap; /* 折り返さず1行でタイピング */
+      overflow: hidden;    /* はみ出たテキストを隠す */
+      border-right: 3px solid #00ffcc; /* カーソル効果 */
+      
+      /* アニメーション指定: 24文字分を2.4秒で1文字ずつ表示 */
+      animation: 
+        typing 2.4s steps(24, end) forwards,
+        blink-caret 0.75s step-end infinite;
+    }
+
+    /* 文字が左から右へ現れるキーフレーム */
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 24ch; } /* 24ch = 24文字分の幅 */
+    }
+
+    /* カーソルの点滅キーフレーム */
+    @keyframes blink-caret {
+      from, to { border-color: transparent; }
+      50% { border-color: #00ffcc; }
+    }
+
+    /* メニューリンク群 */
+    .menu-list {
+      margin-top: 30px;
+      list-style: none;
+    }
+    .menu-list li {
+      margin-bottom: 12px;
+    }
+    .menu-list a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: all 0.2s;
+      display: inline-block;
+    }
+    .menu-list a:hover {
+      color: #00ffcc;
+      transform: translateX(8px);
+      text-shadow: 0 0 5px #00ffcc;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="flash-container">
+    <div class="site-title">夢GAMEs.lab</div>
+
+    <!-- タイプライター演出部分 -->
+    <div class="typewriter-wrapper">
+      <p class="typewriter-text">Welcome to YumeGAMEs.lab...</p>
+    </div>
+
+    <!-- Flashサイト風メニュー -->
+    <ul class="menu-list">
+      <li><a href="#">▶ ENTER GAME LAB</a></li>
+      <li><a href="#">▶ FLASH ARCHIVE</a></li>
+      <li><a href="#">▶ ABOUT US</a></li>
+    </ul>
+  </div>
+
+</body>
+</html>
+
+
+
 </body>
 </html>
