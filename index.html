@@ -19,87 +19,134 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      padding: 12px; /* スマホ向けに余白を縮小 */
+      padding: 12px;
     }
 
-    /* Flashコンテンツ枠（スマホ画面一杯にフィットするよう調整） */
+    /* Flashコンテンツ枠 */
     .flash-container {
+      position: relative;
       width: 100%;
-      max-width: 380px; /* スマホにちょうど良い幅に指定 */
+      max-width: 380px;
       background: #11161d;
       border: 2px solid #00ffcc;
       box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
-      padding: 20px 16px; /* パディングをスマホ用に最適化 */
+      padding: 20px 16px;
       border-radius: 8px;
+      overflow: hidden;
+    }
+
+    /* ハンバーガーアイコン（チェックボックスハック） */
+    #menu-toggle {
+      display: none;
+    }
+    .hamburger-btn {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 28px;
+      height: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      z-index: 100;
+    }
+    .hamburger-btn span {
+      display: block;
+      width: 100%;
+      height: 3px;
+      background-color: #00ffcc;
+      box-shadow: 0 0 5px #00ffcc;
+      transition: all 0.3s ease;
+    }
+
+    /* ハンバーガーアニメーション (開いた時) */
+    #menu-toggle:checked + .hamburger-btn span:nth-child(1) {
+      transform: translateY(10.5px) rotate(45deg);
+    }
+    #menu-toggle:checked + .hamburger-btn span:nth-child(2) {
+      opacity: 0;
+    }
+    #menu-toggle:checked + .hamburger-btn span:nth-child(3) {
+      transform: translateY(-10.5px) rotate(-45deg);
     }
 
     /* サイトタイトル */
     .site-title {
-      font-size: 1.25rem; /* スマホで見やすいサイズに調整 */
+      font-size: 1.25rem;
       color: #ff0055;
       text-shadow: 0 0 8px #ff0055;
       margin-bottom: 16px;
       border-bottom: 1px dashed #ff0055;
       padding-bottom: 8px;
-      text-align: center; /* スマホでバランスが取れるよう中央揃え */
+      text-align: left;
+      padding-right: 40px; /* アイコン被り防止 */
     }
 
     /* タイプライター演出コンテナ */
     .typewriter-wrapper {
       display: flex;
-      justify-content: center; /* タイピング文字を中央寄りに配置 */
+      justify-content: center;
       width: 100%;
       overflow: hidden;
     }
 
     /* タイプライター効果のCSS */
     .typewriter-text {
-      font-size: 0.9rem; /* スマホで1行に収まるようサイズ調整 */
+      font-size: 0.9rem;
       line-height: 1.6;
       color: #00ffcc;
       white-space: nowrap;
       overflow: hidden;
       border-right: 2px solid #00ffcc;
-      
-      /* 24文字分を2.4秒で表示 */
       animation: 
         typing 2.4s steps(24, end) forwards,
         blink-caret 0.75s step-end infinite;
     }
 
-    /* 文字が左から右へ現れるキーフレーム */
     @keyframes typing {
       from { width: 0; }
       to { width: 24ch; }
     }
 
-    /* カーソルの点滅キーフレーム */
     @keyframes blink-caret {
       from, to { border-color: transparent; }
       50% { border-color: #00ffcc; }
     }
 
-    /* メニューリンク群 */
+    /* ハンバーガーメニュー（初期状態は非表示） */
     .menu-list {
-      margin-top: 24px;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
       list-style: none;
+      transition: max-height 0.4s ease, opacity 0.3s ease, margin-top 0.3s ease;
+      margin-top: 0;
     }
+
+    /* チェック時にメニュー展開 */
+    #menu-toggle:checked ~ .menu-list {
+      max-height: 200px;
+      opacity: 1;
+      margin-top: 20px;
+    }
+
     .menu-list li {
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
     .menu-list a {
       color: #ffffff;
       text-decoration: none;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       transition: all 0.2s;
-      display: block; /* タップしやすいよう領域を広く */
-      padding: 8px 12px;
-      background: rgba(0, 255, 204, 0.05); /* タップ領域の視認性をUP */
+      display: block;
+      padding: 10px 12px;
+      background: rgba(0, 255, 204, 0.05);
       border: 1px solid rgba(0, 255, 204, 0.2);
       border-radius: 4px;
     }
     .menu-list a:hover,
-    .menu-list a:active { /* スマホのタップ時（active）にも反応するよう追加 */
+    .menu-list a:active {
       color: #00ffcc;
       background: rgba(0, 255, 204, 0.15);
       border-color: #00ffcc;
@@ -110,6 +157,16 @@
 <body>
 
   <div class="flash-container">
+    <!-- ハンバーガー開閉用のチェックボックス -->
+    <input type="checkbox" id="menu-toggle">
+    
+    <!-- ハンバーガーボタン -->
+    <label for="menu-toggle" class="hamburger-btn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+
     <div class="site-title">夢GAMEs.lab</div>
 
     <!-- タイプライター演出部分 -->
@@ -117,11 +174,11 @@
       <p class="typewriter-text">Welcome to YumeGAMEs.lab...</p>
     </div>
 
-    <!-- Flashサイト風メニュー -->
+    <!-- ハンバーガー展開メニュー -->
     <ul class="menu-list">
-      <li><a href="#">▶ ENTER GAME LAB</a></li>
-      <li><a href="#">▶ FLASH ARCHIVE</a></li>
-      <li><a href="#">▶ ABOUT US</a></li>
+      <li><a href="#">▶ 個人事業主概要</a></li>
+      <li><a href="#">▶ この屋号は？</a></li>
+      <li><a href="#">▶ 漫画連載</a></li>
     </ul>
   </div>
 
