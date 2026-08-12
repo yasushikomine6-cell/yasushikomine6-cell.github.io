@@ -3,162 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mobile Menu Example</title>
-  <style>
-    /* ベースのリセット・スタイル */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      font-family: sans-serif;
-      background-color: #f5f5f5;
-    }
-
-    /* ヘッダー全体（背景色を統一） */
-    .header {
-      background-color: #ffffff;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      position: relative;
-      z-index: 100;
-    }
-
-    /* 1段目: タイトル（ロゴ）行 */
-    .header-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 1.5rem;
-    }
-
-    .logo {
-      font-weight: bold;
-      font-size: 1.25rem;
-    }
-
-    /* ハンバーガーボタン（スマホ用） */
-    .menu-toggle {
-      background: none;
-      border: none;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      padding: 5px;
-    }
-    .menu-toggle .bar {
-      width: 25px;
-      height: 3px;
-      background-color: #333;
-      transition: transform 0.3s, opacity 0.3s;
-    }
-
-    /* ボタンのアニメーション (開いた時) */
-    .menu-toggle.active .bar:nth-child(1) {
-      transform: translateY(8px) rotate(45deg);
-    }
-    .menu-toggle.active .bar:nth-child(2) {
-      opacity: 0;
-    }
-    .menu-toggle.active .bar:nth-child(3) {
-      transform: translateY(-8px) rotate(-45deg);
-    }
-
-    /* 2段目: ナビゲーションメニュー（スマホ表示時） */
-    .nav-menu {
-      display: none;
-      background-color: #ffffff; /* タイトルと同色 */
-      padding: 0 20px 1rem 20px;  /* 左右に20pxの余白を設定 */
-    }
-    .nav-menu.active {
-      display: block;
-    }
-
-    .nav-menu ul {
-      list-style: none;
-    }
-    .nav-menu li a {
-      display: block;
-      padding: 0.75rem 0;
-      color: #333;
-      text-decoration: none;
-      border-bottom: 1px solid #f0f0f0;
-    }
-    .nav-menu li:last-child a {
-      border-bottom: none;
-    }
-    .nav-menu li a:hover {
-      background-color: #f8f8f8;
-    }
-
-    /* PC・タブレットサイズでの表示切替 (768px以上) */
-    @media (min-width: 768px) {
-      .header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0 1.5rem;
-      }
-      .menu-toggle {
-        display: none; /* ハンバーガーボタン非表示 */
-      }
-      .nav-menu {
-        display: block !important;
-        padding: 0;
-      }
-      .nav-menu ul {
-        display: flex;
-        gap: 1.5rem;
-      }
-      .nav-menu li a {
-        padding: 1rem 0;
-        border-bottom: none;
-      }
-    }
-  </style>
-</head>
-<body>
-
-  <header class="header">
-    <!-- 1段目: タイトルとボタン -->
-    <div class="header-top">
-      <div class="logo">MyBrand</div>
-
-      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
-      </button>
-    </div>
-
-    <!-- 2段目: メニュー（開閉エリア） -->
-    <nav class="nav-menu" id="nav-menu">
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Services</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <script>
-    const menuToggle = document.getElementById('menu-toggle');
-    const navMenu = document.getElementById('nav-menu');
-
-    menuToggle.addEventListener('click', () => {
-      menuToggle.classList.toggle('active');
-      navMenu.classList.toggle('active');
-    });
-  </script>
-
-〈br〉
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>夢GAMEs.lab - Flash Nostalgia</title>
   <style>
     /* 全体リセット & Flash風ダークテーマ */
@@ -175,45 +19,49 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      padding: 20px;
+      padding: 12px; /* スマホ向けに余白を縮小 */
     }
 
-    /* Flashコンテンツ枠風のカード */
+    /* Flashコンテンツ枠（スマホ画面一杯にフィットするよう調整） */
     .flash-container {
       width: 100%;
-      max-width: 600px;
+      max-width: 380px; /* スマホにちょうど良い幅に指定 */
       background: #11161d;
       border: 2px solid #00ffcc;
-      box-shadow: 0 0 20px rgba(0, 255, 204, 0.3);
-      padding: 30px;
+      box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
+      padding: 20px 16px; /* パディングをスマホ用に最適化 */
       border-radius: 8px;
     }
 
     /* サイトタイトル */
     .site-title {
-      font-size: 1.5rem;
+      font-size: 1.25rem; /* スマホで見やすいサイズに調整 */
       color: #ff0055;
       text-shadow: 0 0 8px #ff0055;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       border-bottom: 1px dashed #ff0055;
-      padding-bottom: 10px;
+      padding-bottom: 8px;
+      text-align: center; /* スマホでバランスが取れるよう中央揃え */
     }
 
     /* タイプライター演出コンテナ */
     .typewriter-wrapper {
-      display: inline-block;
+      display: flex;
+      justify-content: center; /* タイピング文字を中央寄りに配置 */
+      width: 100%;
+      overflow: hidden;
     }
 
     /* タイプライター効果のCSS */
     .typewriter-text {
-      font-size: 1.1rem;
-      line-height: 1.8;
+      font-size: 0.9rem; /* スマホで1行に収まるようサイズ調整 */
+      line-height: 1.6;
       color: #00ffcc;
-      white-space: nowrap; /* 折り返さず1行でタイピング */
-      overflow: hidden;    /* はみ出たテキストを隠す */
-      border-right: 3px solid #00ffcc; /* カーソル効果 */
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 2px solid #00ffcc;
       
-      /* アニメーション指定: 24文字分を2.4秒で1文字ずつ表示 */
+      /* 24文字分を2.4秒で表示 */
       animation: 
         typing 2.4s steps(24, end) forwards,
         blink-caret 0.75s step-end infinite;
@@ -222,7 +70,7 @@
     /* 文字が左から右へ現れるキーフレーム */
     @keyframes typing {
       from { width: 0; }
-      to { width: 24ch; } /* 24ch = 24文字分の幅 */
+      to { width: 24ch; }
     }
 
     /* カーソルの点滅キーフレーム */
@@ -233,22 +81,28 @@
 
     /* メニューリンク群 */
     .menu-list {
-      margin-top: 30px;
+      margin-top: 24px;
       list-style: none;
     }
     .menu-list li {
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
     .menu-list a {
       color: #ffffff;
       text-decoration: none;
-      font-size: 1rem;
+      font-size: 0.95rem;
       transition: all 0.2s;
-      display: inline-block;
+      display: block; /* タップしやすいよう領域を広く */
+      padding: 8px 12px;
+      background: rgba(0, 255, 204, 0.05); /* タップ領域の視認性をUP */
+      border: 1px solid rgba(0, 255, 204, 0.2);
+      border-radius: 4px;
     }
-    .menu-list a:hover {
+    .menu-list a:hover,
+    .menu-list a:active { /* スマホのタップ時（active）にも反応するよう追加 */
       color: #00ffcc;
-      transform: translateX(8px);
+      background: rgba(0, 255, 204, 0.15);
+      border-color: #00ffcc;
       text-shadow: 0 0 5px #00ffcc;
     }
   </style>
@@ -270,11 +124,6 @@
       <li><a href="#">▶ ABOUT US</a></li>
     </ul>
   </div>
-
-</body>
-</html>
-
-
 
 </body>
 </html>
