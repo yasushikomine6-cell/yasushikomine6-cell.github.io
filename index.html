@@ -3,104 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>夢GAMEs.Lab - Title Flash</title>
-  <style>
-    :root {
-      --mitaka-green: #008753;       /* 三鷹市シンボルカラー */
-      --mitaka-green-light: #22c55e; /* エメラルドグリーン */
-      --mitaka-green-glow: rgba(34, 197, 94, 0.4);
-      --gl-bg: #0a0f0d;
-    }
-
-    body {
-      background-color: var(--gl-bg);
-      margin: 0;
-      padding: 0;
-      font-family: 'Hiragino Kaku Gothic ProN', 'メイリオ', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
-
-    /* --- ルパン三世風 タイトルフラッシュ --- */
-    .site-header {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .lupin-flash-box {
-      background-color: #000000;
-      padding: 16px 48px;
-      border: 2px solid var(--mitaka-green-light);
-      box-shadow: 0 0 20px var(--mitaka-green-glow);
-      animation: lupinFlashBg 0.3s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
-    }
-
-    .site-title.lupin-title {
-      font-size: 2.5rem;
-      font-weight: 900;
-      color: #fffde7; /* ルパン風の黄色みがかった白 */
-      letter-spacing: 6px;
-      text-align: center;
-      margin: 0;
-      text-shadow: 2px 2px 0px #000, 0 0 12px rgba(255, 255, 255, 0.8);
-      animation: lupinTypewriter 0.2s ease-out forwards;
-    }
-
-    /* フラッシュ効果アニメーション */
-    @keyframes lupinFlashBg {
-      0% {
-        background-color: #ffffff;
-        box-shadow: 0 0 60px #ffffff;
-      }
-      50% {
-        background-color: var(--mitaka-green);
-      }
-      100% {
-        background-color: #000000;
-      }
-    }
-
-    @keyframes lupinTypewriter {
-      0% {
-        opacity: 0;
-        transform: scale(1.5);
-      }
-      100% {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    @media screen and (max-width: 600px) {
-      .lupin-flash-box {
-        padding: 12px 24px;
-      }
-      .site-title.lupin-title {
-        font-size: 1.6rem;
-        letter-spacing: 3px;
-      }
-    }
-  </style>
-</head>
-<body>
-
-  <!-- 屋号名・サイトタイトル（ルパン風フラッシュ演出） -->
-  <div class="site-header">
-    <div class="lupin-flash-box">
-      <h1 class="site-title lupin-title">夢GAMEs.Lab</h1>
-    </div>
-  </div>
-
-
-
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mobile Menu Example</title>
   <style>
     /* ベースのリセット・スタイル */
@@ -111,18 +13,23 @@
     }
     body {
       font-family: sans-serif;
+      background-color: #f5f5f5;
     }
 
-    /* ヘッダー全体 */
+    /* ヘッダー全体（背景色を統一） */
     .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 1.5rem;
       background-color: #ffffff;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       position: relative;
       z-index: 100;
+    }
+
+    /* 1段目: タイトル（ロゴ）行 */
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem;
     }
 
     .logo {
@@ -158,19 +65,14 @@
       transform: translateY(-8px) rotate(-45deg);
     }
 
-    /* ナビゲーションメニュー（スマホ用ドロワー） */
+    /* 2段目: ナビゲーションメニュー（スマホ表示時） */
     .nav-menu {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      width: 100%;
-      background-color: #ffffff;
-      flex-direction: column;
       display: none;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      background-color: #ffffff; /* タイトルと同色 */
+      padding: 0 20px 1rem 20px;  /* 左右に20pxの余白を設定 */
     }
     .nav-menu.active {
-      display: flex;
+      display: block;
     }
 
     .nav-menu ul {
@@ -178,10 +80,13 @@
     }
     .nav-menu li a {
       display: block;
-      padding: 1rem 1.5rem;
+      padding: 0.75rem 0;
       color: #333;
       text-decoration: none;
       border-bottom: 1px solid #f0f0f0;
+    }
+    .nav-menu li:last-child a {
+      border-bottom: none;
     }
     .nav-menu li a:hover {
       background-color: #f8f8f8;
@@ -189,21 +94,25 @@
 
     /* PC・タブレットサイズでの表示切替 (768px以上) */
     @media (min-width: 768px) {
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 1.5rem;
+      }
       .menu-toggle {
-        display: none; /* ハンバーガーボタンを非表示 */
+        display: none; /* ハンバーガーボタン非表示 */
       }
       .nav-menu {
-        position: static;
-        display: flex !important;
-        width: auto;
-        box-shadow: none;
+        display: block !important;
+        padding: 0;
       }
       .nav-menu ul {
         display: flex;
         gap: 1.5rem;
       }
       .nav-menu li a {
-        padding: 0.5rem 0;
+        padding: 1rem 0;
         border-bottom: none;
       }
     }
@@ -211,18 +120,19 @@
 </head>
 <body>
 
-
   <header class="header">
-    <div class="logo">MyBrand</div>
+    <!-- 1段目: タイトルとボタン -->
+    <div class="header-top">
+      <div class="logo">MyBrand</div>
 
-    <!-- スマホ用メニューボタン -->
-    <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
-      <span class="bar"></span>
-      <span class="bar"></span>
-      <span class="bar"></span>
-    </button>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+    </div>
 
-    <!-- ナビゲーションメニュー -->
+    <!-- 2段目: メニュー（開閉エリア） -->
     <nav class="nav-menu" id="nav-menu">
       <ul>
         <li><a href="#">Home</a></li>
@@ -242,10 +152,6 @@
       navMenu.classList.toggle('active');
     });
   </script>
-
-</body>
-</html>
-
 
 </body>
 </html>
