@@ -94,5 +94,158 @@
     </div>
   </div>
 
+
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mobile Menu Example</title>
+  <style>
+    /* ベースのリセット・スタイル */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: sans-serif;
+    }
+
+    /* ヘッダー全体 */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem;
+      background-color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      position: relative;
+      z-index: 100;
+    }
+
+    .logo {
+      font-weight: bold;
+      font-size: 1.25rem;
+    }
+
+    /* ハンバーガーボタン（スマホ用） */
+    .menu-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      padding: 5px;
+    }
+    .menu-toggle .bar {
+      width: 25px;
+      height: 3px;
+      background-color: #333;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+
+    /* ボタンのアニメーション (開いた時) */
+    .menu-toggle.active .bar:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+    .menu-toggle.active .bar:nth-child(2) {
+      opacity: 0;
+    }
+    .menu-toggle.active .bar:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+
+    /* ナビゲーションメニュー（スマホ用ドロワー） */
+    .nav-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background-color: #ffffff;
+      flex-direction: column;
+      display: none;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .nav-menu.active {
+      display: flex;
+    }
+
+    .nav-menu ul {
+      list-style: none;
+    }
+    .nav-menu li a {
+      display: block;
+      padding: 1rem 1.5rem;
+      color: #333;
+      text-decoration: none;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .nav-menu li a:hover {
+      background-color: #f8f8f8;
+    }
+
+    /* PC・タブレットサイズでの表示切替 (768px以上) */
+    @media (min-width: 768px) {
+      .menu-toggle {
+        display: none; /* ハンバーガーボタンを非表示 */
+      }
+      .nav-menu {
+        position: static;
+        display: flex !important;
+        width: auto;
+        box-shadow: none;
+      }
+      .nav-menu ul {
+        display: flex;
+        gap: 1.5rem;
+      }
+      .nav-menu li a {
+        padding: 0.5rem 0;
+        border-bottom: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+
+  <header class="header">
+    <div class="logo">MyBrand</div>
+
+    <!-- スマホ用メニューボタン -->
+    <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+
+    <!-- ナビゲーションメニュー -->
+    <nav class="nav-menu" id="nav-menu">
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const navMenu = document.getElementById('nav-menu');
+
+    menuToggle.addEventListener('click', () => {
+      menuToggle.classList.toggle('active');
+      navMenu.classList.toggle('active');
+    });
+  </script>
+
+</body>
+</html>
+
+
 </body>
 </html>
