@@ -430,6 +430,237 @@
     </div>
   </aside>
 
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>X Link Component</title>
+  <style>
+    :root {
+      --bg-color: #0f1419;
+      --text-color: #ffffff;
+      --accent-color: #1d9bf0;
+      --drawer-bg: #16181c;
+      --hover-bg: rgba(239, 243, 244, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* --- Left Sidebar / Menu --- */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 260px;
+      background-color: var(--drawer-bg);
+      border-right: 1px border #2f3336;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      transform: translateX(-100%);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 1000;
+    }
+
+    .sidebar.open {
+      transform: translateX(0);
+    }
+
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #2f3336;
+    }
+
+    .sidebar-title {
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      color: var(--text-color);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* --- X (Twitter) Pure CSS Icon --- */
+    .x-icon {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      position: relative;
+      vertical-align: middle;
+    }
+
+    /* Main diagonal line (\) */
+    .x-icon::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 8px;
+      width: 4px;
+      height: 20px;
+      background-color: currentColor;
+      transform: rotate(-45deg);
+    }
+
+    /* Intersecting diagonal line (/) with middle cut effect */
+    .x-icon::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 8px;
+      width: 4px;
+      height: 20px;
+      background-color: currentColor;
+      transform: rotate(45deg);
+    }
+
+    /* --- Link Item Styles --- */
+    .x-link-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 16px;
+      color: var(--text-color);
+      text-decoration: none;
+      border-radius: 9999px;
+      font-weight: 500;
+      transition: background-color 0.2s ease;
+    }
+
+    .x-link-item:hover {
+      background-color: var(--hover-bg);
+      color: #1d9bf0;
+    }
+
+    /* --- Hamburger Button --- */
+    .hamburger-btn {
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      padding: 10px;
+      z-index: 900;
+      border-radius: 8px;
+    }
+
+    .hamburger-btn:hover {
+      background-color: var(--hover-bg);
+    }
+
+    .hamburger-bar {
+      width: 22px;
+      height: 2px;
+      background-color: var(--text-color);
+      border-radius: 2px;
+    }
+
+    /* --- Overlay --- */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      z-index: 999;
+    }
+
+    .overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Main content container */
+    .main-content {
+      padding: 80px 20px 20px 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hamburger Button -->
+  <button class="hamburger-btn" id="menuToggle" aria-label="Toggle Menu">
+    <span class="hamburger-bar"></span>
+    <span class="hamburger-bar"></span>
+    <span class="hamburger-bar"></span>
+  </button>
+
+  <!-- Overlay for drawer -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Left Sidebar (X-axis Left Drawer) -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <span class="sidebar-title">ゲームアカウント</span>
+      <button class="close-btn" id="closeBtn">&times;</button>
+    </div>
+
+    <!-- X (Twitter) Link Item -->
+    <a href="https://x.com/yasushi_komineg" target="_blank" rel="noopener noreferrer" class="x-link-item">
+      <span class="x-icon"></span>
+      <span>@yasushi_komineg</span>
+    </a>
+  </aside>
+
+  <main class="main-content">
+    <h1>メインコンテンツ</h1>
+    <p>左上のハンバーガーボタンを押すと、左側からドロワーが開きます。</p>
+  </main>
+
+  <script>
+    const menuToggle = document.getElementById('menuToggle');
+    const closeBtn = document.getElementById('closeBtn');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+
+    function openMenu() {
+      sidebar.classList.add('open');
+      overlay.classList.add('active');
+    }
+
+    function closeMenu() {
+      sidebar.classList.remove('open');
+      overlay.classList.remove('active');
+    }
+
+    menuToggle.addEventListener('click', openMenu);
+    closeBtn.addEventListener('click', closeMenu);
+    overlay.addEventListener('click', closeMenu);
+  </script>
+</body>
+</html>
+
+
+
 </body>
 </html>
 
