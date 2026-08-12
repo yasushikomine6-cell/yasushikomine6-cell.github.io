@@ -14,6 +14,7 @@
       --neon-pink: #ff0055;
       --neon-green: #39ff14;
       --sub-cyan: #00e5ff;
+      --neon-yellow: #ffea00;
     }
 
     * {
@@ -253,16 +254,34 @@
     }
 
     /* -----------------------------------
-       3. 下段: ゲーム屋風 X リンクカード
+       3. 下段: ゲーム屋風 X リンクカード (共通)
     ----------------------------------- */
     .game-card {
       background: #151a21;
-      border: 3px solid var(--neon-green);
-      box-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
       padding: 20px 16px 16px;
       text-align: center;
       position: relative;
       border-radius: 4px;
+    }
+
+    /* 漫画アカウント用スタイル (黄色・ピンク系ネオン) */
+    .manga-card {
+      border: 3px solid var(--neon-yellow);
+      box-shadow: 0 0 10px rgba(255, 234, 0, 0.3);
+    }
+    .manga-badge {
+      background-color: #ff007f;
+      box-shadow: 0 0 6px #ff007f;
+    }
+
+    /* ゲームアカウント用スタイル (グリーン系ネオン) */
+    .game-acc-card {
+      border: 3px solid var(--neon-green);
+      box-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
+    }
+    .game-acc-badge {
+      background-color: var(--neon-pink);
+      box-shadow: 0 0 6px var(--neon-pink);
     }
 
     .game-title-badge {
@@ -270,13 +289,11 @@
       top: -12px;
       left: 50%;
       transform: translateX(-50%);
-      background-color: var(--neon-pink);
       color: #fff;
       padding: 2px 12px;
       font-size: 0.75rem;
       letter-spacing: 1px;
       white-space: nowrap;
-      box-shadow: 0 0 6px var(--neon-pink);
     }
 
     /* ドット絵風 CSS X マーク */
@@ -316,17 +333,28 @@
       display: block;
       width: 100%;
       padding: 10px 0;
-      background: linear-gradient(135deg, var(--neon-pink), #b000ff);
       color: #ffffff;
       text-decoration: none;
       font-size: 0.95rem;
       font-weight: bold;
       border: 2px solid #fff;
-      box-shadow: 3px 3px 0px var(--neon-green);
       box-sizing: border-box;
       transition: transform 0.1s;
     }
-    .game-btn:active {
+    .manga-btn {
+      background: linear-gradient(135deg, #ff007f, #b000ff);
+      box-shadow: 3px 3px 0px var(--neon-yellow);
+    }
+    .manga-btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0px var(--neon-yellow);
+    }
+    
+    .game-acc-btn {
+      background: linear-gradient(135deg, var(--neon-pink), #b000ff);
+      box-shadow: 3px 3px 0px var(--neon-green);
+    }
+    .game-acc-btn:active {
       transform: translate(2px, 2px);
       box-shadow: 1px 1px 0px var(--neon-green);
     }
@@ -362,25 +390,62 @@
     <!-- 2. 中段: サイドドロワー起動エリア -->
     <input type="checkbox" id="drawer-toggle">
     <label for="drawer-toggle" class="drawer-open-btn">
-      <span>☰</span> ゲームアカウントメニューを開く
+      <span>☰</span> アカウントメニューを開く
     </label>
 
     <!-- ドロワー本体 -->
     <label for="drawer-toggle" class="drawer-overlay"></label>
     <aside class="drawer">
       <label for="drawer-toggle" class="close-btn" aria-label="Close Drawer"></label>
+      
+      <!-- ドロワー内：漫画アカウント -->
       <div class="drawer-account-card">
-        <div style="font-weight: bold; color: #fff;">Yasushi Komine</div>
+        <div style="font-weight: bold; color: var(--neon-yellow);">漫画アカウント</div>
+        <div style="color: #71767b; font-size: 0.8rem;">@dream_games2023</div>
+        <a href="https://x.com/dream_games2023" target="_blank" rel="noopener noreferrer" style="color: var(--sub-cyan); font-size: 0.85rem; text-decoration: none; margin-top: 4px;">
+          ▶ プロフィールを開く
+        </a>
+      </div>
+
+      <!-- ドロワー内：ゲームアカウント -->
+      <div class="drawer-account-card" style="margin-top: 16px;">
+        <div style="font-weight: bold; color: var(--neon-green);">ゲームアカウント</div>
         <div style="color: #71767b; font-size: 0.8rem;">@yasushi_komineg</div>
-        <a href="https://x.com/yasushi_komineg" target="_blank" rel="noopener noreferrer" style="color: var(--sub-cyan); font-size: 0.85rem; text-decoration: none; margin-top: 8px;">
+        <a href="https://x.com/yasushi_komineg" target="_blank" rel="noopener noreferrer" style="color: var(--sub-cyan); font-size: 0.85rem; text-decoration: none; margin-top: 4px;">
           ▶ プロフィールを開く
         </a>
       </div>
     </aside>
 
-    <!-- 3. 下段: ゲーム屋風 X リンクカード -->
-    <div class="game-card">
-      <div class="game-title-badge">ゲームアカウント</div>
+    <!-- 3. 下段（上）：漫画アカウント（新規追加） -->
+    <div class="game-card manga-card">
+      <div class="game-title-badge manga-badge">漫画アカウント</div>
+
+      <!-- 8x8 ドット絵 X マーク -->
+      <div class="pixel-x-container" aria-label="X Logo">
+        <div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div>
+        <div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div>
+        <div class="pixel"></div><div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div><div class="pixel"></div>
+        <div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div>
+        <div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div>
+        <div class="pixel"></div><div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div><div class="pixel"></div>
+        <div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div>
+        <div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div>
+      </div>
+
+      <div class="account-info">
+        <div class="account-label">MANGA X ACCOUNT</div>
+        <div class="account-id">@dream_games2023</div>
+      </div>
+
+      <a href="https://x.com/dream_games2023" target="_blank" rel="noopener noreferrer" class="game-btn manga-btn">
+        ▶ 漫画アカウントを表示
+      </a>
+    </div>
+
+    <!-- 4. 下段（下）：ゲームアカウント（既存） -->
+    <div class="game-card game-acc-card">
+      <div class="game-title-badge game-acc-badge">ゲームアカウント</div>
 
       <!-- 8x8 ドット絵 X マーク -->
       <div class="pixel-x-container" aria-label="X Logo">
@@ -399,8 +464,8 @@
         <div class="account-id">@yasushi_komineg</div>
       </div>
 
-      <a href="https://x.com/yasushi_komineg" target="_blank" rel="noopener noreferrer" class="game-btn">
-        ▶ Xアカウントを表示
+      <a href="https://x.com/yasushi_komineg" target="_blank" rel="noopener noreferrer" class="game-btn game-acc-btn">
+        ▶ ゲームアカウントを表示
       </a>
     </div>
 
