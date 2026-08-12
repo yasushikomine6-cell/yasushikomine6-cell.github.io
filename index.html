@@ -3,39 +3,64 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>夢GAMEs.lab - Flash Nostalgia</title>
+  <title>夢GAMEs.lab - Mobile view</title>
   <style>
-    /* 全体リセット & Flash風ダークテーマ */
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=DotGothic16&display=swap');
+
+    :root {
+      --bg-color: #0d0f12;
+      --card-bg: #11161d;
+      --neon-cyan: #00ffcc;
+      --neon-pink: #ff0055;
+      --neon-green: #39ff14;
+      --sub-cyan: #00e5ff;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
+
     body {
-      background-color: #0d0f12;
-      color: #00ffcc;
-      font-family: 'Courier New', Courier, monospace, "MS Gothic", sans-serif;
+      background-color: #000000;
+      color: var(--neon-cyan);
+      font-family: 'DotGothic16', 'Courier New', monospace;
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start;
       min-height: 100vh;
-      padding: 12px;
+      padding: 10px;
     }
 
-    /* Flashコンテンツ枠 */
+    /* スマホ画面風コンテナ (最大幅 390px) */
+    .mobile-frame {
+      width: 100%;
+      max-width: 390px;
+      background-color: var(--bg-color);
+      border: 2px solid #2f3336;
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px; /* 下段に向かって整列する間隔 */
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+      position: relative;
+    }
+
+    /* -----------------------------------
+       1. 上段: Flash風メインカード & アニメーション
+    ----------------------------------- */
     .flash-container {
       position: relative;
-      width: 100%;
-      max-width: 380px;
-      background: #11161d;
-      border: 2px solid #00ffcc;
-      box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
-      padding: 20px 16px;
+      background: var(--card-bg);
+      border: 2px solid var(--neon-cyan);
+      box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
+      padding: 16px;
       border-radius: 8px;
-      overflow: hidden;
     }
 
-    /* ハンバーガーアイコン（チェックボックスハック） */
+    /* ハンバーガーアイコン (チェックボックス式) */
     #menu-toggle {
       display: none;
     }
@@ -43,47 +68,44 @@
       position: absolute;
       top: 16px;
       right: 16px;
-      width: 28px;
-      height: 24px;
+      width: 26px;
+      height: 20px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       cursor: pointer;
-      z-index: 100;
+      z-index: 10;
     }
     .hamburger-btn span {
       display: block;
       width: 100%;
-      height: 3px;
-      background-color: #00ffcc;
-      box-shadow: 0 0 5px #00ffcc;
+      height: 2px;
+      background-color: var(--neon-cyan);
+      box-shadow: 0 0 4px var(--neon-cyan);
       transition: all 0.3s ease;
     }
 
-    /* ハンバーガーアニメーション (開いた時) */
+    /* ハンバーガーアニメーション */
     #menu-toggle:checked + .hamburger-btn span:nth-child(1) {
-      transform: translateY(10.5px) rotate(45deg);
+      transform: translateY(9px) rotate(45deg);
     }
     #menu-toggle:checked + .hamburger-btn span:nth-child(2) {
       opacity: 0;
     }
     #menu-toggle:checked + .hamburger-btn span:nth-child(3) {
-      transform: translateY(-10.5px) rotate(-45deg);
+      transform: translateY(-9px) rotate(-45deg);
     }
 
-    /* サイトタイトル */
     .site-title {
-      font-size: 1.25rem;
-      color: #ff0055;
-      text-shadow: 0 0 8px #ff0055;
-      margin-bottom: 16px;
-      border-bottom: 1px dashed #ff0055;
-      padding-bottom: 8px;
-      text-align: left;
-      padding-right: 40px; /* アイコン被り防止 */
+      font-size: 1.2rem;
+      color: var(--neon-pink);
+      text-shadow: 0 0 6px var(--neon-pink);
+      margin-bottom: 12px;
+      border-bottom: 1px dashed var(--neon-pink);
+      padding-bottom: 6px;
+      padding-right: 36px;
     }
 
-    /* タイプライター演出コンテナ */
     .typewriter-wrapper {
       display: flex;
       justify-content: center;
@@ -91,14 +113,12 @@
       overflow: hidden;
     }
 
-    /* タイプライター効果のCSS */
     .typewriter-text {
-      font-size: 0.9rem;
-      line-height: 1.6;
-      color: #00ffcc;
+      font-size: 0.85rem;
+      color: var(--neon-cyan);
       white-space: nowrap;
       overflow: hidden;
-      border-right: 2px solid #00ffcc;
+      border-right: 2px solid var(--neon-cyan);
       animation: 
         typing 2.4s steps(24, end) forwards,
         blink-caret 0.75s step-end infinite;
@@ -108,13 +128,12 @@
       from { width: 0; }
       to { width: 24ch; }
     }
-
     @keyframes blink-caret {
       from, to { border-color: transparent; }
-      50% { border-color: #00ffcc; }
+      50% { border-color: var(--neon-cyan); }
     }
 
-    /* ハンバーガーメニュー（初期状態は非表示） */
+    /* アコーディオンメニュー */
     .menu-list {
       max-height: 0;
       opacity: 0;
@@ -123,585 +142,124 @@
       transition: max-height 0.4s ease, opacity 0.3s ease, margin-top 0.3s ease;
       margin-top: 0;
     }
-
-    /* チェック時にメニュー展開 */
     #menu-toggle:checked ~ .menu-list {
       max-height: 200px;
       opacity: 1;
-      margin-top: 20px;
+      margin-top: 16px;
     }
-
     .menu-list li {
       margin-bottom: 8px;
     }
     .menu-list a {
       color: #ffffff;
       text-decoration: none;
-      font-size: 0.9rem;
-      transition: all 0.2s;
+      font-size: 0.85rem;
       display: block;
-      padding: 10px 12px;
+      padding: 8px 10px;
       background: rgba(0, 255, 204, 0.05);
       border: 1px solid rgba(0, 255, 204, 0.2);
       border-radius: 4px;
     }
-    .menu-list a:hover,
-    .menu-list a:active {
-      color: #00ffcc;
+    .menu-list a:hover {
+      color: var(--neon-cyan);
       background: rgba(0, 255, 204, 0.15);
-      border-color: #00ffcc;
-      text-shadow: 0 0 5px #00ffcc;
-    }
-  </style>
-</head>
-<body>
-
-  <div class="flash-container">
-    <!-- ハンバーガー開閉用のチェックボックス -->
-    <input type="checkbox" id="menu-toggle">
-    
-    <!-- ハンバーガーボタン -->
-    <label for="menu-toggle" class="hamburger-btn">
-      <span></span>
-      <span></span>
-      <span></span>
-    </label>
-
-    <div class="site-title">夢GAMEs.lab</div>
-
-    <!-- タイプライター演出部分 -->
-    <div class="typewriter-wrapper">
-      <p class="typewriter-text">Welcome to YumeGAMEs.lab...</p>
-    </div>
-
-    <!-- ハンバーガー展開メニュー -->
-    <ul class="menu-list">
-      <li><a href="#">▶ 個人事業主概要</a></li>
-      <li><a href="#">▶ この屋号は？</a></li>
-      <li><a href="#">▶ 漫画連載</a></li>
-    </ul>
-  </div>
-
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ゲームアカウント - 左メニュー</title>
-  <style>
-    /* Reset & Base Styles */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #000;
-      color: #fff;
+      border-color: var(--neon-cyan);
     }
 
-    /* 1. 左側ハンバーガーボタン */
-    .menu-btn {
-      position: fixed;
-      top: 15px;
-      left: 15px;
-      width: 40px;
-      height: 40px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 8px;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 5px;
-      z-index: 1000;
-      transition: background 0.2s ease;
-    }
-    .menu-btn:hover {
-      background: rgba(255, 255, 255, 0.2);
-    }
-    .menu-btn span {
-      display: block;
-      width: 20px;
-      height: 2px;
-      background-color: #fff;
-      border-radius: 2px;
-    }
-
-    /* チェックボックスでメニュー開閉状態を切り替え */
-    #menu-toggle {
-      display: none;
-    }
-
-    /* 2. ドロワーメニュー (左側からスライドイン) */
+    /* -----------------------------------
+       2. 中段: スライドイン側メニュー (ドロワー)
+    ----------------------------------- */
     .drawer {
       position: fixed;
       top: 0;
-      left: -300px; /* 初期状態は画面外 */
-      width: 280px;
+      left: -280px;
+      width: 260px;
       height: 100vh;
       background-color: #15181c;
       border-right: 1px solid #2f3336;
-      padding: 20px;
-      box-sizing: border-box;
+      padding: 20px 16px;
       transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       z-index: 1001;
     }
-
-    /* チェックボックスが入ったらメニューを表示 */
-    #menu-toggle:checked ~ .drawer {
+    #drawer-toggle {
+      display: none;
+    }
+    #drawer-toggle:checked ~ .drawer {
       left: 0;
     }
-
-    /* 背景のオーバーレイ */
-    .overlay {
+    .drawer-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.6);
       opacity: 0;
       visibility: hidden;
       transition: opacity 0.3s ease, visibility 0.3s ease;
-      z-index: 999;
-    }
-    #menu-toggle:checked ~ .overlay {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    /* 3. CSSでつくる「閉じる (X) マーク」 */
-    .close-btn {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      width: 32px;
-      height: 32px;
-      cursor: pointer;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.2s;
-    }
-    .close-btn:hover {
-      background: rgba(255, 255, 255, 0.1);
-    }
-    
-    /* CSSによるX線の描画 */
-    .close-btn::before,
-    .close-btn::after {
-      content: '';
-      position: absolute;
-      width: 18px;
-      height: 2px;
-      background-color: #e7e9ea;
-      border-radius: 1px;
-    }
-    .close-btn::before {
-      transform: rotate(45deg);
-    }
-    .close-btn::after {
-      transform: rotate(-45deg);
-    }
-
-    /* 4. ゲームアカウント情報カード */
-    .account-card {
-      margin-top: 50px;
-      background: #1e2732;
-      border-radius: 12px;
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .profile-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    /* Xマークのアイコン（ロゴ風CSS） */
-    .x-logo-icon {
-      width: 40px;
-      height: 40px;
-      background: #000;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-    .x-logo-icon::before,
-    .x-logo-icon::after {
-      content: '';
-      position: absolute;
-      width: 20px;
-      height: 3px;
-      background-color: #fff;
-    }
-    .x-logo-icon::before {
-      transform: rotate(45deg);
-    }
-    .x-logo-icon::after {
-      transform: rotate(-45deg);
-    }
-
-    .profile-info .name {
-      font-weight: bold;
-      font-size: 1rem;
-      color: #fff;
-    }
-    .profile-info .handle {
-      font-size: 0.85rem;
-      color: #71767b;
-    }
-
-    .game-stats {
-      border-top: 1px solid #2f3336;
-      padding-top: 10px;
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.85rem;
-      color: #71767b;
-    }
-    .game-stats span strong {
-      color: #fff;
-    }
-
-    .account-link {
-      display: inline-block;
-      text-align: center;
-      background-color: #1d9bf0;
-      color: #fff;
-      padding: 8px;
-      border-radius: 20px;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 0.85rem;
-      transition: background 0.2s;
-    }
-    .account-link:hover {
-      background-color: #1a8cd8;
-    }
-  </style>
-</head>
-<body>
-
-  <!-- メニュー開閉用チェックボックス -->
-  <input type="checkbox" id="menu-toggle">
-
-  <!-- 画面左上のハンバーガーボタン -->
-  <label for="menu-toggle" class="menu-btn" aria-label="Open Menu">
-    <span></span>
-    <span></span>
-    <span></span>
-  </label>
-
-  <!-- 背景暗転用オーバーレイ -->
-  <label for="menu-toggle" class="overlay"></label>
-
-  <!-- 左側スライドインメニュー -->
-  <aside class="drawer">
-    <!-- メニュー内の閉じるXボタン -->
-    <label for="menu-toggle" class="close-btn" aria-label="Close Menu"></label>
-
-    <!-- ゲームアカウント情報 -->
-    <div class="account-card">
-      <div class="profile-header">
-        <div class="x-logo-icon"></div>
-        <div class="profile-info">
-          <div class="name">Yasushi Komine</div>
-          <div class="handle">@yasushi_komineg</div>
-        </div>
-      </div>
-
-      <div class="game-stats">
-        <span><strong>Game Account</strong></span>
-        <span>Active</span>
-      </div>
-
-      <a href="https://x.com/yasushi_komineg" target="_blank" rel="noopener noreferrer" class="account-link">
-        X (Twitter) プロフィール
-      </a>
-    </div>
-  </aside>
-
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>X Link Component</title>
-  <style>
-    :root {
-      --bg-color: #0f1419;
-      --text-color: #ffffff;
-      --accent-color: #1d9bf0;
-      --drawer-bg: #16181c;
-      --hover-bg: rgba(239, 243, 244, 0.1);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      display: flex;
-      min-height: 100vh;
-    }
-
-    /* --- Left Sidebar / Menu --- */
-    .sidebar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100vh;
-      width: 260px;
-      background-color: var(--drawer-bg);
-      border-right: 1px border #2f3336;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      transform: translateX(-100%);
-      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       z-index: 1000;
     }
-
-    .sidebar.open {
-      transform: translateX(0);
-    }
-
-    .sidebar-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-bottom: 15px;
-      border-bottom: 1px solid #2f3336;
-    }
-
-    .sidebar-title {
-      font-weight: bold;
-      font-size: 1.1rem;
-    }
-
-    .close-btn {
-      background: none;
-      border: none;
-      color: var(--text-color);
-      font-size: 1.5rem;
-      cursor: pointer;
-    }
-
-    /* --- X (Twitter) Pure CSS Icon --- */
-    .x-icon {
-      display: inline-block;
-      width: 20px;
-      height: 20px;
-      position: relative;
-      vertical-align: middle;
-    }
-
-    /* Main diagonal line (\) */
-    .x-icon::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 8px;
-      width: 4px;
-      height: 20px;
-      background-color: currentColor;
-      transform: rotate(-45deg);
-    }
-
-    /* Intersecting diagonal line (/) with middle cut effect */
-    .x-icon::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 8px;
-      width: 4px;
-      height: 20px;
-      background-color: currentColor;
-      transform: rotate(45deg);
-    }
-
-    /* --- Link Item Styles --- */
-    .x-link-item {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      padding: 10px 16px;
-      color: var(--text-color);
-      text-decoration: none;
-      border-radius: 9999px;
-      font-weight: 500;
-      transition: background-color 0.2s ease;
-    }
-
-    .x-link-item:hover {
-      background-color: var(--hover-bg);
-      color: #1d9bf0;
-    }
-
-    /* --- Hamburger Button --- */
-    .hamburger-btn {
-      position: fixed;
-      top: 15px;
-      left: 15px;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      padding: 10px;
-      z-index: 900;
-      border-radius: 8px;
-    }
-
-    .hamburger-btn:hover {
-      background-color: var(--hover-bg);
-    }
-
-    .hamburger-bar {
-      width: 22px;
-      height: 2px;
-      background-color: var(--text-color);
-      border-radius: 2px;
-    }
-
-    /* --- Overlay --- */
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.5);
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s ease, visibility 0.3s ease;
-      z-index: 999;
-    }
-
-    .overlay.active {
+    #drawer-toggle:checked ~ .drawer-overlay {
       opacity: 1;
       visibility: visible;
     }
 
-    /* Main content container */
-    .main-content {
-      padding: 80px 20px 20px 20px;
-    }
-  </style>
-</head>
-<body>
-
-  <!-- Hamburger Button -->
-  <button class="hamburger-btn" id="menuToggle" aria-label="Toggle Menu">
-    <span class="hamburger-bar"></span>
-    <span class="hamburger-bar"></span>
-    <span class="hamburger-bar"></span>
-  </button>
-
-  <!-- Overlay for drawer -->
-  <div class="overlay" id="overlay"></div>
-
-  <!-- Left Sidebar (X-axis Left Drawer) -->
-  <aside class="sidebar" id="sidebar">
-    <div class="sidebar-header">
-      <span class="sidebar-title">ゲームアカウント</span>
-      <button class="close-btn" id="closeBtn">&times;</button>
-    </div>
-
-    <!-- X (Twitter) Link Item -->
-    <a href="https://x.com/yasushi_komineg" target="_blank" rel="noopener noreferrer" class="x-link-item">
-      <span class="x-icon"></span>
-      <span>@yasushi_komineg</span>
-    </a>
-  </aside>
-
-  <main class="main-content">
-    <h1>メインコンテンツ</h1>
-    <p>左上のハンバーガーボタンを押すと、左側からドロワーが開きます。</p>
-  </main>
-
-  <script>
-    const menuToggle = document.getElementById('menuToggle');
-    const closeBtn = document.getElementById('closeBtn');
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('overlay');
-
-    function openMenu() {
-      sidebar.classList.add('open');
-      overlay.classList.add('active');
-    }
-
-    function closeMenu() {
-      sidebar.classList.remove('open');
-      overlay.classList.remove('active');
-    }
-
-    menuToggle.addEventListener('click', openMenu);
-    closeBtn.addEventListener('click', closeMenu);
-    overlay.addEventListener('click', closeMenu);
-  </script>
-</body>
-</html>
-
-
-
-</body>
-</html>
-
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ゲーム屋風 X リンクコンポーネント</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=DotGothic16&display=swap');
-
-    :root {
-      --bg-color: #0b0e14;
-      --card-bg: #151a21;
-      --border-color: #39ff14; /* ネオングリーン */
-      --accent-color: #ff007f; /* ネオンピンク */
-      --text-color: #ffffff;
-      --sub-text: #00e5ff; /* シアン */
-    }
-
-    body {
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      font-family: 'DotGothic16', monospace;
-      display: flex;
-      justify-content: center;
+    .drawer-open-btn {
+      display: inline-flex;
       align-items: center;
-      min-height: 100vh;
-      margin: 0;
-      padding: 20px;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 10px;
+      background: #1e2732;
+      border: 1px solid #2f3336;
+      color: #fff;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
     }
 
-    /* レトロゲーム風カード枠 */
+    .close-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 28px;
+      height: 28px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .close-btn::before, .close-btn::after {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 2px;
+      background-color: #fff;
+    }
+    .close-btn::before { transform: rotate(45deg); }
+    .close-btn::after { transform: rotate(-45deg); }
+
+    /* ドロワー内部のアカウント表示 */
+    .drawer-account-card {
+      margin-top: 40px;
+      background: #0d0f12;
+      border: 1px solid #2f3336;
+      border-radius: 8px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* -----------------------------------
+       3. 下段: ゲーム屋風 X リンクカード
+    ----------------------------------- */
     .game-card {
-      background: var(--card-bg);
-      border: 4px solid var(--border-color);
-      box-shadow: 0 0 15px rgba(57, 255, 20, 0.4), inset 0 0 10px rgba(0, 0, 0, 0.8);
-      padding: 24px;
-      width: 100%;
-      max-width: 380px;
+      background: #151a21;
+      border: 3px solid var(--neon-green);
+      box-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
+      padding: 20px 16px 16px;
       text-align: center;
       position: relative;
       border-radius: 4px;
@@ -709,127 +267,144 @@
 
     .game-title-badge {
       position: absolute;
-      top: -16px;
+      top: -12px;
       left: 50%;
       transform: translateX(-50%);
-      background-color: var(--accent-color);
+      background-color: var(--neon-pink);
       color: #fff;
-      padding: 2px 16px;
-      font-size: 0.9rem;
-      letter-spacing: 2px;
-      box-shadow: 0 0 8px var(--accent-color);
+      padding: 2px 12px;
+      font-size: 0.75rem;
+      letter-spacing: 1px;
       white-space: nowrap;
+      box-shadow: 0 0 6px var(--neon-pink);
     }
 
-    /* ドット絵風 X ロゴ再現 */
+    /* ドット絵風 CSS X マーク */
     .pixel-x-container {
-      margin: 20px auto 15px;
-      width: 80px;
-      height: 80px;
+      margin: 10px auto 12px;
+      width: 64px;
+      height: 64px;
       display: grid;
       grid-template-columns: repeat(8, 1fr);
       grid-template-rows: repeat(8, 1fr);
       gap: 1px;
-      padding: 6px;
+      padding: 4px;
       background: #000;
-      border: 2px solid var(--sub-text);
-      box-shadow: 0 0 10px var(--sub-text);
+      border: 2px solid var(--sub-cyan);
+      box-shadow: 0 0 6px var(--sub-cyan);
     }
-
-    /* 8x8 グリッドで「X」をドット描画 */
-    .pixel {
-      background-color: transparent;
-    }
-    .pixel.on {
-      background-color: #ffffff;
-      box-shadow: 0 0 2px #ffffff;
-    }
+    .pixel { background-color: transparent; }
+    .pixel.on { background-color: #ffffff; }
 
     .account-info {
-      margin-bottom: 20px;
+      margin-bottom: 14px;
     }
-
     .account-label {
-      color: var(--sub-text);
-      font-size: 0.85rem;
-      margin-bottom: 4px;
+      color: var(--sub-cyan);
+      font-size: 0.75rem;
+      margin-bottom: 2px;
     }
-
     .account-id {
       font-family: 'Press Start 2P', monospace;
-      font-size: 0.9rem;
+      font-size: 0.75rem;
       color: #fff;
       word-break: break-all;
     }
 
-    /* ゲーミングリンクボタン */
+    /* ゲーム風アクションボタン */
     .game-btn {
-      display: inline-block;
+      display: block;
       width: 100%;
-      padding: 12px 0;
-      background: linear-gradient(135deg, var(--accent-color), #b000ff);
+      padding: 10px 0;
+      background: linear-gradient(135deg, var(--neon-pink), #b000ff);
       color: #ffffff;
       text-decoration: none;
-      font-size: 1.1rem;
+      font-size: 0.95rem;
       font-weight: bold;
       border: 2px solid #fff;
-      box-shadow: 4px 4px 0px var(--border-color);
-      transition: all 0.1s ease;
-      cursor: pointer;
+      box-shadow: 3px 3px 0px var(--neon-green);
       box-sizing: border-box;
+      transition: transform 0.1s;
     }
-
-    .game-btn:hover {
-      transform: translate(-2px, -2px);
-      box-shadow: 6px 6px 0px var(--border-color);
-      filter: brightness(1.2);
-    }
-
     .game-btn:active {
       transform: translate(2px, 2px);
-      box-shadow: 2px 2px 0px var(--border-color);
+      box-shadow: 1px 1px 0px var(--neon-green);
     }
   </style>
 </head>
 <body>
 
-  <div class="game-card">
-    <div class="game-title-badge">ゲームアカウント</div>
+  <!-- スマホ表示フレーム -->
+  <div class="mobile-frame">
 
-    <!-- ドット絵風 CSS X マーク -->
-    <div class="pixel-x-container" aria-label="X Logo">
-      <!-- Row 1 -->
-      <div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div>
-      <!-- Row 2 -->
-      <div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div>
-      <!-- Row 3 -->
-      <div class="pixel"></div><div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div><div class="pixel"></div>
-      <!-- Row 4 -->
-      <div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div>
-      <!-- Row 5 -->
-      <div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div>
-      <!-- Row 6 -->
-      <div class="pixel"></div><div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div><div class="pixel"></div>
-      <!-- Row 7 -->
-      <div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div>
-      <!-- Row 8 -->
-      <div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div>
+    <!-- 1. 上段: Flash Nostalgia カード -->
+    <div class="flash-container">
+      <input type="checkbox" id="menu-toggle">
+      <label for="menu-toggle" class="hamburger-btn" aria-label="Menu Toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+
+      <div class="site-title">夢GAMEs.lab</div>
+
+      <div class="typewriter-wrapper">
+        <p class="typewriter-text">Welcome to YumeGAMEs.lab...</p>
+      </div>
+
+      <ul class="menu-list">
+        <li><a href="#">▶ 個人事業主概要</a></li>
+        <li><a href="#">▶ この屋号は？</a></li>
+        <li><a href="#">▶ 漫画連載</a></li>
+      </ul>
     </div>
 
-    <div class="account-info">
-      <div class="account-label">OFFICIAL X ACCOUNT</div>
-      <div class="account-id">@yasushi_komineg</div>
+    <!-- 2. 中段: サイドドロワー起動エリア -->
+    <input type="checkbox" id="drawer-toggle">
+    <label for="drawer-toggle" class="drawer-open-btn">
+      <span>☰</span> ゲームアカウントメニューを開く
+    </label>
+
+    <!-- ドロワー本体 -->
+    <label for="drawer-toggle" class="drawer-overlay"></label>
+    <aside class="drawer">
+      <label for="drawer-toggle" class="close-btn" aria-label="Close Drawer"></label>
+      <div class="drawer-account-card">
+        <div style="font-weight: bold; color: #fff;">Yasushi Komine</div>
+        <div style="color: #71767b; font-size: 0.8rem;">@yasushi_komineg</div>
+        <a href="https://x.com/yasushi_komineg" target="_blank" rel="noopener noreferrer" style="color: var(--sub-cyan); font-size: 0.85rem; text-decoration: none; margin-top: 8px;">
+          ▶ プロフィールを開く
+        </a>
+      </div>
+    </aside>
+
+    <!-- 3. 下段: ゲーム屋風 X リンクカード -->
+    <div class="game-card">
+      <div class="game-title-badge">ゲームアカウント</div>
+
+      <!-- 8x8 ドット絵 X マーク -->
+      <div class="pixel-x-container" aria-label="X Logo">
+        <div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div>
+        <div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div>
+        <div class="pixel"></div><div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div><div class="pixel"></div>
+        <div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div>
+        <div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div>
+        <div class="pixel"></div><div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div><div class="pixel"></div>
+        <div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div>
+        <div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div>
+      </div>
+
+      <div class="account-info">
+        <div class="account-label">OFFICIAL X ACCOUNT</div>
+        <div class="account-id">@yasushi_komineg</div>
+      </div>
+
+      <a href="https://x.com/yasushi_komineg" target="_blank" rel="noopener noreferrer" class="game-btn">
+        ▶ Xアカウントを表示
+      </a>
     </div>
 
-    <!-- リンクボタン -->
-    <a href="https://x.com/yasushi_komineg" target="_blank" rel="noopener noreferrer" class="game-btn">
-      ▶ Xアカウントを表示
-    </a>
   </div>
-
-</body>
-</html>
-
 
 </body>
 </html>
