@@ -3,70 +3,49 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>夢GAMEs.Lab</title>
+  <title>夢GAMEs.Lab - Title Flash</title>
   <style>
-    /* --- 三鷹市カラー ＆ ルパン風スタイル --- */
     :root {
-      --mitaka-green: #008753;       /* 三鷹市シンボルカラー（緑） */
-      --mitaka-green-light: #22c55e; /* 明るいエメラルド */
+      --mitaka-green: #008753;       /* 三鷹市シンボルカラー */
+      --mitaka-green-light: #22c55e; /* エメラルドグリーン */
       --mitaka-green-glow: rgba(34, 197, 94, 0.4);
       --gl-bg: #0a0f0d;
-      --gl-card-bg: #121c17;
-      --gl-text: #e2e8f0;
-      --gl-border: rgba(34, 197, 94, 0.2);
     }
 
     body {
       background-color: var(--gl-bg);
       margin: 0;
-      padding: 20px;
+      padding: 0;
       font-family: 'Hiragino Kaku Gothic ProN', 'メイリオ', sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      box-sizing: border-box;
-    }
-
-    /* 全体コンテナ（中央構え） */
-    .dream-lab-container {
-      background-color: var(--gl-bg);
-      padding: 30px 20px;
-      border-radius: 16px;
-      color: var(--gl-text);
-      max-width: 800px;
-      width: 100%;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      box-sizing: border-box;
     }
 
     /* --- ルパン三世風 タイトルフラッシュ --- */
     .site-header {
-      width: 100%;
       display: flex;
       justify-content: center;
-      margin-bottom: 25px;
+      align-items: center;
     }
 
     .lupin-flash-box {
       background-color: #000000;
-      padding: 12px 36px;
+      padding: 16px 48px;
       border: 2px solid var(--mitaka-green-light);
-      box-shadow: 0 0 15px var(--mitaka-green-glow);
+      box-shadow: 0 0 20px var(--mitaka-green-glow);
       animation: lupinFlashBg 0.3s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
     }
 
     .site-title.lupin-title {
-      font-size: 2rem;
+      font-size: 2.5rem;
       font-weight: 900;
       color: #fffde7; /* ルパン風の黄色みがかった白 */
-      letter-spacing: 4px;
+      letter-spacing: 6px;
       text-align: center;
       margin: 0;
-      text-shadow: 2px 2px 0px #000, 0 0 10px rgba(255, 255, 255, 0.8);
+      text-shadow: 2px 2px 0px #000, 0 0 12px rgba(255, 255, 255, 0.8);
       animation: lupinTypewriter 0.2s ease-out forwards;
     }
 
@@ -74,10 +53,10 @@
     @keyframes lupinFlashBg {
       0% {
         background-color: #ffffff;
-        box-shadow: 0 0 50px #ffffff;
+        box-shadow: 0 0 60px #ffffff;
       }
       50% {
-        background-color: #008753;
+        background-color: var(--mitaka-green);
       }
       100% {
         background-color: #000000;
@@ -87,7 +66,7 @@
     @keyframes lupinTypewriter {
       0% {
         opacity: 0;
-        transform: scale(1.4);
+        transform: scale(1.5);
       }
       100% {
         opacity: 1;
@@ -95,177 +74,24 @@
       }
     }
 
-    /* --- テーブルスタイル --- */
-    .dream-lab-table {
-      width: 100%;
-      border-collapse: separate;
-      border-spacing: 0;
-      background-color: var(--gl-card-bg);
-      border-radius: 12px;
-      overflow: hidden;
-      border: 2px solid var(--mitaka-green-light);
-      box-shadow: 0 0 20px var(--mitaka-green-glow);
-      text-align: center;
-    }
-
-    .dream-lab-table th {
-      background: linear-gradient(180deg, #16382b 0%, #121c17 100%);
-      color: var(--mitaka-green-light);
-      font-size: 0.9rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      padding: 16px;
-      text-align: center;
-      border-bottom: 2px solid var(--mitaka-green-light);
-    }
-
-    .dream-lab-table td {
-      padding: 16px;
-      border-bottom: 1px solid var(--gl-border);
-      font-size: 0.95rem;
-      text-align: center;
-    }
-
-    .dream-lab-table tbody tr {
-      transition: all 0.2s ease;
-    }
-
-    .dream-lab-table tbody tr:hover {
-      background-color: rgba(34, 197, 94, 0.1);
-    }
-
-    .dream-lab-table tbody tr:last-child td {
-      border-bottom: none;
-    }
-
-    .title-cell {
-      font-weight: bold;
-      color: #ffffff;
-    }
-
-    /* ステータスバッジ */
-    .badge {
-      display: inline-block;
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      font-weight: 700;
-    }
-
-    .badge.active {
-      background: rgba(34, 197, 94, 0.2);
-      color: var(--mitaka-green-light);
-      border: 1px solid var(--mitaka-green-light);
-      box-shadow: 0 0 8px var(--mitaka-green-glow);
-    }
-
-    .badge.in-dev {
-      background: rgba(234, 179, 8, 0.2);
-      color: #fde047;
-      border: 1px solid #eab308;
-    }
-
-    .badge.upcoming {
-      background: rgba(148, 163, 184, 0.2);
-      color: #cbd5e1;
-      border: 1px solid #94a3b8;
-    }
-
-    /* --- スマホ用レスポンシブ（カード型） --- */
     @media screen and (max-width: 600px) {
-      .dream-lab-table, 
-      .dream-lab-table thead, 
-      .dream-lab-table tbody, 
-      .dream-lab-table th, 
-      .dream-lab-table td, 
-      .dream-lab-table tr {
-        display: block;
+      .lupin-flash-box {
+        padding: 12px 24px;
       }
-
-      .dream-lab-table {
-        border: none;
-        box-shadow: none;
-        background-color: transparent;
-      }
-
-      .dream-lab-table thead {
-        display: none;
-      }
-
-      .dream-lab-table tbody tr {
-        margin-bottom: 16px;
-        border: 1.5px solid var(--mitaka-green-light);
-        border-radius: 10px;
-        background-color: var(--gl-card-bg);
-        box-shadow: 0 0 12px var(--mitaka-green-glow);
-        padding: 8px 0;
-      }
-
-      .dream-lab-table td {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 10px 16px;
-        border-bottom: 1px solid var(--gl-border);
-      }
-
-      .dream-lab-table td::before {
-        content: attr(data-label);
-        font-weight: 700;
-        font-size: 0.75rem;
-        color: var(--mitaka-green-light);
-        letter-spacing: 1px;
-        margin-bottom: 4px;
-      }
-
-      .dream-lab-table td:last-child {
-        border-bottom: none;
+      .site-title.lupin-title {
+        font-size: 1.6rem;
+        letter-spacing: 3px;
       }
     }
   </style>
 </head>
 <body>
 
-  <div class="dream-lab-container">
-    <!-- 屋号名・サイトタイトル（ルパン風フラッシュ演出） -->
-    <div class="site-header">
-      <div class="lupin-flash-box">
-        <h1 class="site-title lupin-title">夢GAMEs.Lab</h1>
-      </div>
+  <!-- 屋号名・サイトタイトル（ルパン風フラッシュ演出） -->
+  <div class="site-header">
+    <div class="lupin-flash-box">
+      <h1 class="site-title lupin-title">夢GAMEs.Lab</h1>
     </div>
-
-    <!-- テーブルエリア -->
-    <table class="dream-lab-table">
-      <thead>
-        <tr>
-          <th>GAME TITLE</th>
-          <th>CATEGORY</th>
-          <th>PLATFORM</th>
-          <th>STATUS</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td data-label="GAME TITLE" class="title-cell">Starlight Odyssey</td>
-          <td data-label="CATEGORY">Sci-Fi RPG</td>
-          <td data-label="PLATFORM">Steam / PS5</td>
-          <td data-label="STATUS"><span class="badge active">NOW ON SALE</span></td>
-        </tr>
-        <tr>
-          <td data-label="GAME TITLE" class="title-cell">Phantom Labyrinth</td>
-          <td data-label="CATEGORY">Dark Fantasy</td>
-          <td data-label="PLATFORM">Switch / PC</td>
-          <td data-label="STATUS"><span class="badge in-dev">IN DEV</span></td>
-        </tr>
-        <tr>
-          <td data-label="GAME TITLE" class="title-cell">Cyber Nexus 2099</td>
-          <td data-label="CATEGORY">Cyberpunk Action</td>
-          <td data-label="PLATFORM">Steam</td>
-          <td data-label="STATUS"><span class="badge upcoming">2027 Q1</span></td>
-        </tr>
-      </tbody>
-    </table>
   </div>
 
 </body>
