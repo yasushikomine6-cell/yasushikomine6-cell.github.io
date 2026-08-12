@@ -1,0 +1,206 @@
+/* --- Mitaka City Green & Lupin Flash Style --- */
+:root {
+  --mitaka-green: #008753;       /* 三鷹市シンボルカラー（緑） */
+  --mitaka-green-light: #22c55e; /* 明るいエメラルド */
+  --mitaka-green-glow: rgba(34, 197, 94, 0.4);
+  --gl-bg: #0a0f0d;
+  --gl-card-bg: #121c17;
+  --gl-text: #e2e8f0;
+  --gl-border: rgba(34, 197, 94, 0.2);
+}
+
+/* 全体コンテナ（中央構え） */
+.dream-lab-container {
+  background-color: var(--gl-bg);
+  padding: 30px 20px;
+  border-radius: 16px;
+  font-family: 'Hiragino Kaku Gothic ProN', 'メイリオ', sans-serif;
+  color: var(--gl-text);
+  max-width: 800px;
+  margin: 0 auto;               /* 中央構え */
+  display: flex;
+  flex-direction: column;
+  align-items: center;          /* 子要素を中央揃え */
+}
+
+/* --- ルパン三世風 タイトルフラッシュ --- */
+.site-header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+
+.lupin-flash-box {
+  background-color: #000000;
+  padding: 12px 36px;
+  border: 2px solid var(--mitaka-green-light);
+  box-shadow: 0 0 15px var(--mitaka-green-glow);
+  animation: lupinFlashBg 0.3s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+}
+
+.site-title.lupin-title {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #fffde7; /* ルパン風のほんのり黄色がかった白 */
+  letter-spacing: 4px;
+  text-align: center;
+  margin: 0;
+  text-shadow: 2px 2px 0px #000, 0 0 10px rgba(255, 255, 255, 0.8);
+  /* パッと画面に飛び出すフラッシュアニメーション */
+  animation: lupinTypewriter 0.2s ease-out forwards;
+}
+
+/* フラッシュ効果のアニメーション */
+@keyframes lupinFlashBg {
+  0% {
+    background-color: #ffffff;
+    box-shadow: 0 0 50px #ffffff;
+  }
+  50% {
+    background-color: #008753;
+  }
+  100% {
+    background-color: #000000;
+  }
+}
+
+@keyframes lupinTypewriter {
+  0% {
+    opacity: 0;
+    transform: scale(1.4);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* --- 三鷹カラーテーブル（中央構え） --- */
+.dream-lab-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: var(--gl-card-bg);
+  border-radius: 12px;
+  overflow: hidden;
+  border: 2px solid var(--mitaka-green-light);
+  box-shadow: 0 0 20px var(--mitaka-green-glow);
+  text-align: center;           /* テーブル内も中央揃え */
+}
+
+.dream-lab-table th {
+  background: linear-gradient(180deg, #16382b 0%, #121c17 100%);
+  color: var(--mitaka-green-light);
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 16px;
+  text-align: center;           /* ヘッダー文字中央 */
+  border-bottom: 2px solid var(--mitaka-green-light);
+}
+
+.dream-lab-table td {
+  padding: 16px;
+  border-bottom: 1px solid var(--gl-border);
+  font-size: 0.95rem;
+  text-align: center;           /* セル内文字中央 */
+}
+
+.dream-lab-table tbody tr {
+  transition: all 0.2s ease;
+}
+
+.dream-lab-table tbody tr:hover {
+  background-color: rgba(34, 197, 94, 0.1);
+}
+
+.dream-lab-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.title-cell {
+  font-weight: bold;
+  color: #ffffff;
+}
+
+/* ステータスバッジ */
+.badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.badge.active {
+  background: rgba(34, 197, 94, 0.2);
+  color: var(--mitaka-green-light);
+  border: 1px solid var(--mitaka-green-light);
+  box-shadow: 0 0 8px var(--mitaka-green-glow);
+}
+
+.badge.in-dev {
+  background: rgba(234, 179, 8, 0.2);
+  color: #fde047;
+  border: 1px solid #eab308;
+}
+
+.badge.upcoming {
+  background: rgba(148, 163, 184, 0.2);
+  color: #cbd5e1;
+  border: 1px solid #94a3b8;
+}
+
+/* --- スマホ用レスポンシブ（中央構えカード） --- */
+@media screen and (max-width: 600px) {
+  .dream-lab-table, 
+  .dream-lab-table thead, 
+  .dream-lab-table tbody, 
+  .dream-lab-table th, 
+  .dream-lab-table td, 
+  .dream-lab-table tr {
+    display: block;
+  }
+
+  .dream-lab-table {
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+  }
+
+  .dream-lab-table thead {
+    display: none;
+  }
+
+  .dream-lab-table tbody tr {
+    margin-bottom: 16px;
+    border: 1.5px solid var(--mitaka-green-light);
+    border-radius: 10px;
+    background-color: var(--gl-card-bg);
+    box-shadow: 0 0 12px var(--mitaka-green-glow);
+    padding: 8px 0;
+  }
+
+  .dream-lab-table td {
+    display: flex;
+    flex-direction: column;     /* スマホでも中央で上下配置 */
+    align-items: center;
+    justify-content: center;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--gl-border);
+  }
+
+  .dream-lab-table td::before {
+    content: attr(data-label);
+    font-weight: 700;
+    font-size: 0.75rem;
+    color: var(--mitaka-green-light);
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+
+  .dream-lab-table td:last-child {
+    border-bottom: none;
+  }
+}
