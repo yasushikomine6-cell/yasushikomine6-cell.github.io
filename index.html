@@ -44,7 +44,7 @@
       padding: 16px;
       display: flex;
       flex-direction: column;
-      gap: 20px; /* 下段に向かって整列する間隔 */
+      gap: 20px;
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
       position: relative;
     }
@@ -61,10 +61,7 @@
       border-radius: 8px;
     }
 
-    /* ハンバーガーアイコン (チェックボックス式) */
-    #menu-toggle {
-      display: none;
-    }
+    #menu-toggle { display: none; }
     .hamburger-btn {
       position: absolute;
       top: 16px;
@@ -86,16 +83,9 @@
       transition: all 0.3s ease;
     }
 
-    /* ハンバーガーアニメーション */
-    #menu-toggle:checked + .hamburger-btn span:nth-child(1) {
-      transform: translateY(9px) rotate(45deg);
-    }
-    #menu-toggle:checked + .hamburger-btn span:nth-child(2) {
-      opacity: 0;
-    }
-    #menu-toggle:checked + .hamburger-btn span:nth-child(3) {
-      transform: translateY(-9px) rotate(-45deg);
-    }
+    #menu-toggle:checked + .hamburger-btn span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+    #menu-toggle:checked + .hamburger-btn span:nth-child(2) { opacity: 0; }
+    #menu-toggle:checked + .hamburger-btn span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
 
     .site-title {
       font-size: 1.2rem;
@@ -125,16 +115,9 @@
         blink-caret 0.75s step-end infinite;
     }
 
-    @keyframes typing {
-      from { width: 0; }
-      to { width: 24ch; }
-    }
-    @keyframes blink-caret {
-      from, to { border-color: transparent; }
-      50% { border-color: var(--neon-cyan); }
-    }
+    @keyframes typing { from { width: 0; } to { width: 24ch; } }
+    @keyframes blink-caret { from, to { border-color: transparent; } 50% { border-color: var(--neon-cyan); } }
 
-    /* アコーディオンメニュー */
     .menu-list {
       max-height: 0;
       opacity: 0;
@@ -148,9 +131,7 @@
       opacity: 1;
       margin-top: 16px;
     }
-    .menu-list li {
-      margin-bottom: 8px;
-    }
+    .menu-list li { margin-bottom: 8px; }
     .menu-list a {
       color: #ffffff;
       text-decoration: none;
@@ -168,7 +149,53 @@
     }
 
     /* -----------------------------------
-       2. 中段: スライドイン側メニュー (ドロワー)
+       2. アクセスカウンター (レスポンシブ・1から開始)
+    ----------------------------------- */
+    .counter-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background-color: var(--card-bg);
+      border: 1px solid var(--sub-cyan);
+      box-shadow: 0 0 10px rgba(0, 229, 255, 0.2);
+      border-radius: 8px;
+      padding: 14px 16px;
+      width: 100%;
+    }
+
+    .counter-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .counter-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: #ffffff;
+    }
+
+    .counter-icon {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .counter-value {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.75rem;
+      color: var(--neon-cyan);
+      background-color: #000000;
+      padding: 6px 8px;
+      border-radius: 4px;
+      border: 1px solid #21262d;
+      letter-spacing: 1px;
+    }
+
+    /* -----------------------------------
+       3. サイドドロワー
     ----------------------------------- */
     .drawer {
       position: fixed;
@@ -182,12 +209,8 @@
       transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       z-index: 1001;
     }
-    #drawer-toggle {
-      display: none;
-    }
-    #drawer-toggle:checked ~ .drawer {
-      left: 0;
-    }
+    #drawer-toggle { display: none; }
+    #drawer-toggle:checked ~ .drawer { left: 0; }
     .drawer-overlay {
       position: fixed;
       top: 0;
@@ -241,7 +264,6 @@
     .close-btn::before { transform: rotate(45deg); }
     .close-btn::after { transform: rotate(-45deg); }
 
-    /* ドロワー内部のアカウント表示 */
     .drawer-account-card {
       margin-top: 40px;
       background: #0d0f12;
@@ -254,7 +276,7 @@
     }
 
     /* -----------------------------------
-       3. 下段: ゲーム屋風 X リンクカード (共通)
+       4. X リンクカード
     ----------------------------------- */
     .game-card {
       background: #151a21;
@@ -264,7 +286,6 @@
       border-radius: 4px;
     }
 
-    /* 漫画アカウント用スタイル (黄色・ピンク系ネオン) */
     .manga-card {
       border: 3px solid var(--neon-yellow);
       box-shadow: 0 0 10px rgba(255, 234, 0, 0.3);
@@ -274,7 +295,6 @@
       box-shadow: 0 0 6px #ff007f;
     }
 
-    /* ゲームアカウント用スタイル (グリーン系ネオン) */
     .game-acc-card {
       border: 3px solid var(--neon-green);
       box-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
@@ -296,7 +316,6 @@
       white-space: nowrap;
     }
 
-    /* ドット絵風 CSS X マーク */
     .pixel-x-container {
       margin: 10px auto 12px;
       width: 64px;
@@ -313,9 +332,7 @@
     .pixel { background-color: transparent; }
     .pixel.on { background-color: #ffffff; }
 
-    .account-info {
-      margin-bottom: 14px;
-    }
+    .account-info { margin-bottom: 14px; }
     .account-label {
       color: var(--sub-cyan);
       font-size: 0.75rem;
@@ -328,7 +345,6 @@
       word-break: break-all;
     }
 
-    /* ゲーム風アクションボタン */
     .game-btn {
       display: block;
       width: 100%;
@@ -349,7 +365,6 @@
       transform: translate(2px, 2px);
       box-shadow: 1px 1px 0px var(--neon-yellow);
     }
-    
     .game-acc-btn {
       background: linear-gradient(135deg, var(--neon-pink), #b000ff);
       box-shadow: 3px 3px 0px var(--neon-green);
@@ -387,7 +402,34 @@
       </ul>
     </div>
 
-    <!-- 2. 中段: サイドドロワー起動エリア -->
+    <!-- 2. アクセスカウンター (1人から開始) -->
+    <div class="counter-container">
+      <div class="counter-row">
+        <div class="counter-label">
+          <span class="counter-icon">⚾</span>
+          <span>当日アクセス</span>
+        </div>
+        <div class="counter-value" id="today-access">00,001</div>
+      </div>
+
+      <div class="counter-row">
+        <div class="counter-label">
+          <span class="counter-icon">🏀</span>
+          <span>機能アクセス</span>
+        </div>
+        <div class="counter-value" id="feature-access">00,001</div>
+      </div>
+
+      <div class="counter-row">
+        <div class="counter-label">
+          <span class="counter-icon">⚽️</span>
+          <span>合計アクセス</span>
+        </div>
+        <div class="counter-value" id="total-access">00,001</div>
+      </div>
+    </div>
+
+    <!-- 3. 中段: サイドドロワー起動エリア -->
     <input type="checkbox" id="drawer-toggle">
     <label for="drawer-toggle" class="drawer-open-btn">
       <span>☰</span> アカウントメニューを開く
@@ -398,7 +440,6 @@
     <aside class="drawer">
       <label for="drawer-toggle" class="close-btn" aria-label="Close Drawer"></label>
       
-      <!-- ドロワー内：漫画アカウント -->
       <div class="drawer-account-card">
         <div style="font-weight: bold; color: var(--neon-yellow);">漫画アカウント</div>
         <div style="color: #71767b; font-size: 0.8rem;">@dream_games2023</div>
@@ -407,7 +448,6 @@
         </a>
       </div>
 
-      <!-- ドロワー内：ゲームアカウント -->
       <div class="drawer-account-card" style="margin-top: 16px;">
         <div style="font-weight: bold; color: var(--neon-green);">ゲームアカウント</div>
         <div style="color: #71767b; font-size: 0.8rem;">@yasushi_komineg</div>
@@ -417,11 +457,10 @@
       </div>
     </aside>
 
-    <!-- 3. 下段（上）：漫画アカウント（新規追加） -->
+    <!-- 4. 下段（上）：漫画アカウント -->
     <div class="game-card manga-card">
       <div class="game-title-badge manga-badge">漫画アカウント</div>
 
-      <!-- 8x8 ドット絵 X マーク -->
       <div class="pixel-x-container" aria-label="X Logo">
         <div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div>
         <div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div>
@@ -443,11 +482,10 @@
       </a>
     </div>
 
-    <!-- 4. 下段（下）：ゲームアカウント（既存） -->
+    <!-- 5. 下段（下）：ゲームアカウント -->
     <div class="game-card game-acc-card">
       <div class="game-title-badge game-acc-badge">ゲームアカウント</div>
 
-      <!-- 8x8 ドット絵 X マーク -->
       <div class="pixel-x-container" aria-label="X Logo">
         <div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div>
         <div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div>
@@ -470,96 +508,6 @@
     </div>
 
   </div>
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <title>GitHub Access Counter</title>
-  <style>
-    /* 全体コンテナ */
-    .counter-container {
-      display: inline-flex;
-      flex-direction: column;
-      gap: 10px;
-      background-color: #0d1117; /* GitHub Dark モード風の背景色 */
-      border: 1px solid #30363d;
-      border-radius: 10px;
-      padding: 16px 20px;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      color: #c9d1d9;
-      width: fit-content;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    }
-
-    /* 各行のレイアウト */
-    .counter-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-    }
-
-    /* アイコンとラベル部分 */
-    .counter-label {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    .counter-icon {
-      font-size: 20px;
-      line-height: 1;
-    }
-
-    /* カウント数表示（デジタル表示風） */
-    .counter-value {
-      font-family: "ui-monospace", SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
-      font-size: 16px;
-      font-weight: 700;
-      color: #58a6ff; /* GitHub ブルー */
-      background-color: #161b22;
-      padding: 4px 10px;
-      border-radius: 6px;
-      border: 1px solid #21262d;
-      letter-spacing: 1px;
-    }
-  </style>
-</head>
-<body>
-
-  <div class="counter-container">
-    <!-- 当日アクセス -->
-    <div class="counter-row">
-      <div class="counter-label">
-        <span class="counter-icon">⚾</span>
-        <span>当日アクセス</span>
-      </div>
-      <div class="counter-value" id="today-access">00,124</div>
-    </div>
-
-    <!-- 機能アクセス -->
-    <div class="counter-row">
-      <div class="counter-label">
-        <span class="counter-icon">🏀</span>
-        <span>機能アクセス</span>
-      </div>
-      <div class="counter-value" id="feature-access">01,850</div>
-    </div>
-
-    <!-- 合計アクセス -->
-    <div class="counter-row">
-      <div class="counter-label">
-        <span class="counter-icon">⚽️</span>
-        <span>合計アクセス</span>
-      </div>
-      <div class="counter-value" id="total-access">105,420</div>
-    </div>
-  </div>
-
-</body>
-</html>
 
 </body>
 </html>
