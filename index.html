@@ -149,7 +149,7 @@
     }
 
     /* -----------------------------------
-       2. アクセスカウンター (レスポンシブ・1から開始)
+       2. アクセスカウンター
     ----------------------------------- */
     .counter-container {
       display: flex;
@@ -396,13 +396,13 @@
       </div>
 
       <ul class="menu-list">
-        <li><a href="#">▶ 個人事業主概要</a></li>
-        <li><a href="https://yasushikomine6-cell.github.io/drames_02.html">▶ この屋号は？</a></li>
-        <li><a href="#">▶ 漫画連載</a></li>
+        <li><a href="#" class="track-feature">▶ 個人事業主概要</a></li>
+        <li><a href="https://yasushikomine6-cell.github.io/drames_02.html" class="track-feature">▶ この屋号は？</a></li>
+        <li><a href="#" class="track-feature">▶ 漫画連載</a></li>
       </ul>
     </div>
 
-    <!-- 2. アクセスカウンター (1人から開始) -->
+    <!-- 2. アクセスカウンター -->
     <div class="counter-container">
       <div class="counter-row">
         <div class="counter-label">
@@ -417,7 +417,7 @@
           <span class="counter-icon">🏀</span>
           <span>機能アクセス</span>
         </div>
-        <div class="counter-value" id="feature-access">00,001</div>
+        <div class="counter-value" id="feature-access">00,000</div>
       </div>
 
       <div class="counter-row">
@@ -431,7 +431,7 @@
 
     <!-- 3. 中段: サイドドロワー起動エリア -->
     <input type="checkbox" id="drawer-toggle">
-    <label for="drawer-toggle" class="drawer-open-btn">
+    <label for="drawer-toggle" class="drawer-open-btn track-feature">
       <span>☰</span> アカウントメニューを開く
     </label>
 
@@ -443,7 +443,7 @@
       <div class="drawer-account-card">
         <div style="font-weight: bold; color: var(--neon-yellow);">漫画アカウント</div>
         <div style="color: #71767b; font-size: 0.8rem;">@dream_games2023</div>
-        <a href="https://x.com/dream_games2023" target="_blank" rel="noopener noreferrer" style="color: var(--sub-cyan); font-size: 0.85rem; text-decoration: none; margin-top: 4px;">
+        <a href="https://x.com/dream_games2023" target="_blank" rel="noopener noreferrer" class="track-feature" style="color: var(--sub-cyan); font-size: 0.85rem; text-decoration: none; margin-top: 4px;">
           ▶ プロフィールを開く
         </a>
       </div>
@@ -451,7 +451,7 @@
       <div class="drawer-account-card" style="margin-top: 16px;">
         <div style="font-weight: bold; color: var(--neon-green);">ゲームアカウント</div>
         <div style="color: #71767b; font-size: 0.8rem;">@yasushi_komineg</div>
-        <a href="https://x.com/yasushi_komineg" target="_blank" rel="noopener noreferrer" style="color: var(--sub-cyan); font-size: 0.85rem; text-decoration: none; margin-top: 4px;">
+        <a href="https://x.com/yasushi_komineg" target="_blank" rel="noopener noreferrer" class="track-feature" style="color: var(--sub-cyan); font-size: 0.85rem; text-decoration: none; margin-top: 4px;">
           ▶ プロフィールを開く
         </a>
       </div>
@@ -477,7 +477,7 @@
         <div class="account-id">@dream_games2023</div>
       </div>
 
-      <a href="https://x.com/dream_games2023" target="_blank" rel="noopener noreferrer" class="game-btn manga-btn">
+      <a href="https://x.com/dream_games2023" target="_blank" rel="noopener noreferrer" class="game-btn manga-btn track-feature">
         ▶ 漫画アカウントを表示
       </a>
     </div>
@@ -502,12 +502,68 @@
         <div class="account-id">@yasushi_komineg</div>
       </div>
 
-      <a href="https://x.com/yasushi_komineg" target="_blank" rel="noopener noreferrer" class="game-btn game-acc-btn">
+      <a href="https://x.com/yasushi_komineg" target="_blank" rel="noopener noreferrer" class="game-btn game-acc-btn track-feature">
         ▶ ゲームアカウントを表示
       </a>
     </div>
 
   </div>
 
+  <!-- 自動カウント用スクリプト -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const todayKey = 'yume_today_access';
+      const dateKey = 'yume_last_access_date';
+      const totalKey = 'yume_total_access';
+      const featureKey = 'yume_feature_access';
+
+      const currentDate = new Date().toDateString();
+      const lastAccessDate = localStorage.getItem(dateKey);
+
+      // --- 1. 当日アクセスの管理 ---
+      let todayCount = parseInt(localStorage.getItem(todayKey) || '0', 10);
+      if (lastAccessDate !== currentDate) {
+        // 日付が変わっていれば当日カウントをリセットして1からスタート
+        todayCount = 1;
+        localStorage.setItem(dateKey, currentDate);
+      } else {
+        // 同じ日なら+1
+        todayCount += 1;
+      }
+      localStorage.setItem(todayKey, todayCount);
+
+      // --- 2. 合計アクセスの管理（初期値1） ---
+      let totalCount = parseInt(localStorage.getItem(totalKey) || '0', 10);
+      totalCount += 1;
+      localStorage.setItem(totalKey, totalCount);
+
+      // --- 3. 機能アクセスの取得 ---
+      let featureCount = parseInt(localStorage.getItem(featureKey) || '0', 10);
+
+      // 桁揃えフォーマット (例: 00,001)
+      const formatNumber = (num) => {
+        return String(num).padStart(5, '0').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      };
+
+      // 表示を更新する関数
+      const updateDisplay = () => {
+        document.getElementById('today-access').textContent = formatNumber(todayCount);
+        document.getElementById('total-access').textContent = formatNumber(totalCount);
+        document.getElementById('feature-access').textContent = formatNumber(featureCount);
+      };
+
+      updateDisplay();
+
+      // --- 4. 各機能ボタンのクリックイベント（機能アクセスを自動で+1） ---
+      const trackElements = document.querySelectorAll('.track-feature');
+      trackElements.forEach(element => {
+        element.addEventListener('click', () => {
+          featureCount += 1;
+          localStorage.setItem(featureKey, featureCount);
+          document.getElementById('feature-access').textContent = formatNumber(featureCount);
+        });
+      });
+    });
+  </script>
 </body>
 </html>
