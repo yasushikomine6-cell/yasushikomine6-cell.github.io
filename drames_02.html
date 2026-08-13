@@ -1,329 +1,205 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>会社概要・代表プロフィール | こみねやすし</title>
-    <style>
-        /* グローバル変数設定 */
-        :root {
-            --primary-color: #4a3f35; /* 優しいブラウン */
-            --accent-color: #d9774d;   /* 柔らかいオレンジ */
-            --bg-color: #f7f3f0;       /* 温かみのある背景 */
-            --card-bg: #ffffff;
-            --text-color: #4a3f35;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>個人事業主┃夢GAMEs.Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    /* 全体設定 */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: #0d1117;
+      color: #00ffff;
+      font-family: 'DotGothic16', sans-serif;
+      display: flex;
+      justify-content: center;
+      padding: 20px 10px;
+    }
+    .container {
+      width: 100%;
+      max-width: 480px; /* スマホ表示に最適化 */
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
 
-        /* 全体設定 */
-        *, *::before, *::after {
-            box-sizing: border-box; /* リサイズ時のはみ出し防止 */
-        }
+    /* ヘッダーカード */
+    .header-card {
+      border: 2px solid #00ffff;
+      border-radius: 8px;
+      padding: 15px;
+      box-shadow: 0 0 10px #00ffff;
+      background-color: #161b22;
+      text-align: center;
+    }
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px dashed #ff007f;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+    }
+    .site-title {
+      color: #ff007f;
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-shadow: 0 0 5px #ff007f;
+    }
+    .menu-icon {
+      color: #00ffff;
+      font-size: 1.5rem;
+    }
+    .welcome-text {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.8rem;
+      color: #00ffff;
+      margin-top: 5px;
+    }
 
-        body {
-            margin: 0;
-            padding: 20px 10px;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
-            line-height: 1.6;
-            display: flex;
-            justify-content: center;
-        }
+    /* セクションボタン */
+    .menu-button {
+      background-color: #1f2937;
+      border: 1px solid #374151;
+      border-radius: 6px;
+      color: #ffffff;
+      padding: 12px;
+      text-align: center;
+      font-size: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+    }
 
-        /* メインコンテナ */
-        .container {
-            width: 100%;
-            max-width: 500px; /* スマホ最適化上限 */
-            background: var(--card-bg);
-            padding: 25px 20px;
-            border-radius: 24px;
-            box-shadow: 0 8px 24px rgba(74, 63, 53, 0.08);
-        }
+    /* 情報カード：共通スタイル */
+    .info-card {
+      position: relative;
+      background-color: #161b22;
+      border-radius: 8px;
+      padding: 25px 15px 15px 15px;
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .card-badge {
+      position: absolute;
+      top: -12px;
+      background-color: #ff007f;
+      color: #ffffff;
+      padding: 2px 15px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      box-shadow: 0 0 5px #ff007f;
+    }
 
-        /* プロフィール画像 */
-        .profile-image-container {
-            text-align: center;
-            margin-bottom: 15px;
-        }
+    /* イエローフレーム（概要） */
+    .card-yellow {
+      border: 2px solid #ffff00;
+      box-shadow: 0 0 8px #ffff00;
+    }
 
-        .profile-image {
-            width: 100%;
-            max-width: 200px;
-            height: auto;
-            border-radius: 16px;
-            box-shadow: 0 4px 12px rgba(74, 63, 53, 0.05);
-        }
+    /* グリーンフレーム（連絡先） */
+    .card-green {
+      border: 2px solid #00ff66;
+      box-shadow: 0 0 8px #00ff66;
+    }
 
-        /* 見出し設定 */
-        h1 {
-            color: var(--primary-color);
-            font-size: 20px;
-            margin: 0 0 10px 0;
-            text-align: center;
-        }
+    /* カード内テキスト */
+    .info-label {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.75rem;
+      color: #00ffff;
+      margin-top: 10px;
+    }
+    .info-value {
+      font-size: 1.1rem;
+      color: #ffffff;
+      margin: 5px 0 15px 0;
+      word-break: break-all;
+    }
 
-        .subtitle {
-            text-align: center;
-            font-size: 13px;
-            color: #a89a8e;
-            margin-bottom: 30px;
-        }
-
-        /* セクション共通 */
-        .profile-section {
-            margin-bottom: 25px;
-        }
-
-        h2 {
-            font-size: 16px;
-            color: var(--accent-color);
-            border-bottom: 2px dashed #f0e6df;
-            padding-bottom: 8px;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-        }
-
-        /* キャリアパス情報リスト */
-        .career-path {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .career-item {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-
-        .career-label {
-            font-size: 0.85rem;
-            font-weight: bold;
-            background-color: #fcefe9;
-            color: var(--accent-color);
-            padding: 4px 10px;
-            border-radius: 12px;
-            display: inline-block;
-            align-self: flex-start;
-        }
-
-        .career-value {
-            font-size: 15px;
-            padding-left: 5px;
-            word-break: break-word;
-        }
-
-        /* ハイライトボックス */
-        .highlight-box {
-            background-color: #fff9f6;
-            border: 2px solid #fcefe9;
-            padding: 15px;
-            border-radius: 16px;
-            font-size: 14px;
-        }
-
-        /* 沿革リスト */
-        .history-list {
-            margin: 0;
-            padding: 0;
-            list-style: none;
-        }
-
-        .history-list li {
-            position: relative;
-            padding-left: 15px;
-            margin-bottom: 10px;
-        }
-
-        .history-list li:last-child {
-            margin-bottom: 0;
-        }
-
-        .history-list li::before {
-            content: "•";
-            color: var(--accent-color);
-            position: absolute;
-            left: 0;
-            top: 0;
-            font-weight: bold;
-        }
-
-        .history-date {
-            font-weight: bold;
-            color: var(--primary-color);
-            margin-right: 5px;
-            display: block;
-        }
-
-        /* 社内規定リスト */
-        .rule-list {
-            list-style-type: none;
-            padding-left: 0;
-            margin: 0;
-        }
-
-        .rule-item {
-            position: relative;
-            padding-left: 20px;
-            margin-bottom: 16px;
-            color: #444444;
-            word-break: break-word;
-        }
-
-        .rule-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .rule-item::before {
-            content: "•";
-            color: var(--accent-color);
-            font-size: 1.2rem;
-            position: absolute;
-            left: 0;
-            top: -2px;
-        }
-
-        .rule-num {
-            font-weight: bold;
-            color: var(--primary-color);
-            margin-right: 8px;
-        }
-
-        .rule-content {
-            font-weight: bold;
-            color: var(--primary-color);
-        }
-
-        .rule-sub {
-            margin-top: 2px;
-            color: #555555;
-        }
-
-        /* フッター */
-        footer {
-            text-align: center;
-            font-size: 11px;
-            color: #a89a8e;
-            margin-top: 30px;
-            padding-top: 15px;
-            border-top: 1px solid #f0e6df;
-        }
-
-        /* スマホ用レスポンシブ（480px以下） */
-        @media (max-width: 480px) {
-            body {
-                padding: 10px 5px;
-            }
-
-            .container {
-                padding: 18px 14px;
-                border-radius: 16px;
-            }
-
-            h1 {
-                font-size: 18px;
-            }
-
-            h2 {
-                font-size: 15px;
-            }
-
-            .career-value, .highlight-box {
-                font-size: 13.5px;
-            }
-        }
-    </style>
+    /* アクションボタン（ネオンピンク） */
+    .action-btn {
+      width: 100%;
+      background: linear-gradient(180deg, #d800a6 0%, #800055 100%);
+      border: 2px solid #ffffff;
+      border-radius: 6px;
+      color: #ffffff;
+      padding: 12px;
+      font-size: 1rem;
+      font-weight: bold;
+      text-decoration: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 0 8px #ff007f;
+      cursor: pointer;
+    }
+    .action-btn:active {
+      transform: scale(0.98);
+    }
+  </style>
 </head>
 <body>
 
 <div class="container">
-    <header>
-        <div class="profile-image-container">
-            <img src="1784348128105.png" alt="代表イメージ" class="profile-image">
-        </div>
-        <h1>代表プロフィール</h1>
-        <p class="subtitle">漫画とゲームで創る、小さなワクワク</p>
-    </header>
 
-    <!-- 基本情報 -->
-    <section class="profile-section">
-        <h2>基本情報</h2>
-        <div class="career-path">
-            <div class="career-item">
-                <span class="career-label">氏名</span>
-                <span class="career-value" style="font-weight: bold;">こみね やすし（三鷹市出身） <br>本籍:東京三鷹市下連雀6-2-9</span>
-            </div>
-            <div class="career-item">
-                <span class="career-label">会社規模</span>
-                <span class="career-value">90年代でいうスーパーファミコン屋程度の規模を、アパートの一室に縮小しました。</span>
-            </div>
-            <div class="career-item">
-                <span class="career-label">経営業態</span>
-                <span class="career-value">個人事業主</span>
-            </div>
-            <div class="career-item">
-                <span class="career-label">採用形態</span>
-                <span class="career-value">固定採用</span>
-            </div>
-        </div>
-    </section>
+  <!-- ヘッダーエリア -->
+  <header class="header-card">
+    <div class="header-top">
+      <div class="site-title">夢GAMEs.Lab</div>
+      <div class="menu-icon">☰</div>
+    </div>
+    <div class="welcome-text">Welcome to YumeGAMEs.lab</div>
+  </header>
 
-    <!-- 沿革 -->
-    <section class="profile-section">
-        <h2>沿革</h2>
-        <div class="highlight-box" style="background-color: #faf8f5; border-color: #ebdacf;">
-            <ul class="history-list">
-                <li>
-                    <span class="history-date">2023年10月11日</span>
-                    三鷹夢新聞 設立
-                </li>
-                <li>
-                    <span class="history-date">2026年4月19日</span>
-                    夢GAMEs.Lab へ社名変更
-                </li>
-            </ul>
-        </div>
-    </section>
+  <!-- アカウントメニューボタン -->
+  <div class="menu-button">
+    <span>☰</span> 事業者情報を表示
+  </div>
 
-    <!-- 経営方針 -->
-    <section class="profile-section">
-        <h2>経営方針</h2>
-        <div class="highlight-box" style="background-color: #f5f8fa; border-color: #e1ebf0;">
-            <p style="margin: 0; font-weight: bold; color: #3a7d9c; margin-bottom: 6px;">【超地元優先主義】</p>
-            <p style="margin: 0;">三鷹市出身の代表として、地元出身者による、地元のための「超地元優先」の会社へと発展させていくことを固く掲げています。愛する地域へカルチャーを通じて恩返しをしていきます。</p>
-        </div>
-    </section>
+  <!-- カード1：屋号・店長情報（イエロー枠） -->
+  <main class="info-card card-yellow">
+    <div class="card-badge">事業概要</div>
+    
+    <div class="info-label">BUSINESS TYPE</div>
+    <div class="info-value">個人事業主</div>
 
-    <!-- 経歴・特色 -->
-    <section class="profile-section">
-        <h2>当社の特色</h2>
-        <div class="highlight-box">
-            <p style="margin: 0;">漫画とゲーム関係に特化した企業です。大手通信キャリア、スーパーゼネコン、ITベンダー系列での経験を活かし、クリエイティブとテクノロジーを融合させたサービスを提供いたします。</p>
-        </div>
-    </section>
+    <div class="info-label">OWNER</div>
+    <div class="info-value">こみねやすし</div>
 
-    <!-- 社内規定（追加項目） -->
-    <section class="profile-section">
-        <h2>社内規定</h2>
-        <div class="highlight-box" style="background-color: #fcf8f2; border-color: #f3e5d8;">
-            <ul class="rule-list">
-                <li class="rule-item">
-                    <span class="rule-num">1-1</span>
-                    <span class="rule-content">8/6 レディーファーストの日</span>
-                    <div class="rule-sub">と認定す</div>
-                </li>
-                <li class="rule-item">
-                    <span class="rule-num">1-2</span>
-                    <span class="rule-content">反社会勢力との付き合いを全面的に禁ず</span>
-                </li>
-            </ul>
-        </div>
-    </section>
+    <a href="#" class="action-btn">
+      <span>▶</span> 事業者詳細を表示
+    </a>
+  </main>
 
-    <footer>
-        &copy; 2023-2026 三鷹夢新聞→夢GAMEs.Lab
-    </footer>
+  <!-- カード2：拠点・電話番号情報（グリーン枠） -->
+  <section class="info-card card-green">
+    <div class="card-badge">拠点・連絡先</div>
+
+    <div class="info-label">OFFICE LOCATION</div>
+    <div class="info-value">関東広域移動オフィス</div>
+
+    <div class="info-label">PHONE NUMBER</div>
+    <div class="info-value">07012500937</div>
+
+    <a href="tel:07012500937" class="action-btn">
+      <span>▶</span> 発信・問合せをする
+    </a>
+  </section>
+
 </div>
 
 </body>
