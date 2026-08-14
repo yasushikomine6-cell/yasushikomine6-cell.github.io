@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 検索エンジン非公開設定 -->
+  <meta name="robots" content="noindex, nofollow">
   <title>夢GAMEs.lab - Mobile view</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=DotGothic16&display=swap');
@@ -15,6 +17,7 @@
       --neon-green: #39ff14;
       --sub-cyan: #00e5ff;
       --neon-yellow: #ffea00;
+      --neon-magenta: #ff007f;
     }
 
     * {
@@ -32,6 +35,10 @@
       align-items: flex-start;
       min-height: 100vh;
       padding: 10px;
+    }
+
+    .pixel-font {
+      font-family: 'Press Start 2P', monospace;
     }
 
     /* スマホ画面風コンテナ (最大幅 390px) */
@@ -127,12 +134,12 @@
       margin-top: 0;
     }
     #menu-toggle:checked ~ .menu-list {
-      max-height: 200px;
+      max-height: 500px;
       opacity: 1;
       margin-top: 16px;
     }
     .menu-list li { margin-bottom: 8px; }
-    .menu-list a {
+    .menu-list a, .menu-list label {
       color: #ffffff;
       text-decoration: none;
       font-size: 0.85rem;
@@ -141,11 +148,69 @@
       background: rgba(0, 255, 204, 0.05);
       border: 1px solid rgba(0, 255, 204, 0.2);
       border-radius: 4px;
+      cursor: pointer;
     }
-    .menu-list a:hover {
+    .menu-list a:hover, .menu-list label:hover {
       color: var(--neon-cyan);
       background: rgba(0, 255, 204, 0.15);
       border-color: var(--neon-cyan);
+    }
+
+    /* 個人事業主概要アコーディオン展開設定 */
+    #biz-summary-toggle { display: none; }
+    .biz-summary-content {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: all 0.4s ease;
+      margin-top: 0;
+      border-top: 0px solid transparent;
+    }
+    #biz-summary-toggle:checked ~ .biz-summary-content {
+      max-height: 600px;
+      opacity: 1;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed var(--neon-yellow);
+    }
+
+    /* 組み込み用 ネオンカードスタイル */
+    .embedded-card {
+      background-color: #12141d;
+      border: 2px solid var(--neon-yellow);
+      border-radius: 8px;
+      padding: 16px 12px 12px 12px;
+      position: relative;
+      text-align: center;
+      margin-top: 8px;
+      box-shadow: 0 0 8px rgba(255, 234, 0, 0.3);
+    }
+    .embedded-badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--neon-magenta);
+      color: #fff;
+      padding: 2px 12px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: bold;
+      white-space: nowrap;
+      box-shadow: 0 0 6px var(--neon-magenta);
+    }
+    .embedded-title {
+      color: var(--neon-cyan);
+      font-size: 0.65rem;
+      margin-top: 10px;
+      margin-bottom: 2px;
+      letter-spacing: 1px;
+    }
+    .embedded-value {
+      font-size: 0.95rem;
+      font-weight: bold;
+      color: #ffffff;
+      margin-bottom: 8px;
     }
 
     /* -----------------------------------
@@ -162,14 +227,12 @@
       padding: 14px 16px;
       width: 100%;
     }
-
     .counter-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
     }
-
     .counter-label {
       display: flex;
       align-items: center;
@@ -177,12 +240,10 @@
       font-size: 0.85rem;
       color: #ffffff;
     }
-
     .counter-icon {
       font-size: 1.2rem;
       line-height: 1;
     }
-
     .counter-value {
       font-family: 'Press Start 2P', monospace;
       font-size: 0.75rem;
@@ -227,7 +288,6 @@
       opacity: 1;
       visibility: visible;
     }
-
     .drawer-open-btn {
       display: inline-flex;
       align-items: center;
@@ -242,7 +302,6 @@
       cursor: pointer;
       font-size: 0.85rem;
     }
-
     .close-btn {
       position: absolute;
       top: 12px;
@@ -285,7 +344,6 @@
       position: relative;
       border-radius: 4px;
     }
-
     .manga-card {
       border: 3px solid var(--neon-yellow);
       box-shadow: 0 0 10px rgba(255, 234, 0, 0.3);
@@ -294,7 +352,6 @@
       background-color: #ff007f;
       box-shadow: 0 0 6px #ff007f;
     }
-
     .game-acc-card {
       border: 3px solid var(--neon-green);
       box-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
@@ -303,7 +360,6 @@
       background-color: var(--neon-pink);
       box-shadow: 0 0 6px var(--neon-pink);
     }
-
     .game-title-badge {
       position: absolute;
       top: -12px;
@@ -315,7 +371,6 @@
       letter-spacing: 1px;
       white-space: nowrap;
     }
-
     .pixel-x-container {
       margin: 10px auto 12px;
       width: 64px;
@@ -344,7 +399,6 @@
       color: #fff;
       word-break: break-all;
     }
-
     .game-btn {
       display: block;
       width: 100%;
@@ -395,8 +449,34 @@
         <p class="typewriter-text">Welcome to YumeGAMEs.lab...</p>
       </div>
 
+      <!-- ハンバーガーメニュー内 -->
       <ul class="menu-list">
-        <li><a href="#" class="track-feature">▶ 個人事業主概要</a></li>
+        <li>
+          <input type="checkbox" id="biz-summary-toggle">
+          <label for="biz-summary-toggle" class="track-feature">▼ 個人事業主概要</label>
+
+          <!-- クリック時に展開されるプロフィールカード -->
+          <div class="biz-summary-content">
+            <div class="embedded-card">
+              <div class="embedded-badge">事業概要</div>
+              
+              <div class="embedded-title pixel-font">BUSINESS TYPE</div>
+              <div class="embedded-value">個人事業主</div>
+
+              <div class="embedded-title pixel-font">OWNER</div>
+              <div class="embedded-value">こみねやすし</div>
+
+              <div class="embedded-title pixel-font">POSITION</div>
+              <div class="embedded-value">店長 (Store Manager)</div>
+
+              <div class="embedded-title pixel-font">JOB CATEGORY</div>
+              <div class="embedded-value">エンジニア・クリエイター</div>
+
+              <div class="embedded-title pixel-font">LOCATION</div>
+              <div class="embedded-value">東京都三鷹市</div>
+            </div>
+          </div>
+        </li>
         <li><a href="https://yasushikomine6-cell.github.io/drames_02.html" class="track-feature">▶ この屋号は？</a></li>
         <li><a href="https://yasushikomine6-cell.github.io/%E2%80%8BTheTrioGoddess.html" class="track-feature">▶ 漫画連載</a></li>
       </ul>
@@ -523,16 +603,14 @@
       // --- 1. 当日アクセスの管理 ---
       let todayCount = parseInt(localStorage.getItem(todayKey) || '0', 10);
       if (lastAccessDate !== currentDate) {
-        // 日付が変わっていれば当日カウントをリセットして1からスタート
         todayCount = 1;
         localStorage.setItem(dateKey, currentDate);
       } else {
-        // 同じ日なら+1
         todayCount += 1;
       }
       localStorage.setItem(todayKey, todayCount);
 
-      // --- 2. 合計アクセスの管理（初期値1） ---
+      // --- 2. 合計アクセスの管理 ---
       let totalCount = parseInt(localStorage.getItem(totalKey) || '0', 10);
       totalCount += 1;
       localStorage.setItem(totalKey, totalCount);
@@ -540,12 +618,12 @@
       // --- 3. 機能アクセスの取得 ---
       let featureCount = parseInt(localStorage.getItem(featureKey) || '0', 10);
 
-      // 桁揃えフォーマット (例: 00,001)
+      // 桁揃えフォーマット
       const formatNumber = (num) => {
         return String(num).padStart(5, '0').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
       };
 
-      // 表示を更新する関数
+      // 表示更新
       const updateDisplay = () => {
         document.getElementById('today-access').textContent = formatNumber(todayCount);
         document.getElementById('total-access').textContent = formatNumber(totalCount);
@@ -554,7 +632,7 @@
 
       updateDisplay();
 
-      // --- 4. 各機能ボタンのクリックイベント（機能アクセスを自動で+1） ---
+      // --- 4. 各機能ボタンのクリックイベント ---
       const trackElements = document.querySelectorAll('.track-feature');
       trackElements.forEach(element => {
         element.addEventListener('click', () => {
@@ -565,5 +643,6 @@
       });
     });
   </script>
+
 </body>
 </html>
