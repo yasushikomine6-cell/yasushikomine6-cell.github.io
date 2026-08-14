@@ -5,19 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- 検索エンジン非公開設定 -->
   <meta name="robots" content="noindex, nofollow">
-  <title>夢GAMEs.lab - Mobile view</title>
+  <title>夢GAMEs.lab - Green Accent Edition</title>
   <style>
+    /* Google Fontsから必要なフォントのみ読み込み（軽量化） */
     @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=DotGothic16&display=swap');
 
     :root {
-      --bg-color: #0d0f12;
-      --card-bg: #11161d;
-      --neon-cyan: #00ffcc;
-      --neon-pink: #ff0055;
+      /* --- 色彩設計 (Color Palette) --- */
+      /* ベースカラー（約70%）：深い闇 */
+      --bg-color: #050608;
+      --card-bg: #0d1117;
+      
+      /* サブカラー（約20%）：落ち着いたサイバーブルー */
+      --sub-cyan: #008899;      /* 枠線など（発光なし） */
+      --text-cyan: #00ccff;     /* 通常テキスト */
+      
+      /* アクセントカラー（約8%）：鮮烈なネオングリーン */
+      /* ※クリックできる要素（導線）のみに使用 */
       --neon-green: #39ff14;
-      --sub-cyan: #00e5ff;
-      --neon-yellow: #ffea00;
-      --neon-magenta: #ff007f;
+      --neon-green-glow: rgba(57, 255, 20, 0.6);
+      
+      /* その他：情報整理用 */
+      --text-white: #ffffff;
+      --text-gray: #888888;
+      --border-dark: #2f3336;
     }
 
     * {
@@ -27,52 +38,56 @@
     }
 
     body {
-      background-color: #000000;
-      color: var(--neon-cyan);
+      background-color: var(--bg-color);
+      color: var(--text-cyan);
       font-family: 'DotGothic16', 'Courier New', monospace;
       display: flex;
       justify-content: center;
       align-items: flex-start;
       min-height: 100vh;
-      padding: 10px;
+      /* スマホ・PC両方で自然な余白 */
+      padding: 20px 10px;
     }
 
     .pixel-font {
       font-family: 'Press Start 2P', monospace;
+      /* Press Start 2Pは小さく見えがちなので調整 */
+      font-size: 0.8rem; 
     }
 
-    /* スマホ画面風コンテナ (最大幅 390px) */
-    .mobile-frame {
+    /* -----------------------------------
+       レスポンシブ・コンテナ
+       スマホでは全幅、PCでは中央寄せ最大幅
+    ----------------------------------- */
+    .main-container {
       width: 100%;
-      max-width: 390px;
-      background-color: var(--bg-color);
-      border: 2px solid #2f3336;
-      border-radius: 16px;
-      padding: 16px;
+      max-width: 480px; /* PC閲覧時も見やすい幅に微調整 */
       display: flex;
       flex-direction: column;
-      gap: 20px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+      gap: 24px; /* 要素間の余白を広げ、視認性向上 */
+    }
+
+    /* 共通：カードスタイル（発光を廃止し、スッキリさせる） */
+    .common-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-dark);
+      border-radius: 12px;
+      padding: 20px;
       position: relative;
     }
 
     /* -----------------------------------
-       1. 上段: Flash風メインカード & アニメーション
+       1. 上段: メインヘッダー
     ----------------------------------- */
-    .flash-container {
-      position: relative;
-      background: var(--card-bg);
-      border: 2px solid var(--neon-cyan);
-      box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
-      padding: 16px;
-      border-radius: 8px;
+    .header-card {
+      border-color: var(--sub-cyan);
     }
 
     #menu-toggle { display: none; }
     .hamburger-btn {
       position: absolute;
-      top: 16px;
-      right: 16px;
+      top: 20px;
+      right: 20px;
       width: 26px;
       height: 20px;
       display: flex;
@@ -85,200 +100,211 @@
       display: block;
       width: 100%;
       height: 2px;
-      background-color: var(--neon-cyan);
-      box-shadow: 0 0 4px var(--neon-cyan);
+      /* ハンバーガーは「操作できる」ので緑 */
+      background-color: var(--neon-green);
+      box-shadow: 0 0 4px var(--neon-green-glow);
       transition: all 0.3s ease;
     }
 
+    /* アニメーション時も緑を維持 */
     #menu-toggle:checked + .hamburger-btn span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
     #menu-toggle:checked + .hamburger-btn span:nth-child(2) { opacity: 0; }
     #menu-toggle:checked + .hamburger-btn span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
 
     .site-title {
-      font-size: 1.2rem;
-      color: var(--neon-pink);
-      text-shadow: 0 0 6px var(--neon-pink);
-      margin-bottom: 12px;
-      border-bottom: 1px dashed var(--neon-pink);
-      padding-bottom: 6px;
-      padding-right: 36px;
+      font-size: 1.4rem;
+      /* タイトルは白にして読みやすく */
+      color: var(--text-white);
+      margin-bottom: 16px;
+      border-bottom: 1px dashed var(--border-dark);
+      padding-bottom: 8px;
+      padding-right: 40px;
     }
 
     .typewriter-wrapper {
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       width: 100%;
-      overflow: hidden;
     }
 
     .typewriter-text {
-      font-size: 0.85rem;
-      color: var(--neon-cyan);
+      font-size: 0.9rem;
+      color: var(--text-cyan);
       white-space: nowrap;
       overflow: hidden;
-      border-right: 2px solid var(--neon-cyan);
+      border-right: 2px solid var(--text-cyan);
       animation: 
         typing 2.4s steps(24, end) forwards,
         blink-caret 0.75s step-end infinite;
     }
 
     @keyframes typing { from { width: 0; } to { width: 24ch; } }
-    @keyframes blink-caret { from, to { border-color: transparent; } 50% { border-color: var(--neon-cyan); } }
+    @keyframes blink-caret { from, to { border-color: transparent; } 50% { border-color: var(--text-cyan); } }
 
+    /* メニューリスト（ドロップダウン） */
     .menu-list {
       max-height: 0;
       opacity: 0;
       overflow: hidden;
       list-style: none;
-      transition: max-height 0.4s ease, opacity 0.3s ease, margin-top 0.3s ease;
-      margin-top: 0;
+      transition: max-height 0.4s ease, opacity 0.3s ease;
     }
     #menu-toggle:checked ~ .menu-list {
-      max-height: 500px;
+      max-height: 600px; /* 展開時の高さを十分に確保 */
       opacity: 1;
       margin-top: 16px;
     }
-    .menu-list li { margin-bottom: 8px; }
-    .menu-list a, .menu-list label {
-      color: #ffffff;
+    .menu-list li { margin-bottom: 10px; }
+    .menu-list a, .menu-list label.menu-label {
+      color: var(--text-white);
       text-decoration: none;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       display: block;
-      padding: 8px 10px;
-      background: rgba(0, 255, 204, 0.05);
-      border: 1px solid rgba(0, 255, 204, 0.2);
-      border-radius: 4px;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-dark);
+      border-radius: 6px;
       cursor: pointer;
+      transition: all 0.2s ease;
     }
-    .menu-list a:hover, .menu-list label:hover {
-      color: var(--neon-cyan);
-      background: rgba(0, 255, 204, 0.15);
-      border-color: var(--neon-cyan);
+    /* ホバー時・タップ時に「緑」にして導線を強調 */
+    .menu-list a:hover, .menu-list label.menu-label:hover {
+      color: var(--bg-color);
+      background-color: var(--neon-green);
+      border-color: var(--neon-green);
+      font-weight: bold;
     }
 
-    /* 個人事業主概要アコーディオン展開設定 */
+    /* 事業概要アコーディオン */
     #biz-summary-toggle { display: none; }
     .biz-summary-content {
       max-height: 0;
       opacity: 0;
       overflow: hidden;
       transition: all 0.4s ease;
-      margin-top: 0;
-      border-top: 0px solid transparent;
     }
     #biz-summary-toggle:checked ~ .biz-summary-content {
       max-height: 600px;
       opacity: 1;
       margin-top: 12px;
       padding-top: 12px;
-      border-top: 1px dashed var(--neon-yellow);
+      border-top: 1px dashed var(--border-dark);
     }
 
-    /* 組み込み用 ネオンカードスタイル */
-    .embedded-card {
-      background-color: #12141d;
-      border: 2px solid var(--neon-yellow);
+    /* 事業概要カード（埋め込み風） */
+    .embedded-info-card {
+      background-color: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border-dark);
       border-radius: 8px;
-      padding: 16px 12px 12px 12px;
-      position: relative;
-      text-align: center;
-      margin-top: 8px;
-      box-shadow: 0 0 8px rgba(255, 234, 0, 0.3);
+      padding: 16px;
+      text-align: left;
     }
-    .embedded-badge {
-      position: absolute;
-      top: -12px;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: var(--neon-magenta);
-      color: #fff;
-      padding: 2px 12px;
-      border-radius: 6px;
-      font-size: 0.75rem;
-      font-weight: bold;
-      white-space: nowrap;
-      box-shadow: 0 0 6px var(--neon-magenta);
-    }
-    .embedded-title {
-      color: var(--neon-cyan);
-      font-size: 0.65rem;
-      margin-top: 10px;
+    .info-header {
+      color: var(--text-gray);
+      font-size: 0.7rem;
+      margin-top: 12px;
       margin-bottom: 2px;
       letter-spacing: 1px;
     }
-    .embedded-value {
-      font-size: 0.95rem;
-      font-weight: bold;
-      color: #ffffff;
-      margin-bottom: 8px;
+    .info-header:first-child { margin-top: 0; }
+    .info-value {
+      font-size: 1rem;
+      color: var(--text-white);
     }
 
     /* -----------------------------------
        2. アクセスカウンター
     ----------------------------------- */
-    .counter-container {
+    .counter-card {
+      border-color: var(--border-dark);
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      background-color: var(--card-bg);
-      border: 1px solid var(--sub-cyan);
-      box-shadow: 0 0 10px rgba(0, 229, 255, 0.2);
-      border-radius: 8px;
-      padding: 14px 16px;
-      width: 100%;
+      gap: 12px;
     }
     .counter-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
     }
+    .counter-row:last-child { border-bottom: none; }
     .counter-label {
       display: flex;
       align-items: center;
-      gap: 8px;
-      font-size: 0.85rem;
-      color: #ffffff;
+      gap: 10px;
+      font-size: 0.9rem;
+      color: var(--text-cyan);
     }
     .counter-icon {
-      font-size: 1.2rem;
-      line-height: 1;
+      font-size: 1.1rem;
+      opacity: 0.7;
     }
     .counter-value {
-      font-family: 'Press Start 2P', monospace;
-      font-size: 0.75rem;
-      color: var(--neon-cyan);
-      background-color: #000000;
-      padding: 6px 8px;
+      /* 数字は重要なので白でハッキリと */
+      color: var(--text-white);
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 6px 10px;
       border-radius: 4px;
-      border: 1px solid #21262d;
+      border: 1px solid var(--border-dark);
       letter-spacing: 1px;
     }
 
     /* -----------------------------------
-       3. サイドドロワー
+       3. サイドドロワー（アカウントメニュー）
     ----------------------------------- */
+    #drawer-toggle { display: none; }
+    
+    /* 開くボタン：導線なので「緑の枠線＋緑の光」 */
+    .drawer-open-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 14px;
+      background: var(--card-bg);
+      border: 2px solid var(--neon-green);
+      color: var(--neon-green);
+      box-shadow: 0 0 10px var(--neon-green-glow);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: bold;
+      transition: all 0.2s ease;
+    }
+    .drawer-open-btn:active {
+      transform: scale(0.98);
+      box-shadow: 0 0 5px var(--neon-green-glow);
+    }
+
+    /* ドロワー本体 */
     .drawer {
       position: fixed;
       top: 0;
-      left: -280px;
-      width: 260px;
+      left: -300px; /* 初期状態は画面外 */
+      width: 280px;
       height: 100vh;
-      background-color: #15181c;
-      border-right: 1px solid #2f3336;
-      padding: 20px 16px;
+      background-color: #0a0d12;
+      border-right: 1px solid var(--sub-cyan);
+      padding: 30px 20px;
       transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       z-index: 1001;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
-    #drawer-toggle { display: none; }
     #drawer-toggle:checked ~ .drawer { left: 0; }
+    
+    /* オーバーレイ（背景） */
     .drawer-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(0, 0, 0, 0.6);
+      background: rgba(0, 0, 0, 0.7);
       opacity: 0;
       visibility: hidden;
       transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -288,91 +314,78 @@
       opacity: 1;
       visibility: visible;
     }
-    .drawer-open-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      width: 100%;
-      padding: 10px;
-      background: #1e2732;
-      border: 1px solid #2f3336;
-      color: #fff;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 0.85rem;
-    }
+    
+    /* 閉じるボタン：導線なので緑 */
     .close-btn {
       position: absolute;
-      top: 12px;
-      right: 12px;
-      width: 28px;
-      height: 28px;
+      top: 16px;
+      right: 16px;
+      width: 30px;
+      height: 30px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
+      border: 1px solid var(--neon-green);
+      border-radius: 50%;
     }
     .close-btn::before, .close-btn::after {
       content: '';
       position: absolute;
       width: 16px;
       height: 2px;
-      background-color: #fff;
+      background-color: var(--neon-green);
     }
     .close-btn::before { transform: rotate(45deg); }
     .close-btn::after { transform: rotate(-45deg); }
 
-    .drawer-account-card {
-      margin-top: 40px;
-      background: #0d0f12;
-      border: 1px solid #2f3336;
+    .drawer-title {
+      font-size: 1.1rem;
+      color: var(--text-white);
+      margin-bottom: 10px;
+      margin-top: 20px;
+    }
+    .drawer-account-item {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-dark);
       border-radius: 8px;
-      padding: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+      padding: 16px;
+    }
+    .drawer-acc-name {
+      font-weight: bold;
+      color: var(--text-white);
+      margin-bottom: 4px;
+    }
+    .drawer-acc-id {
+      color: var(--text-gray);
+      font-size: 0.8rem;
+      margin-bottom: 12px;
+    }
+    .drawer-link {
+      /* リンクなので緑 */
+      color: var(--neon-green);
+      font-size: 0.9rem;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .drawer-link:hover {
+      text-decoration: underline;
     }
 
     /* -----------------------------------
-       4. X リンクカード
+       4. X（旧Twitter）アカウントカード
     ----------------------------------- */
-    .game-card {
-      background: #151a21;
-      padding: 20px 16px 16px;
+    .x-account-card {
+      border-color: var(--border-dark);
       text-align: center;
-      position: relative;
-      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
     }
-    .manga-card {
-      border: 3px solid var(--neon-yellow);
-      box-shadow: 0 0 10px rgba(255, 234, 0, 0.3);
-    }
-    .manga-badge {
-      background-color: #ff007f;
-      box-shadow: 0 0 6px #ff007f;
-    }
-    .game-acc-card {
-      border: 3px solid var(--neon-green);
-      box-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
-    }
-    .game-acc-badge {
-      background-color: var(--neon-pink);
-      box-shadow: 0 0 6px var(--neon-pink);
-    }
-    .game-title-badge {
-      position: absolute;
-      top: -12px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: #fff;
-      padding: 2px 12px;
-      font-size: 0.75rem;
-      letter-spacing: 1px;
-      white-space: nowrap;
-    }
-    .pixel-x-container {
-      margin: 10px auto 12px;
+    
+    /* Xロゴ（ピクセルアート）：色は落ち着かせる */
+    .pixel-x-icon {
       width: 64px;
       height: 64px;
       display: grid;
@@ -381,61 +394,58 @@
       gap: 1px;
       padding: 4px;
       background: #000;
-      border: 2px solid var(--sub-cyan);
-      box-shadow: 0 0 6px var(--sub-cyan);
+      border: 1px solid var(--border-dark);
     }
     .pixel { background-color: transparent; }
-    .pixel.on { background-color: #ffffff; }
+    /* ロゴの色を水色にして緑の使用率を稼ぐ */
+    .pixel.on { background-color: var(--text-cyan); }
 
-    .account-info { margin-bottom: 14px; }
     .account-label {
-      color: var(--sub-cyan);
+      color: var(--text-gray);
       font-size: 0.75rem;
-      margin-bottom: 2px;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
     }
     .account-id {
-      font-family: 'Press Start 2P', monospace;
-      font-size: 0.75rem;
-      color: #fff;
+      color: var(--text-white);
       word-break: break-all;
     }
-    .game-btn {
+
+    /* 
+      重要：メインのアクションボタン
+      「緑のベタ塗り」にして、最も重要な導線であることを視覚的に伝える
+      画面全体における「緑の8%」の主役となる部分
+    */
+    .main-game-btn {
       display: block;
       width: 100%;
-      padding: 10px 0;
-      color: #ffffff;
+      max-width: 300px; /* PCなどで広がりすぎないように */
+      padding: 16px;
+      /* 背景を緑、文字を黒にしてコントラスト確保（色彩検定ポイント） */
+      background-color: var(--neon-green);
+      color: var(--bg-color);
+      
       text-decoration: none;
-      font-size: 0.95rem;
+      font-size: 1rem;
       font-weight: bold;
-      border: 2px solid #fff;
-      box-sizing: border-box;
-      transition: transform 0.1s;
+      border-radius: 8px;
+      box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2); /* 立体感 */
+      transition: all 0.1s ease;
     }
-    .manga-btn {
-      background: linear-gradient(135deg, #ff007f, #b000ff);
-      box-shadow: 3px 3px 0px var(--neon-yellow);
+    .main-game-btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
     }
-    .manga-btn:active {
-      transform: translate(2px, 2px);
-      box-shadow: 1px 1px 0px var(--neon-yellow);
-    }
-    .game-acc-btn {
-      background: linear-gradient(135deg, var(--neon-pink), #b000ff);
-      box-shadow: 3px 3px 0px var(--neon-green);
-    }
-    .game-acc-btn:active {
-      transform: translate(2px, 2px);
-      box-shadow: 1px 1px 0px var(--neon-green);
-    }
+
   </style>
 </head>
 <body>
 
-  <!-- スマホ表示フレーム -->
-  <div class="mobile-frame">
+  <!-- PC・スマホ共通 メインコンテナ -->
+  <div class="main-container">
 
-    <!-- 1. 上段: Flash Nostalgia カード -->
-    <div class="flash-container">
+    <!-- 1. 上段: ヘッダーカード -->
+    <header class="common-card header-card">
       <input type="checkbox" id="menu-toggle">
       <label for="menu-toggle" class="hamburger-btn" aria-label="Menu Toggle">
         <span></span>
@@ -443,7 +453,7 @@
         <span></span>
       </label>
 
-      <div class="site-title">夢GAMEs.lab</div>
+      <div class="site-title pixel-font">夢GAMEs.lab</div>
 
       <div class="typewriter-wrapper">
         <p class="typewriter-text">Welcome to YumeGAMEs.lab...</p>
@@ -453,51 +463,51 @@
       <ul class="menu-list">
         <li>
           <input type="checkbox" id="biz-summary-toggle">
-          <label for="biz-summary-toggle" class="track-feature">▼ 個人事業主概要</label>
+          <!-- 展開ラベル。menu-labelクラスを追加 -->
+          <label for="biz-summary-toggle" class="menu-label track-feature">▼ 個人事業主概要</label>
 
-          <!-- クリック時に展開されるプロフィールカード -->
+          <!-- クリック時に展開されるプロフィールエリア -->
           <div class="biz-summary-content">
-            <div class="embedded-card">
-              <div class="embedded-badge">事業概要</div>
+            <div class="embedded-info-card">
               
-              <div class="embedded-title pixel-font">BUSINESS TYPE</div>
-              <div class="embedded-value">個人事業主</div>
+              <div class="info-header pixel-font">BUSINESS TYPE</div>
+              <div class="info-value">個人事業主</div>
 
-              <div class="embedded-title pixel-font">OWNER</div>
-              <div class="embedded-value">こみねやすし</div>
+              <div class="info-header pixel-font">OWNER</div>
+              <div class="info-value">こみねやすし</div>
 
-              <div class="embedded-title pixel-font">POSITION</div>
-              <div class="embedded-value">店長 (Store Manager)</div>
+              <div class="info-header pixel-font">POSITION</div>
+              <div class="info-value">店長 (Store Manager)</div>
 
-              <div class="embedded-title pixel-font">JOB CATEGORY</div>
-              <div class="embedded-value">エンジニア・クリエイター</div>
+              <div class="info-header pixel-font">JOB CATEGORY</div>
+              <div class="info-value">エンジニア・クリエイター</div>
 
-              <div class="embedded-title pixel-font">LOCATION</div>
-              <div class="embedded-value">東京都三鷹市</div>
+              <div class="info-header pixel-font">LOCATION</div>
+              <div class="info-value">東京都三鷹市</div>
             </div>
           </div>
         </li>
         <li><a href="https://yasushikomine6-cell.github.io/drames_02.html" class="track-feature">▶ この屋号は？</a></li>
         <li><a href="https://yasushikomine6-cell.github.io/%E2%80%8BTheTrioGoddess.html" class="track-feature">▶ 漫画連載</a></li>
       </ul>
-    </div>
+    </header>
 
     <!-- 2. アクセスカウンター -->
-    <div class="counter-container">
+    <section class="common-card counter-card">
       <div class="counter-row">
         <div class="counter-label">
           <span class="counter-icon">⚾</span>
           <span>当日アクセス</span>
         </div>
-        <div class="counter-value" id="today-access">00,001</div>
+        <div class="counter-value pixel-font" id="today-access">00,001</div>
       </div>
 
       <div class="counter-row">
         <div class="counter-label">
           <span class="counter-icon">🏀</span>
-          <span>昨日アクセス</span>
+          <span>機能クリック</span>
         </div>
-        <div class="counter-value" id="feature-access">00,000</div>
+        <div class="counter-value pixel-font" id="feature-access">00,000</div>
       </div>
 
       <div class="counter-row">
@@ -505,14 +515,15 @@
           <span class="counter-icon">⚽️</span>
           <span>合計アクセス</span>
         </div>
-        <div class="counter-value" id="total-access">00,001</div>
+        <div class="counter-value pixel-font" id="total-access">00,001</div>
       </div>
-    </div>
+    </section>
 
-    <!-- 3. 中段: サイドドロワー起動エリア -->
+    <!-- 3. アカウントメニュー（ドロワー）起動ボタン -->
     <input type="checkbox" id="drawer-toggle">
+    <!-- このボタンは「緑の枠線」で目立たせる -->
     <label for="drawer-toggle" class="drawer-open-btn track-feature">
-      <span>☰</span> アカウントメニューを開く
+      <span>☰</span> アカウントメニュー
     </label>
 
     <!-- ドロワー本体 -->
@@ -520,28 +531,29 @@
     <aside class="drawer">
       <label for="drawer-toggle" class="close-btn" aria-label="Close Drawer"></label>
       
-      <div class="drawer-account-card">
-        <div style="font-weight: bold; color: var(--neon-yellow);">漫画アカウント</div>
-        <div style="color: #71767b; font-size: 0.8rem;">@dream_games2023</div>
-        <a href="https://x.com/dream_games2023" target="_blank" rel="noopener noreferrer" class="track-feature" style="color: var(--sub-cyan); font-size: 0.85rem; text-decoration: none; margin-top: 4px;">
-          ▶ プロフィールを開く
+      <div class="drawer-title pixel-font">ACCOUNTS</div>
+
+      <div class="drawer-account-item">
+        <div class="drawer-acc-name">漫画アカウント</div>
+        <div class="drawer-acc-id">@dream_games2023</div>
+        <a href="https://x.com/dream_games2023" target="_blank" rel="noopener noreferrer" class="drawer-link track-feature">
+          ▶ Xプロフィール
         </a>
       </div>
 
-      <div class="drawer-account-card" style="margin-top: 16px;">
-        <div style="font-weight: bold; color: var(--neon-green);">ゲームアカウント</div>
-        <div style="color: #71767b; font-size: 0.8rem;">@yasushi_komineg</div>
-        <a href="https://x.com/yasushi_komineg" target="_blank" rel="noopener noreferrer" class="track-feature" style="color: var(--sub-cyan); font-size: 0.85rem; text-decoration: none; margin-top: 4px;">
-          ▶ プロフィールを開く
+      <div class="drawer-account-item">
+        <div class="drawer-acc-name">ゲームアカウント</div>
+        <div class="drawer-acc-id">@yasushi_komineg</div>
+        <a href="https://x.com/yasushi_komineg" target="_blank" rel="noopener noreferrer" class="drawer-link track-feature">
+          ▶ Xプロフィール
         </a>
       </div>
     </aside>
 
-    <!-- 4. 下段（上）：漫画アカウント -->
-    <div class="game-card manga-card">
-      <div class="game-title-badge manga-badge">漫画アカウント</div>
-
-      <div class="pixel-x-container" aria-label="X Logo">
+    <!-- 4. メインコンテンツ：漫画アカウント -->
+    <article class="common-card x-account-card">
+      <!-- ロゴの色は緑ではなく水色に -->
+      <div class="pixel-x-icon" aria-label="X Logo">
         <div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div>
         <div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div>
         <div class="pixel"></div><div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div><div class="pixel"></div>
@@ -553,43 +565,22 @@
       </div>
 
       <div class="account-info">
-        <div class="account-label">MANGA X ACCOUNT</div>
-        <div class="account-id">@dream_games2023</div>
+        <div class="account-label pixel-font">MANGA X ACCOUNT</div>
+        <div class="account-id pixel-font">@dream_games2023</div>
       </div>
 
-      <a href="https://x.com/dream_games2023" target="_blank" rel="noopener noreferrer" class="game-btn manga-btn track-feature">
+      <!-- 
+        重要：アクションボタン
+        緑ベタ塗り＋黒文字で視認性とクリック率を確保 
+      -->
+      <a href="https://x.com/dream_games2023" target="_blank" rel="noopener noreferrer" class="main-game-btn track-feature">
         ▶ 漫画アカウントを表示
       </a>
-    </div>
-
-    <!-- 5. 下段（下）：ゲームアカウント -->
-    <div class="game-card game-acc-card">
-      <div class="game-title-badge game-acc-badge">ゲームアカウント</div>
-
-      <div class="pixel-x-container" aria-label="X Logo">
-        <div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div>
-        <div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div>
-        <div class="pixel"></div><div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div><div class="pixel"></div>
-        <div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div>
-        <div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div>
-        <div class="pixel"></div><div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div><div class="pixel"></div>
-        <div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div>
-        <div class="pixel on"></div><div class="pixel on"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel on"></div><div class="pixel on"></div>
-      </div>
-
-      <div class="account-info">
-        <div class="account-label">OFFICIAL X ACCOUNT</div>
-        <div class="account-id">@yasushi_komineg</div>
-      </div>
-
-      <a href="https://x.com/yasushi_komineg" target="_blank" rel="noopener noreferrer" class="game-btn game-acc-btn track-feature">
-        ▶ ゲームアカウントを表示
-      </a>
-    </div>
+    </article>
 
   </div>
 
-  <!-- 自動カウント用スクリプト -->
+  <!-- 自動カウント用スクリプト（変更なし） -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const todayKey = 'yume_today_access';
@@ -625,9 +616,13 @@
 
       // 表示更新
       const updateDisplay = () => {
-        document.getElementById('today-access').textContent = formatNumber(todayCount);
-        document.getElementById('total-access').textContent = formatNumber(totalCount);
-        document.getElementById('feature-access').textContent = formatNumber(featureCount);
+        const todayEl = document.getElementById('today-access');
+        const totalEl = document.getElementById('total-access');
+        const featureEl = document.getElementById('feature-access');
+        
+        if(todayEl) todayEl.textContent = formatNumber(todayCount);
+        if(totalEl) totalEl.textContent = formatNumber(totalCount);
+        if(featureEl) featureEl.textContent = formatNumber(featureCount);
       };
 
       updateDisplay();
@@ -638,7 +633,8 @@
         element.addEventListener('click', () => {
           featureCount += 1;
           localStorage.setItem(featureKey, featureCount);
-          document.getElementById('feature-access').textContent = formatNumber(featureCount);
+          const featureEl = document.getElementById('feature-access');
+          if(featureEl) featureEl.textContent = formatNumber(featureCount);
         });
       });
     });
