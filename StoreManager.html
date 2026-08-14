@@ -8,12 +8,20 @@
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <style>
     :root {
+      /* --- 色彩設計 (Color Palette) --- */
+      /* ベースカラー（約70%） */
       --bg-color: #0b0c10;
       --card-bg: #12141d;
+      
+      /* サブカラー（約20%） */
       --neon-cyan: #00f3ff;
       --neon-magenta: #ff007f;
-      --neon-yellow: #ccff00;
       --text-white: #ffffff;
+      
+      /* アクセントカラー（約8%）：ネオングリーン */
+      /* クリック可能な要素・最重要導線に使用 */
+      --neon-green: #39ff14;
+      --neon-green-glow: rgba(57, 255, 20, 0.5);
     }
 
     * {
@@ -35,7 +43,7 @@
 
     .container {
       width: 100%;
-      max-width: 1000px; /* PC閲覧時の最大幅を拡大 */
+      max-width: 1000px; /* PC閲覧時の最大幅 */
       display: flex;
       flex-direction: column;
       gap: 24px;
@@ -58,17 +66,18 @@
     /* ネオン枠線バリエーション */
     .border-cyan {
       border: 2px solid var(--neon-cyan);
-      box-shadow: 0 0 10px rgba(0, 243, 255, 0.4), inset 0 0 10px rgba(0, 243, 255, 0.2);
+      box-shadow: 0 0 10px rgba(0, 243, 255, 0.4), inset 0 0 10px rgba(0, 243, 255, 0.1);
     }
 
-    .border-yellow {
-      border: 2px solid var(--neon-yellow);
-      box-shadow: 0 0 10px rgba(204, 255, 0, 0.4), inset 0 0 10px rgba(204, 255, 0, 0.2);
+    /* アクセント用の緑枠線 */
+    .border-green {
+      border: 2px solid var(--neon-green);
+      box-shadow: 0 0 10px var(--neon-green-glow), inset 0 0 10px rgba(57, 255, 20, 0.1);
     }
 
     .border-magenta {
       border: 2px solid var(--neon-magenta);
-      box-shadow: 0 0 10px rgba(255, 0, 127, 0.4), inset 0 0 10px rgba(255, 0, 127, 0.2);
+      box-shadow: 0 0 10px rgba(255, 0, 127, 0.4), inset 0 0 10px rgba(255, 0, 127, 0.1);
     }
 
     /* バッジ（見出しタグ） */
@@ -90,13 +99,20 @@
       box-shadow: 0 0 8px var(--neon-magenta);
     }
 
+    .badge-green {
+      background-color: var(--card-bg);
+      color: var(--neon-green);
+      border: 1px solid var(--neon-green);
+      box-shadow: 0 0 8px var(--neon-green-glow);
+    }
+
     /* ヘッダーカード */
     .header-card {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding-bottom: 12px;
-      border-bottom: 1px dashed var(--neon-magenta);
+      border-bottom: 1px dashed var(--neon-cyan);
     }
 
     .logo {
@@ -106,21 +122,27 @@
       text-shadow: 0 0 5px var(--neon-magenta);
     }
 
+    /* 操作系：緑アクセント */
     .menu-icon {
-      color: var(--neon-cyan);
+      color: var(--neon-green);
       font-size: 1.5rem;
       cursor: pointer;
+      text-shadow: 0 0 8px var(--neon-green-glow);
+      transition: transform 0.2s ease;
+    }
+    .menu-icon:hover {
+      transform: scale(1.1);
     }
 
     .welcome-text {
       color: var(--neon-cyan);
-      font-size: clamp(0.8rem, 2vw, 1.1rem); /* 画面幅に応じて可変 */
+      font-size: clamp(0.8rem, 2vw, 1.1rem);
       line-height: 1.6;
       margin-top: 15px;
       text-shadow: 0 0 5px var(--neon-cyan);
     }
 
-    /* グリッドレイアウト（PC・タブレット表示用） */
+    /* グリッドレイアウト */
     .main-grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -142,39 +164,38 @@
       margin-bottom: 12px;
     }
 
-    /* ボタンデザイン */
+    /* 
+      【8%の主役】アクションボタン
+      ネオングリーンベタ塗り＋黒文字で最高コントラストを確保
+    */
     .btn {
       display: block;
       width: 100%;
-      padding: 12px;
+      padding: 14px;
       margin-top: 15px;
-      background: linear-gradient(180deg, #d8006f 0%, #99004d 100%);
-      border: 1px solid #ff66b2;
+      background-color: var(--neon-green);
+      border: none;
       border-radius: 8px;
-      color: white;
+      color: #050608; /* 背景色に合わせて文字を黒に */
       font-weight: bold;
       font-size: 0.95rem;
       cursor: pointer;
-      box-shadow: 0 0 8px rgba(255, 0, 127, 0.5);
+      box-shadow: 0 0 10px var(--neon-green-glow);
       transition: transform 0.1s, box-shadow 0.2s;
     }
 
     .btn:hover {
-      box-shadow: 0 0 14px rgba(255, 0, 127, 0.8);
+      box-shadow: 0 0 18px var(--neon-green);
     }
 
     .btn:active {
       transform: scale(0.98);
     }
 
-    /* ===================================
-       レスポンシブ調整（ブレイクポイント）
-    =================================== */
-
-    /* タブレット・PC向け（600px以上） */
+    /* レスポンシブ調整 */
     @media (min-width: 600px) {
       .main-grid {
-        grid-template-columns: 1fr 1fr; /* 2列並びに変更 */
+        grid-template-columns: 1fr 1fr;
       }
       
       .card {
@@ -186,7 +207,6 @@
       }
     }
 
-    /* 大型PC向け（900px以上） */
     @media (min-width: 900px) {
       body {
         padding: 40px;
@@ -210,19 +230,19 @@
     <div class="card border-cyan">
       <div class="header-card">
         <div class="logo">夢GAMEs. Lab</div>
-        <div class="menu-icon">☰</div>
+        <div class="menu-icon" aria-label="Menu">☰</div>
       </div>
       <div class="welcome-text pixel-font">
         Welcome to YumeGAMES. lab
       </div>
     </div>
 
-    <!-- メインコンテンツ領域（タブレット以上で2列） -->
+    <!-- メインコンテンツ領域（2列レイアウト） -->
     <div class="main-grid">
 
-      <!-- 事業概要 -->
-      <div class="card border-yellow">
-        <div class="badge badge-magenta">事業概要</div>
+      <!-- 事業概要（緑のアクセント枠線＋ボタン） -->
+      <div class="card border-green">
+        <div class="badge badge-green">事業概要</div>
         
         <div class="section-title pixel-font">BUSINESS TYPE</div>
         <div class="info-value">個人事業主</div>
