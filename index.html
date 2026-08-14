@@ -505,9 +505,9 @@
       <div class="counter-row">
         <div class="counter-label">
           <span class="counter-icon">🏀</span>
-          <span>機能クリック</span>
+          <span>昨日アクセス</span>
         </div>
-        <div class="counter-value pixel-font" id="feature-access">00,000</div>
+        <div class="counter-value pixel-font" id="yesterday-access">00,000</div>
       </div>
 
       <div class="counter-row">
@@ -580,20 +580,27 @@
 
   </div>
 
-  <!-- 自動カウント用スクリプト（変更なし） -->
+  <!-- 自動カウント用スクリプト -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const todayKey = 'yume_today_access';
       const dateKey = 'yume_last_access_date';
       const totalKey = 'yume_total_access';
-      const featureKey = 'yume_feature_access';
+      const yesterdayKey = 'yume_yesterday_access';
 
       const currentDate = new Date().toDateString();
       const lastAccessDate = localStorage.getItem(dateKey);
 
-      // --- 1. 当日アクセスの管理 ---
       let todayCount = parseInt(localStorage.getItem(todayKey) || '0', 10);
+      let yesterdayCount = parseInt(localStorage.getItem(yesterdayKey) || '0', 10);
+
+      // --- 1. 日付変更時の処理（「当日」を「昨日」へ繰り越し） ---
       if (lastAccessDate !== currentDate) {
+        if (lastAccessDate) {
+          // 前回アクセス日と今日が違う場合、前日の「当日カウント」を「昨日アクセス」に保存
+          yesterdayCount = todayCount;
+          localStorage.setItem(yesterdayKey, yesterdayCount);
+        }
         todayCount = 1;
         localStorage.setItem(dateKey, currentDate);
       } else {
@@ -606,9 +613,6 @@
       totalCount += 1;
       localStorage.setItem(totalKey, totalCount);
 
-      // --- 3. 機能アクセスの取得 ---
-      let featureCount = parseInt(localStorage.getItem(featureKey) || '0', 10);
-
       // 桁揃えフォーマット
       const formatNumber = (num) => {
         return String(num).padStart(5, '0').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -618,25 +622,14 @@
       const updateDisplay = () => {
         const todayEl = document.getElementById('today-access');
         const totalEl = document.getElementById('total-access');
-        const featureEl = document.getElementById('feature-access');
+        const yesterdayEl = document.getElementById('yesterday-access');
         
         if(todayEl) todayEl.textContent = formatNumber(todayCount);
         if(totalEl) totalEl.textContent = formatNumber(totalCount);
-        if(featureEl) featureEl.textContent = formatNumber(featureCount);
+        if(yesterdayEl) yesterdayEl.textContent = formatNumber(yesterdayCount);
       };
 
       updateDisplay();
-
-      // --- 4. 各機能ボタンのクリックイベント ---
-      const trackElements = document.querySelectorAll('.track-feature');
-      trackElements.forEach(element => {
-        element.addEventListener('click', () => {
-          featureCount += 1;
-          localStorage.setItem(featureKey, featureCount);
-          const featureEl = document.getElementById('feature-access');
-          if(featureEl) featureEl.textContent = formatNumber(featureCount);
-        });
-      });
     });
   </script>
 
