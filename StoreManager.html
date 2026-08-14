@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>夢GAMEs. Lab - プロフィール</title>
+  <!-- レトロゲーム風フォント（Press Start 2P）の読み込み -->
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #0b0c10;
+      --card-bg: #12141d;
+      --neon-cyan: #00f3ff;
+      --neon-magenta: #ff007f;
+      --neon-yellow: #ccff00;
+      --text-white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-white);
+      font-family: 'Hiragino Kaku Gothic ProN', 'メイリオ', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1000px; /* PC閲覧時の最大幅を拡大 */
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .pixel-font {
+      font-family: 'Press Start 2P', monospace;
+    }
+
+    /* 共通カードデザイン */
+    .card {
+      background-color: var(--card-bg);
+      border-radius: 12px;
+      padding: 28px 20px 20px 20px;
+      position: relative;
+      text-align: center;
+      width: 100%;
+    }
+
+    /* ネオン枠線バリエーション */
+    .border-cyan {
+      border: 2px solid var(--neon-cyan);
+      box-shadow: 0 0 10px rgba(0, 243, 255, 0.4), inset 0 0 10px rgba(0, 243, 255, 0.2);
+    }
+
+    .border-yellow {
+      border: 2px solid var(--neon-yellow);
+      box-shadow: 0 0 10px rgba(204, 255, 0, 0.4), inset 0 0 10px rgba(204, 255, 0, 0.2);
+    }
+
+    .border-magenta {
+      border: 2px solid var(--neon-magenta);
+      box-shadow: 0 0 10px rgba(255, 0, 127, 0.4), inset 0 0 10px rgba(255, 0, 127, 0.2);
+    }
+
+    /* バッジ（見出しタグ） */
+    .badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 4px 16px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+
+    .badge-magenta {
+      background-color: var(--neon-magenta);
+      color: #fff;
+      box-shadow: 0 0 8px var(--neon-magenta);
+    }
+
+    /* ヘッダーカード */
+    .header-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 12px;
+      border-bottom: 1px dashed var(--neon-magenta);
+    }
+
+    .logo {
+      color: var(--neon-magenta);
+      font-size: 1.1rem;
+      font-weight: bold;
+      text-shadow: 0 0 5px var(--neon-magenta);
+    }
+
+    .menu-icon {
+      color: var(--neon-cyan);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .welcome-text {
+      color: var(--neon-cyan);
+      font-size: clamp(0.8rem, 2vw, 1.1rem); /* 画面幅に応じて可変 */
+      line-height: 1.6;
+      margin-top: 15px;
+      text-shadow: 0 0 5px var(--neon-cyan);
+    }
+
+    /* グリッドレイアウト（PC・タブレット表示用） */
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    /* ラベル・テキスト設定 */
+    .section-title {
+      color: var(--neon-cyan);
+      font-size: 0.75rem;
+      margin-top: 12px;
+      margin-bottom: 4px;
+      letter-spacing: 1px;
+    }
+
+    .info-value {
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+
+    /* ボタンデザイン */
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin-top: 15px;
+      background: linear-gradient(180deg, #d8006f 0%, #99004d 100%);
+      border: 1px solid #ff66b2;
+      border-radius: 8px;
+      color: white;
+      font-weight: bold;
+      font-size: 0.95rem;
+      cursor: pointer;
+      box-shadow: 0 0 8px rgba(255, 0, 127, 0.5);
+      transition: transform 0.1s, box-shadow 0.2s;
+    }
+
+    .btn:hover {
+      box-shadow: 0 0 14px rgba(255, 0, 127, 0.8);
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    /* ===================================
+       レスポンシブ調整（ブレイクポイント）
+    =================================== */
+
+    /* タブレット・PC向け（600px以上） */
+    @media (min-width: 600px) {
+      .main-grid {
+        grid-template-columns: 1fr 1fr; /* 2列並びに変更 */
+      }
+      
+      .card {
+        padding: 32px 24px 24px 24px;
+      }
+
+      .info-value {
+        font-size: 1.2rem;
+      }
+    }
+
+    /* 大型PC向け（900px以上） */
+    @media (min-width: 900px) {
+      body {
+        padding: 40px;
+      }
+
+      .header-card .logo {
+        font-size: 1.3rem;
+      }
+
+      .section-title {
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- ヘッダー・メインタイトル（全幅表示） -->
+    <div class="card border-cyan">
+      <div class="header-card">
+        <div class="logo">夢GAMEs. Lab</div>
+        <div class="menu-icon">☰</div>
+      </div>
+      <div class="welcome-text pixel-font">
+        Welcome to YumeGAMES. lab
+      </div>
+    </div>
+
+    <!-- メインコンテンツ領域（タブレット以上で2列） -->
+    <div class="main-grid">
+
+      <!-- 事業概要 -->
+      <div class="card border-yellow">
+        <div class="badge badge-magenta">事業概要</div>
+        
+        <div class="section-title pixel-font">BUSINESS TYPE</div>
+        <div class="info-value">個人事業主</div>
+
+        <div class="section-title pixel-font">OWNER</div>
+        <div class="info-value">こみねやすし</div>
+
+        <div class="section-title pixel-font">POSITION</div>
+        <div class="info-value">店長</div>
+
+        <div class="section-title pixel-font">JOB CATEGORY</div>
+        <div class="info-value">エンジニア・クリエイター</div>
+
+        <button class="btn">▶ 事業者詳細を表示</button>
+      </div>
+
+      <!-- 拠点・詳細情報 -->
+      <div class="card border-magenta">
+        <div class="badge badge-magenta">拠点・プロフィール</div>
+
+        <div class="section-title pixel-font">LOCATION</div>
+        <div class="info-value">東京都三鷹市</div>
+
+        <div class="section-title pixel-font">BUSINESS CONCEPT</div>
+        <div class="info-value" style="font-size: 1rem; line-height: 1.6; color: #ddd; margin-top: 8px;">
+          ゲーム・漫画を併せた<br>エンターテインメント制作・開発
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>
